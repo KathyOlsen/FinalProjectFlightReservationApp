@@ -1,0 +1,82 @@
+body{
+    /*background-image: url(PASTE URL HERE);*/
+    background-color: deepskyblue;
+    background-size: cover;
+    font-size: 18px;
+}
+
+h1,h2{
+    text-align: center;
+    color: darkblue;
+}
+
+h3{
+    text-align: left;
+}
+
+h6{
+    text-align: center;
+    color: darkblue;
+}
+
+a{
+    color: darkblue;
+}
+
+p{
+
+}
+
+button{
+    alignment: center;
+    color: lightyellow;
+    background-color: darkblue;
+}
+
+.container{
+    background-color: lightyellow;
+    width: fit-content;
+
+}
+
+.container-fluid{
+    background-color: lightyellow;
+    width: auto;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.jumbotron{
+    background-color: lightyellow;
+    alignment: center;
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
+
+.card{
+    text-align: center;
+    width: 55rem;
+}
+
+.table{
+    background-color: lightyellow;
+    text-align: center;
+}
+
+.nav{
+    background-color: darkblue;
+}
+
+.nav-link{
+    color: whitesmoke
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+

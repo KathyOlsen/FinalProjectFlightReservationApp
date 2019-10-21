@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Role Details</title>
+    <div th:insert="base :: head"></div>
+</head>
+<body>
+<div th:insert="base :: navlinks"></div>
+<br>
+<div class="container">
+    <div class="jumbotron">
+        <div class="container-fluid">
+            <h1>Role Details</h1>
+            Role: <b><span th:text="${role.role}"></span></b><br />
+            <br>
+            <span>Users:</span><br>
+            <br>
+            <table>
+                <tr>
+                    <th>First Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>Last Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>Username&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                </tr>
+
+                <tr th:each="user : ${role.users}">
+                    <td th:text="${user.firstName}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.email}"></td>
+                </tr>
+            </table>
+            <br>
+            <h6>Back to <a href="/rolelist">Role List</a></h6>
+            <br>
+        </div>
+    </div>
+</div>
+<br>
+<div th:insert="base :: footer"></div>
+<div th:insert="base :: bootstrapScripts"></div>
+</body>
+</html>

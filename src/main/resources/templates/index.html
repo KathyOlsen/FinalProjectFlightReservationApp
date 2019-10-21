@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Home</title>
+    <div th:insert="base :: head"></div>
+</head>
+<body>
+<div th:insert="base :: navlinks"></div>
+<br>
+<div class="container">
+    <div class="jumbotron">
+        <div sec:authorize="!isAuthenticated()">
+            <h2>Welcome to Our Website</h2>
+            <h3>Please <span><a href="/login">login</a></span></h3>
+            <h3>Not a member? Please <span><a href="/register">register</a></span></h3>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            <h3>Please select a link in the navigation bar above.</h3>
+        </div>
+    </div>
+</div>
+<br>
+<div th:insert="base :: footer"></div>
+<div th:insert="base :: bootstrapScripts"></div>
+</body>
+</html>

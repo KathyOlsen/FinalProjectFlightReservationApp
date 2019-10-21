@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Page</title>
+    <div th:insert="base :: head"></div>
+<body>
+<div th:insert="base :: navlinks"></div>
+<br>
+<div class="container">
+    <div class="jumbotron">
+        <h2>Administrator Links</h2>
+        <br>
+        <a href="/rolelist">Role List</a>&nbsp;&nbsp&nbsp;
+        <a href="/userlist">User List</a>
+    </div>
+</div>
+<br>
+<div th:insert="base :: footer"></div>
+<div th:insert="base :: bootstrapScripts"></div>
+</body>
+</html>

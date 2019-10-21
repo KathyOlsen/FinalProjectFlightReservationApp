@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Role List</title>
+    <div th:insert="base :: head"></div>
+</head>
+<body>
+<div th:insert="base :: navlinks"></div>
+<br>
+<div class="container">
+    <div class="jumbotron">
+        <h1>Role List</h1>
+        <h6>Click <b>Details</b> to see all users with that role.</h6>
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-7">
+                <table>
+                    <tr>
+                        <th>Role&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        <th>Number Authorized&nbsp;&nbsp;</th>
+                        <th>Details</th>
+                    </tr>
+
+                    <tr th:each="role : ${roles}">
+                        <td th:text="${role.role}"></td>
+                        <td th:text="${role.users.size()}"></td>
+                        <td>
+                            <a th:href="@{detail_role/{id}(id=${role.id})}">Details</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div th:insert="base :: footer"></div>
+<div th:insert="base :: bootstrapScripts"></div>
+</body>
+</html>

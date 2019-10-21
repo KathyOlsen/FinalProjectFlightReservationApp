@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Base</title>
+    <div th:fragment="head">
+        <meta charset=" UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/myStyles.css">
+    </div>
+</head>
+<body>
+<div th:fragment="navlinks">
+    <nav class="nav">
+        <span style="color: lightgray; font-size: x-large"><b>LOGO </b></span>&nbsp;&nbsp;
+        <span sec:authorize="isAuthenticated()" style="color:whitesmoke; font-size: x-large">  Welcome,
+            <span th:text="${#authentication.name}"></span></span>
+        <a sec:authorize="!isAuthenticated()" class="nav-link"  href="/login">Log In</a>&nbsp;
+        <a sec:authorize="!isAuthenticated()" class="nav-link"  href="/register">Register</a>&nbsp;
+        <a sec:authorize="isAuthenticated()" class="nav-link"  href="/list">xxx List</a>&nbsp;
+        <a sec:authorize="hasAuthority('ADMIN')" class="nav-link" href="/add">Add A xxx</a>&nbsp;
+        <a sec:authorize="isAuthenticated()" class="nav-link"  href="/logout">Log Out</a>
+        <a sec:authorize="hasAuthority('ADMIN')" class="nav-link"  href="/admin">Administrator</a>
+    </nav>
+</div>
+
+<div th:fragment="bootstrapScripts">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</div>
+</body>
+<div th:fragment="footer"
+     position="fixed"
+     style="padding-left: 0px; padding-right: 0px; padding-bottom: 0px;
+     width: 100%;
+     text-align: center;
+     background-color: darkblue;
+     color: whitesmoke"
+     font-family="'Scheherazade', serif;" font-size 18px>
+    &#0169; 2019 Katherine K. Olsen. All rights reserved.
+</div>
+</html>
