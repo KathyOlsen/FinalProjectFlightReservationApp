@@ -19,4 +19,50 @@ public class Passenger {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "reservation_id")
     private Reservation reservation;
+
+    public Passenger() {
+    }
+
+    public Passenger(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public Passenger(String firstName, String lastName, Reservation reservation) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.reservation = reservation;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
 }
