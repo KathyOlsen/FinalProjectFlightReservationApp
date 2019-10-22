@@ -65,14 +65,6 @@ public class SecurityController {
         return "userlist";
     }
 
-//    //    Fix - gives error no role with id=3
-//    @PostMapping("/processuserrole")
-//    public String processUserRole(@Valid User user, BindingResult result, Role role){
-//        user.getRoles().add(role);
-//        userRepository.save(user);
-//        return "showuser";
-//    }
-
     @RequestMapping("/detail_role/{id}")
     public String showRole(@PathVariable("id") long id, Model model){
         model.addAttribute("role", roleRepository.findById(id).get());
@@ -86,19 +78,4 @@ public class SecurityController {
         return "showuser";
     }
 
-//    //    fix-gives null pointer exception error at for loop (line100)
-//    @RequestMapping("/detail_user/delete_user_role/{id}")
-//    public String delUserRole(@PathVariable("id") long id, User user){
-//        System.out.println("Inside delete method");
-//        for (Role role : user.getRoles()){
-//            System.out.println("Inside for loop");
-//            if(role.getId() == id){
-//                System.out.println("Inside if statement");
-//                user.getRoles().remove(role);
-//            }
-//        }
-////        user.setRoles(roles);
-//        userRepository.save(user);
-//        return "showuser";
-//    }
 }
