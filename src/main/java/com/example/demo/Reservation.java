@@ -12,6 +12,9 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column (name = "round_trip", nullable = false)
+    private boolean isRoundTrip;
+
     @Column (name = "departure_date", nullable = false)
     private Date departureDate;
 
@@ -23,13 +26,6 @@ public class Reservation {
 
     @Column(name = "number_passengers", nullable = false)
     private int numberPassengers;
-
-    @Column(name = "price")
-    private double price;
-//    Price is one-way price for one passenger; it is a calculated field
-//          based on flight price and passenger class.
-//    It may be better to eliminate this field and make it a temp field in
-//          the home controller section for processing search results.
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "user_id")
@@ -48,40 +44,46 @@ public class Reservation {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "flight_id")
     private Flight arrivalFlight;
-//    matching language in Flight.java should be:
+    //    matching language in Flight.java should be:
 //        @OneToMany(mappedBy = "flight", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 //        public Set<Reservation> reservations;
 
     @OneToMany(mappedBy = "trip", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     public Set<Passenger> passengers;
+
 //    matching language in Passenger.java should be:
 //          @ManyToOne(fetch = FetchType.EAGER)
 //          @JoinColumn (name = "passenger_id")
 //          private Passenger passenger;
-
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn (name = "trip_id")
-//    private Trip trip;
-
     public Reservation() {
     }
 
-    public Reservation(Date departureDate,
+    public Reservation(boolean isRoundTrip,
+                       Date departureDate,
                        Date returnDate,
                        String flightClass,
                        int numberPassengers,
-                       double price,
                        User user,
                        Flight departureFlight,
-                       Flight arrivalFlight) {
+                       Flight arrivalFlight,
+                       Set<Passenger> passengers) {
+        this.isRoundTrip = isRoundTrip;
         this.departureDate = departureDate;
         this.returnDate = returnDate;
         this.flightClass = flightClass;
         this.numberPassengers = numberPassengers;
-        this.price = price;
         this.user = user;
         this.departureFlight = departureFlight;
         this.arrivalFlight = arrivalFlight;
+        this.passengers = passengers;
+    }
+
+    public boolean isRoundTrip() {
+        return isRoundTrip;
+    }
+
+    public void setRoundTrip(boolean roundTrip) {
+        isRoundTrip = roundTrip;
     }
 
     public long getId() {
@@ -91,6 +93,7 @@ public class Reservation {
     public void setId(long id) {
         this.id = id;
     }
+
 
     public Date getDepartureDate() {
         return departureDate;
@@ -122,14 +125,6 @@ public class Reservation {
 
     public void setNumberPassengers(int numberPassengers) {
         this.numberPassengers = numberPassengers;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     public User getUser() {
