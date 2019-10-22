@@ -29,6 +29,7 @@ public class DataLoader implements CommandLineRunner {
         Role userRole = roleRepository.findByRole("USER");
 
         // Create users	(password, first_name, last_name, enabled, username, birthdate, citizenship, email, phone, role)
+/*
         User user;
         user = new User("pwdpw", "Paul", "Waters", true, "pwaters", "05/23/1992", "USA", "pwaters@email.com", "301-525-7896");
         user.setRoles(Arrays.asList(userRole));
@@ -49,6 +50,7 @@ public class DataLoader implements CommandLineRunner {
         user.setRoles(Arrays.asList(adminRole));
 
         userRepository.save(user);
+*/
 
     }
 }
