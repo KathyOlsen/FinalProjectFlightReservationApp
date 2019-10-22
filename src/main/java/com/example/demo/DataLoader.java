@@ -9,18 +9,30 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class DataLoader implements CommandLineRunner {
 
     @Autowired
-    UserRepository userRepository;
+    private BCryptPasswordEncoder passwordEncoder;
+
+     /** Repositories */
+    @Autowired
+    FlightRepository flightRepository;
+
+    @Autowired
+    PassengerRepository passengerRepository;
+
+    @Autowired
+    ReservationRepository reservationRepository;
 
     @Autowired
     RoleRepository roleRepository;
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    UserRepository userRepository;
 
     @Override
     public void run(String... strings) throws Exception {
@@ -32,77 +44,109 @@ public class DataLoader implements CommandLineRunner {
         Role userRole = roleRepository.findByRole("USER");
 
         // Create users	(password, first_name, last_name, enabled, username, birthdate, citizenship, email, phone, role)
-        User user;
-        user = new User("pwdpw", "Paul", "Waters", true, "pwaters", "05/23/1992", "USA", "pwaters@email.com", "301-525-7896");
-        user.setRoles(Arrays.asList(userRole));
+        User user1 = new User("Paul", "Waters", "pwaters", "pwdpw", "05/23/1992", "USA", "pwaters@email.com", "301-525-7896");
+        user1.setRoles(Arrays.asList(userRole));
+        userRepository.save(user1);
 
-        userRepository.save(user);
+        User user2 = new User("Jane", "Garten", "jgarten", "pwdjg", "02/17/2001", "USA", "jgarten@email.com", "301-555-6789");
+        user2.setRoles(Arrays.asList(userRole));
+        userRepository.save(user2);
 
-        user = new User("pwdjg", "Jane", "Garten", true, "jgarten", "02/17/2001", "USA", "jgarten@email.com", "301-555-6789");
-        user.setRoles(Arrays.asList(userRole));
+        User user3 = new User("Joshua", "Woods", "jwoods", "pwdjw", "09/02/1981", "USA", "jwoods@email.com", "301-555-1234");
+        user3.setRoles(Arrays.asList(userRole));
+        userRepository.save(user3);
 
-        userRepository.save(user);
-
-        user = new User("pwdjw", "Joshua", "Woods", true, "jwoods", "09/02/1981", "USA", "jwoods@email.com", "301-555-1234");
-        user.setRoles(Arrays.asList(userRole));
-
-        userRepository.save(user);
-
-        user = new User("pwdau", "Admin", "User", true, "auser", "01/21/2000", "USA", "admin@email.com", "111-555-9999");
-        user.setRoles(Arrays.asList(adminRole));
-
-        userRepository.save(user);
+        User user4 = new User("Admin", "User", "auser", "pwdau", "01/21/2000", "USA", "admin@email.com", "111-555-9999");
+        user4.setRoles(Arrays.asList(adminRole));
+        userRepository.save(user4);
 
 
         // Create flights (flightNumber, departureAirport, arrivalAirport, departureTime, durationMinutes, basePrice)
-        Flight flight;
-        Date date;
-
+        Date time;
         DateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+
         String time1 = "9:45:00";
-        date = new Date();
-        date = sdf.parse(time1);
-        flight = new Flight("101", "IAD", "LAX", date, 350, 350.0);
+        time = sdf.parse(time1);
+        Flight flight1 = new Flight("101", "IAD", "LAX", time, 350, 350.0);
+        flightRepository.save(flight1);
 
         String time2 = "12:30:00";
-        date = new Date();
-        date = sdf.parse(time2);
-        flight = new Flight("102", "IAD", "LAX", date, 350, 350.0);
+        time = sdf.parse(time2);
+        Flight flight2 = new Flight("102", "IAD", "LAX", time, 345, 350.0);
+        flightRepository.save(flight2);
 
         String time3 = "16:50:00";
-        date = new Date();
-        date = sdf.parse(time3);
-        flight = new Flight("103", "IAD", "LAX", date, 350, 350.0);
+        time = sdf.parse(time3);
+        Flight flight3 = new Flight("103", "IAD", "LAX", time, 355, 350.0);
+        flightRepository.save(flight3);
 
         String time4 = "9:30:00";
-        date = new Date();
-        date = sdf.parse(time4);
-        flight = new Flight("104", "IAD", "LAX", date, 350, 350.0);
+        time = sdf.parse(time4);
+        Flight flight4 = new Flight("201", "LAX", "IAD", time, 325, 350.0);
+        flightRepository.save(flight4);
 
         String time5 = "13:25:00";
-        date = new Date();
-        date = sdf.parse(time5);
-        flight = new Flight("105", "LAX", "LAX", date, 350, 350.0);
+        time = sdf.parse(time5);
+        Flight flight5 = new Flight("202", "LAX", "IAD", time, 330, 350.0);
+        flightRepository.save(flight5);
 
-        String time6 = "15:30:00";
-        date = new Date();
-        date = sdf.parse(time6);
-        flight = new Flight("106", "IAD", "LAX", date, 350, 350.0);
+        String time6 = "17:40:00";
+        time = sdf.parse(time6);
+        Flight flight6 = new Flight("203", "LAX", "IAD", time, 320, 350.0);
+        flightRepository.save(flight6);
 
-        String time7 = "15:30:00";
-        date = new Date();
-        date = sdf.parse(time7);
-        flight = new Flight("107", "IAD", "LAX", date, 350, 350.0);
+        String time7 = "8:55:00";
+        time = sdf.parse(time7);
+        Flight flight7 = new Flight("301", "ORD", "DFW", time, 130, 215.0);
+        flightRepository.save(flight7);
 
-        String time8 = "15:30:00";
-        date = new Date();
-        date = sdf.parse(time8);
-        flight = new Flight("108", "IAD", "LAX", date, 350, 350.0);
+        String time8 = "11:35:00";
+        time = sdf.parse(time8);
+        Flight flight8 = new Flight("401", "DFW", "ORD", time, 135, 215.0);
+        flightRepository.save(flight8);
 
+        // Passenger:
+        Passenger pass1 = new Passenger(user1.getFirstName(), user1.getLastName());
+        Set set1 = new HashSet();
+        set1.add(pass1);
 
+        Passenger pass2 = new Passenger(user2.getFirstName(), user2.getLastName());
+        Set set2 = new HashSet();
+        set2.add(pass2);
 
+        Passenger pass3 = new Passenger(user3.getFirstName(), user3.getLastName());
+        Passenger pass4 = new Passenger("Donna", "Woods");
+        Passenger pass5 = new Passenger("Ann", "Woods");
+        Set set3 = new HashSet();
+        set3.add(pass3);
+        set3.add(pass4);
+        set3.add(pass5);
 
+        // Reservation: bool isRoundTrip, Date departureDate, Date returnDate, Str flightClass, int numberPassengers, User user, Flgt departure, Flgt arrival, Set passengers
+        Date departDate;
+        Date arriveDate;
+        DateFormat dsdf = new SimpleDateFormat("dd-MM-yyyy");
 
+        String dDate1 = "13-10-2019";
+        String aDate1 = "18-10-2019";
+        departDate = dsdf.parse(dDate1);
+        arriveDate = dsdf.parse(aDate1);
+        Reservation rsvr1 = new Reservation(true, departDate, arriveDate, "Economy", 1, user1, flight1, flight4, set1);
+        reservationRepository.save(rsvr1);
+
+        String dDate2 = "03-11-2019";
+        String aDate2 = "06-11-2019";
+        departDate = dsdf.parse(dDate2);
+        arriveDate = dsdf.parse(aDate2);
+        Reservation rsvr2 = new Reservation(true, departDate, arriveDate, "Business", 1, user2, flight2, flight5, set2);
+        reservationRepository.save(rsvr2);
+
+        String dDate3 = "20-12-2019";
+        String aDate3 = "29-12-2019";
+        departDate = dsdf.parse(dDate3);
+        arriveDate = dsdf.parse(aDate3);
+        Reservation rsvr3 = new Reservation(true, departDate, arriveDate, "Economy", 3, user2, flight3, flight6, set3);
+        reservationRepository.save(rsvr3);
 
     }
 }
