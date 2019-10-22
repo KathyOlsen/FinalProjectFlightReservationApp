@@ -1,6 +1,8 @@
 package com.example.demo;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "reservation")
@@ -9,6 +11,12 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Column (name = "departure_date", nullable = false)
+    private Date departureDate;
+
+    @Column (name = "return_date", nullable = false)
+    private Date returnDate;
 
     @Column(name = "flight_class", nullable = false)
     private String flightClass;
@@ -32,36 +40,49 @@ public class Reservation {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "flight_id")
-    private Flight flight;
+    private Flight departureFlight;
 //    matching language in Flight.java should be:
 //        @OneToMany(mappedBy = "flight", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 //        public Set<Reservation> reservations;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn (name = "trip_id")
-    private Trip trip;
+    @JoinColumn (name = "flight_id")
+    private Flight arrivalFlight;
+//    matching language in Flight.java should be:
+//        @OneToMany(mappedBy = "flight", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+//        public Set<Reservation> reservations;
 
-//    should there be a join for passengers? I'm thinking no b/c will join passengers with trip.
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    public Set<Passenger> passengers;
+//    matching language in Passenger.java should be:
+//          @ManyToOne(fetch = FetchType.EAGER)
+//          @JoinColumn (name = "passenger_id")
+//          private Passenger passenger;
+
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn (name = "trip_id")
+//    private Trip trip;
 
     public Reservation() {
     }
 
-    public Reservation(String flightClass, int numberPassengers, double price) {
-        this.flightClass = flightClass;
-        this.numberPassengers = numberPassengers;
-        this.price = price;
-    }
-
-
-    public Reservation(String flightClass, int numberPassengers, double price, User user, Flight flight, Trip trip) {
+    public Reservation(Date departureDate,
+                       Date returnDate,
+                       String flightClass,
+                       int numberPassengers,
+                       double price,
+                       User user,
+                       Flight departureFlight,
+                       Flight arrivalFlight) {
+        this.departureDate = departureDate;
+        this.returnDate = returnDate;
         this.flightClass = flightClass;
         this.numberPassengers = numberPassengers;
         this.price = price;
         this.user = user;
-        this.flight = flight;
-        this.trip = trip;
+        this.departureFlight = departureFlight;
+        this.arrivalFlight = arrivalFlight;
     }
-
 
     public long getId() {
         return id;
@@ -69,6 +90,22 @@ public class Reservation {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Date getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(Date departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public Date getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(Date returnDate) {
+        this.returnDate = returnDate;
     }
 
     public String getFlightClass() {
@@ -103,19 +140,27 @@ public class Reservation {
         this.user = user;
     }
 
-    public Flight getFlight() {
-        return flight;
+    public Flight getDepartureFlight() {
+        return departureFlight;
     }
 
-    public void setFlight(Flight flight) {
-        this.flight = flight;
+    public void setDepartureFlight(Flight departureFlight) {
+        this.departureFlight = departureFlight;
     }
 
-    public Trip getTrip() {
-        return trip;
+    public Flight getArrivalFlight() {
+        return arrivalFlight;
     }
 
-    public void setTrip(Trip trip) {
-        this.trip = trip;
+    public void setArrivalFlight(Flight arrivalFlight) {
+        this.arrivalFlight = arrivalFlight;
+    }
+
+    public Set<Passenger> getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(Set<Passenger> passengers) {
+        this.passengers = passengers;
     }
 }
