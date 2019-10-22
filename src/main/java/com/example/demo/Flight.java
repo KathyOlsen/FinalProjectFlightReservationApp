@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "flight")
@@ -9,27 +10,40 @@ public class Flight {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "number", nullable = false)
-    private String number;
+    @Column(name = "flight_number", nullable = false)
+    private String flightNumber;
 
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToOne(mappedBy = "airport")
-    @JoinColumn(name = "id")
-    @Column(name = "departure_airport_id", nullable = false)
-    private long departureAirportId;
+    @Column(name = "departure_airport", nullable = false)
+    private String departureAirport;
 
-    @OneToOne(mappedBy = "airport")
-    @JoinColumn(name = "id")
-    @Column(name = "arrival_airport_id", nullable = false)
-    private long arrivalAirportId;
+    @Column(name = "arrival_airport", nullable = false)
+    private String arrivalAirport;
 
-    @Column(name = "duration_hours")
+    @Column(name = "departure_time", nullable = false)
+    private Date departureTime;
+
+    @Column(name = "duration_hours", nullable = false)
     private int durationHours;
 
-    @Column(name = "baseprice")
-    private double baseprice;
+    @Column(name = "basePrice", nullable = false)
+    private double basePrice;
+
+    public Flight() {
+
+    }
+
+    public Flight(String flightNumber, String name, String departureAirport, String arrivalAirport, Date departureTime, int durationHours, double basePrice) {
+        this.flightNumber = flightNumber;
+        this.name = name;
+        this.departureAirport = departureAirport;
+        this.arrivalAirport = arrivalAirport;
+        this.departureTime = departureTime;
+        this.durationHours = durationHours;
+        this.basePrice = basePrice;
+    }
 
     public long getId() {
         return id;
@@ -39,12 +53,12 @@ public class Flight {
         this.id = id;
     }
 
-    public String getNumber() {
-        return number;
+    public String getFlightNumber() {
+        return flightNumber;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setFlightNumber(String flightNumber) {
+        this.flightNumber = flightNumber;
     }
 
     public String getName() {
@@ -55,20 +69,28 @@ public class Flight {
         this.name = name;
     }
 
-    public long getDepartureAirportId() {
-        return departureAirportId;
+    public String getDepartureAirport() {
+        return departureAirport;
     }
 
-    public void setDepartureAirportId(long departureAirportId) {
-        this.departureAirportId = departureAirportId;
+    public void setDepartureAirport(String departureAirport) {
+        this.departureAirport = departureAirport;
     }
 
-    public long getArrivalAirportId() {
-        return arrivalAirportId;
+    public String getArrivalAirport() {
+        return arrivalAirport;
     }
 
-    public void setArrivalAirportId(long arrivalAirportId) {
-        this.arrivalAirportId = arrivalAirportId;
+    public void setArrivalAirport(String arrivalAirport) {
+        this.arrivalAirport = arrivalAirport;
+    }
+
+    public Date getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(Date departureTime) {
+        this.departureTime = departureTime;
     }
 
     public int getDurationHours() {
@@ -79,12 +101,11 @@ public class Flight {
         this.durationHours = durationHours;
     }
 
-    public double getBaseprice() {
-        return baseprice;
+    public double getBasePrice() {
+        return basePrice;
     }
 
-    public void setBaseprice(double baseprice) {
-        this.baseprice = baseprice;
+    public void setBasePrice(double basePrice) {
+        this.basePrice = basePrice;
     }
 }
-
