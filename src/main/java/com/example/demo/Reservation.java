@@ -3,6 +3,7 @@ package com.example.demo;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "reservation")
 public class Reservation {
 
     @Id
@@ -22,21 +23,21 @@ public class Reservation {
 //    It may be better to eliminate this field and make it a temp field in
 //          the home controller section for processing search results.
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "user_id")
     private User user;
 //    matching language in User.java should be:
 //        @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 //        public Set<Reservation> reservations;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "flight_id")
     private Flight flight;
 //    matching language in Flight.java should be:
 //        @OneToMany(mappedBy = "flight", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 //        public Set<Reservation> reservations;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "trip_id")
     private Trip trip;
 

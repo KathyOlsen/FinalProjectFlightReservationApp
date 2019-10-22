@@ -4,16 +4,14 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "trip")
 public class Trip {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @OneToMany(mappedBy = "trip", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    public Set<Reservation> reservations;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "user_id")
     private User user;
 //    matching language in User.java should be:
@@ -21,9 +19,12 @@ public class Trip {
 //        public Set<Trip> trips;
 
     @OneToMany(mappedBy = "trip", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    public Set<Reservation> reservations;
+
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     public Set<Passenger> passengers;
 //    matching language in Passenger.java should be:
-//          @ManyToOne
+//          @ManyToOne(fetch = FetchType.EAGER)
 //          @JoinColumn (name = "passenger_id")
 //          private Passenger passenger;
 
