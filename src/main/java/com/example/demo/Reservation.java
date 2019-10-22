@@ -51,10 +51,6 @@ public class Reservation {
     @OneToMany(mappedBy = "reservation", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     public Set<Passenger> passengers;
 
-//    matching language in Passenger.java should be:
-//          @ManyToOne(fetch = FetchType.EAGER)
-//          @JoinColumn (name = "passenger_id")
-//          private Passenger passenger;
     public Reservation() {
     }
 
