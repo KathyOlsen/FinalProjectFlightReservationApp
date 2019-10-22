@@ -5,7 +5,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -49,6 +52,57 @@ public class DataLoader implements CommandLineRunner {
         user.setRoles(Arrays.asList(adminRole));
 
         userRepository.save(user);
+
+
+        // Create flights (flightNumber, departureAirport, arrivalAirport, departureTime, durationMinutes, basePrice)
+        Flight flight;
+        Date date;
+
+        DateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+        String time1 = "9:45:00";
+        date = new Date();
+        date = sdf.parse(time1);
+        flight = new Flight("101", "IAD", "LAX", date, 350, 350.0);
+
+        String time2 = "12:30:00";
+        date = new Date();
+        date = sdf.parse(time2);
+        flight = new Flight("102", "IAD", "LAX", date, 350, 350.0);
+
+        String time3 = "16:50:00";
+        date = new Date();
+        date = sdf.parse(time3);
+        flight = new Flight("103", "IAD", "LAX", date, 350, 350.0);
+
+        String time4 = "9:30:00";
+        date = new Date();
+        date = sdf.parse(time4);
+        flight = new Flight("104", "IAD", "LAX", date, 350, 350.0);
+
+        String time5 = "13:25:00";
+        date = new Date();
+        date = sdf.parse(time5);
+        flight = new Flight("105", "LAX", "LAX", date, 350, 350.0);
+
+        String time6 = "15:30:00";
+        date = new Date();
+        date = sdf.parse(time6);
+        flight = new Flight("106", "IAD", "LAX", date, 350, 350.0);
+
+        String time7 = "15:30:00";
+        date = new Date();
+        date = sdf.parse(time7);
+        flight = new Flight("107", "IAD", "LAX", date, 350, 350.0);
+
+        String time8 = "15:30:00";
+        date = new Date();
+        date = sdf.parse(time8);
+        flight = new Flight("108", "IAD", "LAX", date, 350, 350.0);
+
+
+
+
+
 
     }
 }

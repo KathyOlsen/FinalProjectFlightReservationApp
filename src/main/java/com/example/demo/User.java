@@ -48,6 +48,7 @@ public class User {
     public User() {
     }
 
+    /*
     public User(String email, String password,
                 String firstName, String lastName,
                 boolean enabled, String username) {
@@ -58,6 +59,7 @@ public class User {
         this.setEnabled(enabled);
         this.setUsername(username);
     }
+    */
 
     public User(String password, String firstName, String lastName,
                 boolean enabled, String username, String birthdate,
@@ -71,6 +73,18 @@ public class User {
         this.setCitizenship(citizenship);
         this.setEmail(email);
         this.setPhone(phone);
+    }
+
+    public User(String password, String firstName, String lastName, String username, String birthdate, String citizenship, String email, String phone, Collection<Role> roles) {
+        this.setPassword(password);
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setUsername(username);
+        this.setBirthdate(birthdate);
+        this.setCitizenship(citizenship);
+        this.setEmail(email);
+        this.setPhone(phone);
+        this.setRoles(roles);
     }
 
     public long getId() {

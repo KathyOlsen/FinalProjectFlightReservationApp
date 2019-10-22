@@ -15,7 +15,4 @@ public class Passenger {
     private String firstName;
 
     private String lastName;
-
-    @ManyToMany(mappedBy = "passengers", fetch = FetchType.LAZY)
-    private Collection<User> users;
 }
