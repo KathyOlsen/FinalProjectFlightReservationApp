@@ -9,13 +9,14 @@
 <br>
 <div class="container">
     <div class="jumbotron">
-        <div sec:authorize="!isAuthenticated()">
-            <h2>Welcome to Our Website</h2>
-            <h3>Please <span><a href="/login">login</a></span></h3>
-            <h3>Not a member? Please <span><a href="/register">register</a></span></h3>
-        </div>
-        <div sec:authorize="isAuthenticated()">
-            <h3>Please select a link in the navigation bar above.</h3>
+        <div>
+            <h1>Welcome to FantasticFlights.com!</h1>
+            <h3>The Official Reservation Website of AirEverywhere</h3>
+            <br>
+            <h4>Where would you like to explore next?</h4>
+            <button type="button" class="btn btn-default" href="/flightsearchform"
+                    style="alignment: center"><b>Search Flights</b></button>
+            <br>
         </div>
     </div>
 </div>

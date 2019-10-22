@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Search Flights</title>
+    <div th:insert="base :: head"></div>
+</head>
+<body>
+<div th:insert="base :: navlinks"></div>
+<br>
+<div class="container-fluid">
+    <h1>Search Flights</h1>
+    <form th:action="@{/processflightsearch}" method="post">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4">
+                <p>Type of Trip: </p>
+                <select name="SearchSelectorRT">
+                    <option value="NONE">Select One...</option>
+                    <option value="OneWay">One Way</option>
+                    <option value="RoundTrip">Round Trip</option>
+                </select>
+                <br><br>
+                <p>Number of Passengers:</p>
+                <input type="number" name="numberPassengers" />
+                <br><br>
+                <p>Passenger Class:</p>
+                <select name="SearchSelectorPassClass">
+                    <option value="NONE">Select One...</option>
+                    <option value="First">First Class</option>
+                    <option value="Business">Business Class</option>
+                    <option value="Economy">Economy Class</option>
+                </select>
+                <br>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-5">
+                <p>Departure Location:</p>
+                <input type="text"
+                       placeholder="Location Name or Airport Code"
+                       name="searchDepLoc">
+                <br><br>
+                <p>Destination:</p>
+                <input type="text"
+                       placeholder="Location Name or Airport Code"
+                       name="searchArrLoc">
+                <br><br>
+                <p>Departure Date:</p>
+                <input type="date" />
+                <br><br>
+                <p>Return Date:</p>
+                <input type="date" />
+                <br>
+                <button type="submit"><b>Submit</b></button>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div th:insert="base :: footer"></div>
+<div th:insert="base :: bootstrapScripts"></div>
+</body>
+</html>
