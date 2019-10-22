@@ -1,5 +1,6 @@
 package com.example.demo;
 
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
@@ -12,16 +13,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "email", nullable = false)
-    private String email;
-
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @Column(name = "enabled")
@@ -29,6 +27,18 @@ public class User {
 
     @Column(name = "username")
     private String username;
+
+    @Column(name = "birthdate", nullable = false)
+    private String birthdate;
+
+    @Column(name="citizenship", nullable = false)
+    private String citizenship;
+
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Column(name="phone", nullable = false)
+    private String phone;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name="user_id"),
@@ -47,6 +57,20 @@ public class User {
         this.setLastName(lastName);
         this.setEnabled(enabled);
         this.setUsername(username);
+    }
+
+    public User(String password, String firstName, String lastName,
+                boolean enabled, String username, String birthdate,
+                String citizenship, String email, String phone) {
+        this.setPassword(password);
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setEnabled(enabled);
+        this.setUsername(username);
+        this.setBirthdate(birthdate);
+        this.setCitizenship(citizenship);
+        this.setEmail(email);
+        this.setPhone(phone);
     }
 
     public long getId() {
@@ -112,5 +136,29 @@ public class User {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public String getCitizenship() {
+        return citizenship;
+    }
+
+    public void setCitizenship(String citizenship) {
+        this.citizenship = citizenship;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

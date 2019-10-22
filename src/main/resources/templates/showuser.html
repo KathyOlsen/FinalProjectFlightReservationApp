@@ -28,6 +28,10 @@
                 <td><span th:text="${user.email}"></span></td>
             </tr>
             <tr>
+                <td>Phone: &nbsp;</td>
+                <td><span th:text="${user.phone}"></span></td>
+            </tr>
+            <tr>
                 <td>Roles: &nbsp;</td>
                 <td>
                     <tr th:each="role : ${user.roles}">

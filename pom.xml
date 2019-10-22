@@ -12,8 +12,7 @@
     <artifactId>demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>FinalProjectFlightReservationApp</name>
-    <description>Demo project for Spring Boot</description>
-
+    <description>Final project for the Java class</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
