@@ -13,9 +13,6 @@ public class Flight {
     @Column(name = "flight_number", nullable = false)
     private String flightNumber;
 
-    @Column(name = "name", nullable = false)
-    private String name;
-
     @Column(name = "departure_airport", nullable = false)
     private String departureAirport;
 
@@ -25,8 +22,8 @@ public class Flight {
     @Column(name = "departure_time", nullable = false)
     private Date departureTime;
 
-    @Column(name = "duration_hours", nullable = false)
-    private int durationHours;
+    @Column(name = "duration_minutes", nullable = false)
+    private int durationMinutes;
 
     @Column(name = "basePrice", nullable = false)
     private double basePrice;
@@ -35,13 +32,12 @@ public class Flight {
 
     }
 
-    public Flight(String flightNumber, String name, String departureAirport, String arrivalAirport, Date departureTime, int durationHours, double basePrice) {
+    public Flight(String flightNumber, String departureAirport, String arrivalAirport, Date departureTime, int durationMinutes, double basePrice) {
         this.flightNumber = flightNumber;
-        this.name = name;
         this.departureAirport = departureAirport;
         this.arrivalAirport = arrivalAirport;
         this.departureTime = departureTime;
-        this.durationHours = durationHours;
+        this.durationMinutes = durationMinutes;
         this.basePrice = basePrice;
     }
 
@@ -59,14 +55,6 @@ public class Flight {
 
     public void setFlightNumber(String flightNumber) {
         this.flightNumber = flightNumber;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getDepartureAirport() {
@@ -93,12 +81,12 @@ public class Flight {
         this.departureTime = departureTime;
     }
 
-    public int getDurationHours() {
-        return durationHours;
+    public int getDurationMinutes() {
+        return durationMinutes;
     }
 
-    public void setDurationHours(int durationHours) {
-        this.durationHours = durationHours;
+    public void setDurationMinutes(int durationMinutes) {
+        this.durationMinutes = durationMinutes;
     }
 
     public double getBasePrice() {
