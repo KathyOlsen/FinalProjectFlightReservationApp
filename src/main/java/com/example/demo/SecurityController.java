@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 
 @Controller
 public class SecurityController {
@@ -19,6 +20,9 @@ public class SecurityController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private FlightRepository flightRepository;
 
     @GetMapping("/register")
     public String showRegistrationPage(Model model){
@@ -53,10 +57,21 @@ public class SecurityController {
         return "admin";
     }
 
-    @GetMapping("/addUser")
-    public String add(Model model) {
-        model.addAttribute("user", new User());
-        return "userForm";
+    @GetMapping("/addFlight")
+    public String addFlight(Model model) {
+        model.addAttribute("flight", new Flight());
+        return "flightform";
+    }
+
+    @PostMapping("/processflight")
+    public String processFlight(@Valid Flight flight,
+    BindingResult result){
+        if(result.hasErrors()){
+            return "flightform";
+        }
+
+        flightRepository.save(flight);
+        return "redirect:/admin";
     }
 
     @RequestMapping("/rolelist")
