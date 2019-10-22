@@ -23,11 +23,7 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/add")                                             // For Admin role only
-    public String add(Model model) {
-        model.addAttribute("user", new User());
-        return "userForm";
-    }
+
     /*
     @GetMapping("/addUser")                                             // For Admin role only
     public String addUser(Model model) {

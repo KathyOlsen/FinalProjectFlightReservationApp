@@ -53,6 +53,12 @@ public class SecurityController {
         return "admin";
     }
 
+    @GetMapping("/addUser")
+    public String add(Model model) {
+        model.addAttribute("user", new User());
+        return "userForm";
+    }
+
     @RequestMapping("/rolelist")
     public String roleList(Model model){
         model.addAttribute("roles", roleRepository.findAll());

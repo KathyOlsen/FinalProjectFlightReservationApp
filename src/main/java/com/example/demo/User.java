@@ -4,7 +4,6 @@ package com.example.demo;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Entity
@@ -14,16 +13,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "password")
-    @NotNull
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "first_name")
-    @NotNull
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name")
-    @NotNull
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @Column(name = "enabled")
@@ -32,20 +28,16 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "birthdate")
-    @NotNull
+    @Column(name = "birthdate", nullable = false)
     private String birthdate;
 
-    @Column(name="citizenship")
-    @NotNull
+    @Column(name="citizenship", nullable = false)
     private String citizenship;
 
     @Column(name = "email", nullable = false)
-    @NotNull
     private String email;
 
-    @Column(name="phone")
-    @NotNull
+    @Column(name="phone", nullable = false)
     private String phone;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -67,9 +59,9 @@ public class User {
         this.setUsername(username);
     }
 
-    public User(@NotNull String password, @NotNull String firstName, @NotNull String lastName,
-                boolean enabled, String username, @NotNull String birthdate,
-                @NotNull String citizenship, @NotNull String email, @NotNull String phone) {
+    public User(String password, String firstName, String lastName,
+                boolean enabled, String username, String birthdate,
+                String citizenship, String email, String phone) {
         this.setPassword(password);
         this.setFirstName(firstName);
         this.setLastName(lastName);
