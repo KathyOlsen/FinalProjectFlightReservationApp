@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 @Component
 public class DataLoader implements CommandLineRunner {
+
     @Autowired
     UserRepository userRepository;
 
@@ -19,24 +20,37 @@ public class DataLoader implements CommandLineRunner {
     private BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public void run(String... strings) throws Exception{
-        if(roleRepository.count() <1) {
-            roleRepository.save(new Role("USER"));
-            roleRepository.save(new Role("ADMIN"));
+    public void run(String... strings) throws Exception {
+        // Create roles
+        roleRepository.save(new Role("USER"));                  // User role
+        roleRepository.save(new Role("ADMIN"));                 // Administrator role
 
-            Role adminRole = roleRepository.findByRole("ADMIN");
-            Role userRole = roleRepository.findByRole("USER");
+        Role adminRole = roleRepository.findByRole("ADMIN");
+        Role userRole = roleRepository.findByRole("USER");
 
-            User user = new User("jim@jim.com", "password",
-                    "Jim", "Jimmerson", true, "jim");
-            user.setRoles(Arrays.asList(userRole));
-            userRepository.save(user);
+        // Create users	(password, first_name, last_name, enabled, username, birthdate, citizenship, email, phone, role)
+        User user;
+        user = new User("pwdpw", "Paul", "Waters", true, "pcwaters", "05/23/1992", "USA", "pcwaters@email.com", "301-525-7896");
+        user.setRoles(Arrays.asList(userRole));
 
-            user = new User("admin@admin.com", "password",
-                    "Admin", "User", true, "admin");
-            user.setRoles(Arrays.asList(adminRole));
-            userRepository.save(user);
-        }
+        userRepository.save(user);
+
+        user = new User("pwdjg", "Jane", "Garten", true, "jgarten", "02/17/2001", "USA", "jgarten@email.com", "301-555-6789");
+        user.setRoles(Arrays.asList(userRole));
+
+        userRepository.save(user);
+
+        user = new User("pwdjw", "Joshua", "Woods", true, "jwoods", "09/02/1981", "USA", "jwoods@email.com", "301-555-1234");
+        user.setRoles(Arrays.asList(userRole));
+
+        userRepository.save(user);
+
+        user = new User("pwdau", "Admin", "User", true, "auser", "01/21/2000", "USA", "admin@email.com", "111-555-9999");
+        user.setRoles(Arrays.asList(adminRole));
+
+        userRepository.save(user);
 
     }
 }
+
+
