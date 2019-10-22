@@ -4,18 +4,19 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "Passenger_Data")
+@Table(name = "passenger")
 public class Passenger {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private long reservation_id;
-
+    @Column (name = "first_name", nullable = false)
     private String firstName;
 
+    @Column (name = "last_name", nullable = false)
     private String lastName;
 
-    @ManyToMany(mappedBy = "passengers", fetch = FetchType.LAZY)
-    private Collection<User> users;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn (name = "reservation_id")
+    private Reservation reservation;
 }

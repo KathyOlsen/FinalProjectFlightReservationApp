@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "User_Data")
@@ -12,9 +13,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    @Column(name = "password", nullable = false)
-    private String password;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -27,6 +25,9 @@ public class User {
 
     @Column(name = "username")
     private String username;
+
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @Column(name = "birthdate", nullable = false)
     private String birthdate;
@@ -45,32 +46,48 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    private Collection<Reservation> reservations;
+
     public User() {
     }
 
-    public User(String email, String password,
-                String firstName, String lastName,
-                boolean enabled, String username) {
-        this.setEmail(email);
-        this.setPassword(password);
-        this.setFirstName(firstName);
-        this.setLastName(lastName);
-        this.setEnabled(enabled);
-        this.setUsername(username);
+    public User(String firstName,
+                String lastName,
+                String username,
+                String password,
+                String birthdate,
+                String citizenship,
+                String email,
+                String phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.birthdate = birthdate;
+        this.citizenship = citizenship;
+        this.email = email;
+        this.phone = phone;
     }
 
-    public User(String password, String firstName, String lastName,
-                boolean enabled, String username, String birthdate,
-                String citizenship, String email, String phone) {
-        this.setPassword(password);
-        this.setFirstName(firstName);
-        this.setLastName(lastName);
-        this.setEnabled(enabled);
-        this.setUsername(username);
-        this.setBirthdate(birthdate);
-        this.setCitizenship(citizenship);
-        this.setEmail(email);
-        this.setPhone(phone);
+    public User(String firstName,
+                String lastName,
+                String username,
+                String password,
+                String birthdate,
+                String citizenship,
+                String email,
+                String phone,
+                Collection<Reservation> reservations) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.birthdate = birthdate;
+        this.citizenship = citizenship;
+        this.email = email;
+        this.phone = phone;
+        this.reservations = reservations;
     }
 
     public long getId() {
@@ -160,5 +177,13 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Collection<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Collection<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }

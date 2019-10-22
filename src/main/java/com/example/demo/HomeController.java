@@ -23,24 +23,4 @@ public class HomeController {
         return "index";
     }
 
-
-    /*
-    @GetMapping("/addUser")                                             // For Admin role only
-    public String addUser(Model model) {
-        model.addAttribute("user", new User());
-        return "userForm";
-    }
-
-    @RequestMapping("/rolelist")                                        // For Admin role only
-    public String roleList(Model model){
-        model.addAttribute("roles", roleRepository.findAll());
-        return "showrole";
-    }
-
-    @RequestMapping("/userlist")                                        // For Admin role only
-    public String userList(Model model){
-        model.addAttribute("users", userRepository.findAll());
-        return "showuser";
-    }
-    */
 }

@@ -48,13 +48,9 @@ public class Reservation {
 //        @OneToMany(mappedBy = "flight", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 //        public Set<Reservation> reservations;
 
-    @OneToMany(mappedBy = "trip", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "reservation", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     public Set<Passenger> passengers;
 
-//    matching language in Passenger.java should be:
-//          @ManyToOne(fetch = FetchType.EAGER)
-//          @JoinColumn (name = "passenger_id")
-//          private Passenger passenger;
     public Reservation() {
     }
 
