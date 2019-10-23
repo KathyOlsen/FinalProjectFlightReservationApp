@@ -67,6 +67,7 @@ public class SecurityController {
 
         flightRepository.save(flight);
         return "redirect:/admin";
+
     }
 
     @RequestMapping("/rolelist")
