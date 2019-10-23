@@ -18,6 +18,9 @@ public class SecurityController {
     RoleRepository roleRepository;
 
     @Autowired
+    FlightRepository flightRepository;
+
+    @Autowired
     private UserService userService;
 
     @GetMapping("/register")
@@ -69,6 +72,12 @@ public class SecurityController {
     public String userList(Model model){
         model.addAttribute("users", userRepository.findAll());
         return "userlist";
+    }
+
+    @RequestMapping("flightsearch")
+    public String flightSearch(Model model) {
+        model.addAttribute("flights", flightRepository.findAll());
+        return "flightsearch";
     }
 
     @RequestMapping("/detail_role/{id}")

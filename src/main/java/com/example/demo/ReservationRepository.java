@@ -2,6 +2,8 @@ package com.example.demo;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface ReservationRepository extends CrudRepository<Reservation,Long> {
+import java.util.ArrayList;
 
+public interface ReservationRepository extends CrudRepository<Reservation, Long> {
+    ArrayList<Reservation> findAll();
 }

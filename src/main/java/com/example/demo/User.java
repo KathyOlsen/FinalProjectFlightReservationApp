@@ -46,7 +46,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    // From John: Hibernate does not like two collections with FetchType.EAGER.
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Collection<Reservation> reservations;
 
     public User() {
@@ -64,7 +65,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
-        this.password = password;
+        this.setPassword(password);
         this.birthdate = birthdate;
         this.citizenship = citizenship;
         this.email = email;
@@ -85,7 +86,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
-        this.password = password;
+        this.setPassword(password);
         this.birthdate = birthdate;
         this.citizenship = citizenship;
         this.email = email;
