@@ -23,6 +23,7 @@ public class SecurityController {
     @Autowired
     private UserService userService;
 
+
     @GetMapping("/register")
     public String showRegistrationPage(Model model){
         model.addAttribute("user", new User());
@@ -46,20 +47,26 @@ public class SecurityController {
         return "login";
     }
 
-    @RequestMapping("/secure")
-    public String secure(){
-        return "secure";
-    }
-
     @RequestMapping("/admin")
     public String admin(){
         return "admin";
     }
 
-    @GetMapping("/addUser")
-    public String add(Model model) {
-        model.addAttribute("user", new User());
-        return "userForm";
+    @GetMapping("/addFlight")
+    public String addFlight(Model model) {
+        model.addAttribute("flight", new Flight());
+        return "flightform";
+    }
+
+    @PostMapping("/processflight")
+    public String processFlight(@Valid Flight flight,
+    BindingResult result){
+        if(result.hasErrors()){
+            return "flightform";
+        }
+
+        flightRepository.save(flight);
+        return "redirect:/admin";
     }
 
     @RequestMapping("/rolelist")
@@ -77,7 +84,7 @@ public class SecurityController {
     @RequestMapping("flightsearch")
     public String flightSearch(Model model) {
         model.addAttribute("flights", flightRepository.findAll());
-        return "flightsearch";
+        return "flightlistadmin";
     }
 
     @RequestMapping("/detail_role/{id}")

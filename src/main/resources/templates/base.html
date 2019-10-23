@@ -14,7 +14,7 @@
 <body>
 <div th:fragment="navlinks">
     <nav class="nav">
-        <span style="color: yellow; font-size: x-large"><b>FantasticFlights </b></span>&nbsp;&nbsp;
+        <span style="color: yellow; font-size: x-large"><b>FantasticFlights.com </b></span>&nbsp;&nbsp;
         <span sec:authorize="isAuthenticated()" style="color:whitesmoke; font-size: x-large">  Welcome,
             <span th:text="${#authentication.name}"></span></span>
         <a class="nav-link"  href="/">Home</a>&nbsp;
@@ -24,7 +24,6 @@
         <a sec:authorize="!isAuthenticated()" class="nav-link"  href="/register">Register</a>&nbsp;
         <a sec:authorize="isAuthenticated()" class="nav-link"  href="/logout">Log Out</a>&nbsp;
         <a sec:authorize="hasAuthority('ADMIN')" class="nav-link"  href="/admin">Administrator</a>&nbsp;
-        <a sec:authorize="hasAuthority('ADMIN')" class="nav-link" href="/add">Add A Flight</a>
     </nav>
 </div>
 
@@ -42,6 +41,6 @@
      background-color: darkblue;
      color: whitesmoke"
      font-family="'Scheherazade', serif;" font-size 18px>
-    &#0169; 2019 Katherine K. Olsen. All rights reserved.
+    &#0169; 2019 Katherine K. Olsen, John Kneisler, and Daniel G. Kneto. All rights reserved.
 </div>
 </html>
