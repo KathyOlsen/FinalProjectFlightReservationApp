@@ -80,6 +80,7 @@ public class Flight {
             multiplier=1;
         }
         double totalTripPrice = multiplier * getPricePerPassenger(flightClass,basePrice) * numberPassengers;
+        //TODO add extra $5 for each window seat
         return totalTripPrice;
     }
 
