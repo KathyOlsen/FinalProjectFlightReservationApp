@@ -15,8 +15,8 @@ public class ReservationController {
     @Autowired
     FlightRepository flightRepository;
 
-    @Autowired
-    PassengerRepository passengerRepository;
+    //@Autowired
+    //PassengerRepository passengerRepository;
 
     //This gets the per passenger price for one flight leg.
     public double getPricePerPassenger(String flightClass, double basePrice){

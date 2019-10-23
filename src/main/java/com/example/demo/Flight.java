@@ -1,7 +1,10 @@
 package com.example.demo;
 
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "flight")
@@ -20,7 +23,7 @@ public class Flight {
     private String arrivalAirport;
 
     @Column(name = "departure_time", nullable = false)
-    private Date departureTime;
+    private LocalTime departureTime;
 
     @Column(name = "duration_minutes", nullable = false)
     private int durationMinutes;
@@ -32,7 +35,7 @@ public class Flight {
 
     }
 
-    public Flight(String flightNumber, String departureAirport, String arrivalAirport, Date departureTime, int durationMinutes, double basePrice) {
+    public Flight(String flightNumber, String departureAirport, String arrivalAirport, LocalTime departureTime, int durationMinutes, double basePrice) {
         this.flightNumber = flightNumber;
         this.departureAirport = departureAirport;
         this.arrivalAirport = arrivalAirport;
@@ -73,11 +76,11 @@ public class Flight {
         this.arrivalAirport = arrivalAirport;
     }
 
-    public Date getDepartureTime() {
+    public LocalTime getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Date departureTime) {
+    public void setDepartureTime(LocalTime departureTime) {
         this.departureTime = departureTime;
     }
 
@@ -95,5 +98,9 @@ public class Flight {
 
     public void setBasePrice(double basePrice) {
         this.basePrice = basePrice;
+    }
+
+    public LocalTime calcArrivalTime() {
+        return this.departureTime.plusMinutes(durationMinutes);
     }
 }

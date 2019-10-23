@@ -2,6 +2,8 @@ package com.example.demo;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface FlightRepository extends CrudRepository<Flight, Long> {
+import java.util.ArrayList;
 
+public interface FlightRepository extends CrudRepository<Flight, Long> {
+    ArrayList<Flight> findAll();
 }

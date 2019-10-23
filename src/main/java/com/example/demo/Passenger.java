@@ -65,4 +65,5 @@ public class Passenger {
     public void setReservation(Reservation reservation) {
         this.reservation = reservation;
     }
+
 }
