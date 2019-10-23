@@ -24,8 +24,6 @@ public class SecurityController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private FlightRepository flightRepository;
 
     @GetMapping("/register")
     public String showRegistrationPage(Model model){
