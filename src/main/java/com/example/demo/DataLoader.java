@@ -132,9 +132,9 @@ public class DataLoader implements CommandLineRunner {
         Passenger pass4 = new Passenger(user5.getFirstName(), user5.getLastName());
         Passenger pass5 = new Passenger(user6.getFirstName(), user6.getLastName());
         Set set3 = new HashSet();
-        set3.add(pass3);
-        set3.add(pass4);
-        set3.add(pass5);
+            set3.add(pass3);
+            set3.add(pass4);
+            set3.add(pass5);
 
         passengerRepository.save(pass3);
         passengerRepository.save(pass4);
