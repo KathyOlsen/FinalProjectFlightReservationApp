@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Date;
 
 @Controller
 public class SecurityController {
@@ -85,7 +84,7 @@ public class SecurityController {
     @RequestMapping("flightsearch")
     public String flightSearch(Model model) {
         model.addAttribute("flights", flightRepository.findAll());
-        return "flightsearch";
+        return "flightlistadmin";
     }
 
     @RequestMapping("/detail_role/{id}")
