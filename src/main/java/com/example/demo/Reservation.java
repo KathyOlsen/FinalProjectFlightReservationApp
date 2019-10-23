@@ -45,7 +45,7 @@ public class Reservation {
 //        public Set<Reservation> reservations;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn (name = "flight_id")
+    @JoinColumn (name = "flight_id", insertable=false, updatable=false)
     private Flight arrivalFlight;
     //    matching language in Flight.java should be:
 //        @OneToMany(mappedBy = "flight", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
