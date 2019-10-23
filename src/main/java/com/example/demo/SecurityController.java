@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Date;
 
 @Controller
 public class SecurityController {
@@ -48,11 +47,6 @@ public class SecurityController {
         return "login";
     }
 
-    @RequestMapping("/secure")
-    public String secure(){
-        return "secure";
-    }
-
     @RequestMapping("/admin")
     public String admin(){
         return "admin";
@@ -73,6 +67,7 @@ public class SecurityController {
 
         flightRepository.save(flight);
         return "redirect:/admin";
+
     }
 
     @RequestMapping("/rolelist")
@@ -90,7 +85,7 @@ public class SecurityController {
     @RequestMapping("flightsearch")
     public String flightSearch(Model model) {
         model.addAttribute("flights", flightRepository.findAll());
-        return "flightsearch";
+        return "flightlistadmin";
     }
 
     @RequestMapping("/detail_role/{id}")

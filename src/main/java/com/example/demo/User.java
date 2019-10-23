@@ -70,7 +70,6 @@ public class User {
         this.citizenship = citizenship;
         this.email = email;
         this.phone = phone;
-
     }
 
 
