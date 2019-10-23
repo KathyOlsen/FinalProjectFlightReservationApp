@@ -24,7 +24,7 @@
         <a sec:authorize="!isAuthenticated()" class="nav-link"  href="/register">Register</a>&nbsp;
         <a sec:authorize="isAuthenticated()" class="nav-link"  href="/logout">Log Out</a>&nbsp;
         <a sec:authorize="hasAuthority('ADMIN')" class="nav-link"  href="/admin">Administrator</a>&nbsp;
-        <a sec:authorize="hasAuthority('ADMIN')" class="nav-link" href="/add">Add A Flight</a>
+        <a sec:authorize="hasAuthority('ADMIN')" class="nav-link" href="/addFlight">Add A Flight</a>
     </nav>
 </div>
 

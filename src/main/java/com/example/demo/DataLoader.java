@@ -66,79 +66,57 @@ public class DataLoader implements CommandLineRunner {
 
 
         // Create flights (flightNumber, departureAirport, arrivalAirport, departureTime, durationMinutes, basePrice)
-        //DateFormat sdf = new SimpleDateFormat("hh:mm:ss");
 
         LocalTime time;
-        //String time1 = "9:45:00";
-        //time = sdf.parse(time1);
         time = LocalTime.of(9,45, 00);
         Flight flight1 = new Flight("101", "IAD", "LAX", time, 350, 350.0);
         flightRepository.save(flight1);
 
-        //String time2 = "12:30:00";
-        //time = sdf.parse(time2);
         time = LocalTime.of(12,30, 00);
         Flight flight2 = new Flight("102", "IAD", "LAX", time, 345, 350.0);
         flightRepository.save(flight2);
 
-        //String time3 = "16:50:00";
-        //time = sdf.parse(time3);
         time = LocalTime.of(16,50, 00);
         Flight flight3 = new Flight("103", "IAD", "LAX", time, 355, 350.0);
         flightRepository.save(flight3);
 
-        //String time4 = "9:30:00";
-        //time = sdf.parse(time4);
         time = LocalTime.of(9,30, 00);
         Flight flight4 = new Flight("201", "LAX", "IAD", time, 325, 350.0);
         flightRepository.save(flight4);
 
-        //String time5 = "13:25:00";
-        //time = sdf.parse(time5);
         time = LocalTime.of(13,25, 00);
         Flight flight5 = new Flight("202", "LAX", "IAD", time, 330, 350.0);
         flightRepository.save(flight5);
 
-        //String time6 = "17:40:00";
-        //time = sdf.parse(time6);
         time = LocalTime.of(17,40, 00);
         Flight flight6 = new Flight("203", "LAX", "IAD", time, 320, 350.0);
         flightRepository.save(flight6);
 
-        //String time7 = "8:55:00";
-        //time = sdf.parse(time7);
         time = LocalTime.of(8,55, 00);
         Flight flight7 = new Flight("301", "ORD", "DFW", time, 130, 215.0);
         flightRepository.save(flight7);
 
-        //String time8 = "11:35:00";
-        //time = sdf.parse(time8);
         time = LocalTime.of(11,35, 00);
         Flight flight8 = new Flight("401", "DFW", "ORD", time, 135, 215.0);
         flightRepository.save(flight8);
 
         // Passenger:
-        Passenger pass1 = new Passenger(user1.getFirstName(), user1.getLastName());
+        Passenger pass1 = new Passenger(user1.getFirstName(), user1.getLastName(), 45);
         Set set1 = new HashSet();
             set1.add(pass1);
-        // passengerRepository.save(pass1);
 
-        Passenger pass2 = new Passenger(user2.getFirstName(), user2.getLastName());
+        Passenger pass2 = new Passenger(user2.getFirstName(), user2.getLastName(), 22);
         Set set2 = new HashSet();
             set2.add(pass2);
-        // passengerRepository.save(pass2);
 
-        Passenger pass3 = new Passenger(user3.getFirstName(), user3.getLastName());
-        Passenger pass4 = new Passenger(user5.getFirstName(), user5.getLastName());
-        Passenger pass5 = new Passenger(user6.getFirstName(), user6.getLastName());
+        Passenger pass3 = new Passenger(user3.getFirstName(), user3.getLastName(), 50);
+        Passenger pass4 = new Passenger(user5.getFirstName(), user5.getLastName(), 51);
+        Passenger pass5 = new Passenger(user6.getFirstName(), user6.getLastName(), 52);
         Set set3 = new HashSet();
             set3.add(pass3);
             set3.add(pass4);
             set3.add(pass5);
 
-        // passengerRepository.save(pass3);
-        // passengerRepository.save(pass4);
-        // passengerRepository.save(pass5);
 
         // Reservation: bool isRoundTrip, Date departureDate, Date returnDate, Str flightClass, int numberPassengers, User user, Flgt departure, Flgt arrival, Set passengers
         Date departDate = new Date();
@@ -167,12 +145,14 @@ public class DataLoader implements CommandLineRunner {
         Reservation rsvr3 = new Reservation(true, departDate, arriveDate, "Economy", 3, user2, flight3, flight6, set3);
         reservationRepository.save(rsvr3);
 
+        // Inserting the reservation in the passenger class
         pass1.setReservation(rsvr1);
         pass2.setReservation(rsvr2);
         pass3.setReservation(rsvr3);
         pass4.setReservation(rsvr3);
         pass5.setReservation(rsvr3);
 
+        // Saving the passenger class
         passengerRepository.save(pass1);
         passengerRepository.save(pass2);
         passengerRepository.save(pass3);

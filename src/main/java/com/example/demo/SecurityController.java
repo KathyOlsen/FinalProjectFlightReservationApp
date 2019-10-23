@@ -57,9 +57,15 @@ public class SecurityController {
     }
 
     @GetMapping("/addUser")
-    public String add(Model model) {
+    public String addUser(Model model) {
         model.addAttribute("user", new User());
         return "userForm";
+    }
+
+    @GetMapping("/addFlight")
+    public String addFlight(Model model) {
+        model.addAttribute("flight", new Flight());
+        return "flightForm";
     }
 
     @RequestMapping("/rolelist")
