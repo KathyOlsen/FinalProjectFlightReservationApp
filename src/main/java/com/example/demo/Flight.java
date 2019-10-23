@@ -3,8 +3,11 @@ package com.example.demo;
 import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "flight")
@@ -43,6 +46,43 @@ public class Flight {
         this.durationMinutes = durationMinutes;
         this.basePrice = basePrice;
     }
+
+    public Set<String> getAirportList(ArrayList<Flight> flights){
+        Set<String> airports = new HashSet<>();
+        for(Flight flight : flights){
+            airports.add(flight.departureAirport);
+            airports.add(flight.arrivalAirport);
+        }
+        return airports;
+    }
+
+    //This gets the per passenger price for one flight leg.
+    public double getPricePerPassenger(String flightClass, double basePrice){
+        double pricePerPassenger;
+        if(flightClass.equalsIgnoreCase("economy")){
+            pricePerPassenger = basePrice;
+        }else if (flightClass.equalsIgnoreCase("business")){
+            pricePerPassenger = 2 * basePrice;
+        }else{
+            pricePerPassenger = 3 * basePrice;
+        }
+        return pricePerPassenger;
+    }
+
+    //This gets the total price for the reservation (round trip if applicable, for all passengers).
+    //This assumes the return flight is the same price as the departure flight.
+    public double getTotalTripPrice(boolean isRoundTrip, String flightClass,
+                                    double basePrice, int numberPassengers){
+        int multiplier;
+        if (isRoundTrip){
+            multiplier = 2;
+        }else{
+            multiplier=1;
+        }
+        double totalTripPrice = multiplier * getPricePerPassenger(flightClass,basePrice) * numberPassengers;
+        return totalTripPrice;
+    }
+
 
     public long getId() {
         return id;
