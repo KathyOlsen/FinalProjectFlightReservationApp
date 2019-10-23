@@ -1,6 +1,8 @@
 package com.example.demo;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -25,6 +27,7 @@ public class Reservation {
     private String flightClass;
 
     @Column(name = "number_passengers", nullable = false)
+    @Min(1)
     private int numberPassengers;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -52,6 +55,24 @@ public class Reservation {
     public Set<Passenger> passengers;
 
     public Reservation() {
+    }
+
+    public Reservation(boolean isRoundTrip,
+                       Date departureDate,
+                       Date returnDate,
+                       String flightClass,
+                       int numberPassengers,
+                       User user,
+                       Flight departureFlight,
+                       Flight arrivalFlight) {
+        this.isRoundTrip = isRoundTrip;
+        this.departureDate = departureDate;
+        this.returnDate = returnDate;
+        this.flightClass = flightClass;
+        this.numberPassengers = numberPassengers;
+        this.user = user;
+        this.departureFlight = departureFlight;
+        this.arrivalFlight = arrivalFlight;
     }
 
     public Reservation(boolean isRoundTrip,
@@ -89,7 +110,6 @@ public class Reservation {
     public void setId(long id) {
         this.id = id;
     }
-
 
     public Date getDepartureDate() {
         return departureDate;

@@ -15,7 +15,6 @@
             <div class="col-sm-4">
                 <p>Type of Trip: </p>
                 <select name="SearchSelectorRT">
-                    <option value="NONE">Select One...</option>
                     <option value="OneWay">One Way</option>
                     <option value="RoundTrip">Round Trip</option>
                 </select>
@@ -25,16 +24,19 @@
                 <br><br>
                 <p>Passenger Class:</p>
                 <select name="SearchSelectorPassClass">
-                    <option value="NONE">Select One...</option>
-                    <option value="First">First Class</option>
-                    <option value="Business">Business Class</option>
                     <option value="Economy">Economy Class</option>
+                    <option value="Business">Business Class</option>
+                    <option value="First">First Class</option>
                 </select>
                 <br>
             </div>
             <div class="col-sm-1"></div>
             <div class="col-sm-5">
                 <p>Departure Location:</p>
+                <select name="SearchSelectorDepApt">
+                    <option value="OneWay">One Way</option>
+                    <option value="RoundTrip">Round Trip</option>
+                </select>
                 <input type="text"
                        placeholder="Location Name or Airport Code"
                        name="searchDepLoc">
@@ -50,7 +52,7 @@
                 <p>Return Date:</p>
                 <input type="date" />
                 <br>
-                <button type="submit"><b>Submit</b></button>
+                <button type="submit" class="btn btn-default"><b>Submit</b></button>
             </div>
         </div>
     </div>
