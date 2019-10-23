@@ -56,10 +56,10 @@ public class Flight {
         return airports;
     }
 
-    //This gets the per passenger price for one flight leg.
+    //This gets the per passenger price for one flight leg before addon for window seat if applicable.
     public double getPricePerPassenger(String flightClass, double basePrice){
         double pricePerPassenger;
-        if(flightClass.equalsIgnoreCase("economy")){
+        if (flightClass.equalsIgnoreCase("economy")){
             pricePerPassenger = basePrice;
         }else if (flightClass.equalsIgnoreCase("business")){
             pricePerPassenger = 2 * basePrice;
@@ -68,21 +68,6 @@ public class Flight {
         }
         return pricePerPassenger;
     }
-
-    //This gets the total price for the reservation (round trip if applicable, for all passengers).
-    //This assumes the return flight is the same price as the departure flight.
-    public double getTotalTripPrice(boolean isRoundTrip, String flightClass,
-                                    double basePrice, int numberPassengers){
-        int multiplier;
-        if (isRoundTrip){
-            multiplier = 2;
-        }else{
-            multiplier=1;
-        }
-        double totalTripPrice = multiplier * getPricePerPassenger(flightClass,basePrice) * numberPassengers;
-        return totalTripPrice;
-    }
-
 
     public long getId() {
         return id;

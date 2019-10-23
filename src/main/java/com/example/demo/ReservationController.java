@@ -31,34 +31,6 @@ public class ReservationController {
     @Autowired
     PassengerRepository passengerRepository;
 
-    // moved the following two methods to Flight.java
-
-//    //This gets the per passenger price for one flight leg.
-//    public double getPricePerPassenger(String flightClass, double basePrice){
-//        double pricePerPassenger;
-//        if(flightClass.equalsIgnoreCase("economy")){
-//            pricePerPassenger = basePrice;
-//        }else if (flightClass.equalsIgnoreCase("business")){
-//            pricePerPassenger = 2 * basePrice;
-//        }else{
-//            pricePerPassenger = 3 * basePrice;
-//        }
-//        return pricePerPassenger;
-//    }
-
-//    //This gets the total price for the reservation (round trip if applicable, for all passengers).
-//    //This assumes the return flight is the same price as the departure flight.
-//    public double getTotalTripPrice(boolean isRoundTrip, String flightClass,
-//                                    double basePrice, int numberPassengers){
-//        int multiplier;
-//        if (isRoundTrip){
-//            multiplier = 2;
-//        }else{
-//            multiplier=1;
-//        }
-//        double totalTripPrice = multiplier * getPricePerPassenger(flightClass,basePrice) * numberPassengers;
-//        return totalTripPrice;
-//    }
 
     @GetMapping("/flightsearchform")
     public String showFlightSearchForm(Model model){
@@ -120,6 +92,27 @@ public class ReservationController {
         model.addAttribute("arrApt", arrApt);
 
         return "listSearchResults";
+    }
+
+    public double getTotalTripPrice(Reservation reservation){
+        Flight departureFlight = reservation.getDepartureFlight();
+        double pricePerPassDep = departureFlight.getPricePerPassenger(reservation.getFlightClass(),departureFlight.getBasePrice());
+        double windowPrice = 5.00;
+        int numPass = reservation.getNumberPassengers();
+        double totalTripPrice = pricePerPassDep * numPass;
+        if (reservation.isRoundTrip()) {
+            Flight returnFlight = reservation.getArrivalFlight();
+            double pricePerPassRet = returnFlight.getPricePerPassenger(reservation.getFlightClass(), returnFlight.getBasePrice());
+            windowPrice = 10.00;
+            totalTripPrice += pricePerPassRet * numPass;
+        }
+        Set<Passenger> passengers = reservation.getPassengers();
+        for(Passenger passenger : passengers){
+            if(passenger.isWindow){
+                totalTripPrice += windowPrice;
+            }
+        }
+        return totalTripPrice;
     }
 
 }
