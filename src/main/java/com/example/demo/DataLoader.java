@@ -121,12 +121,12 @@ public class DataLoader implements CommandLineRunner {
         Passenger pass1 = new Passenger(user1.getFirstName(), user1.getLastName());
         Set set1 = new HashSet();
             set1.add(pass1);
-        passengerRepository.save(pass1);
+        // passengerRepository.save(pass1);
 
         Passenger pass2 = new Passenger(user2.getFirstName(), user2.getLastName());
         Set set2 = new HashSet();
             set2.add(pass2);
-        passengerRepository.save(pass2);
+        // passengerRepository.save(pass2);
 
         Passenger pass3 = new Passenger(user3.getFirstName(), user3.getLastName());
         Passenger pass4 = new Passenger(user5.getFirstName(), user5.getLastName());
@@ -136,9 +136,9 @@ public class DataLoader implements CommandLineRunner {
             set3.add(pass4);
             set3.add(pass5);
 
-        passengerRepository.save(pass3);
-        passengerRepository.save(pass4);
-        passengerRepository.save(pass5);
+        // passengerRepository.save(pass3);
+        // passengerRepository.save(pass4);
+        // passengerRepository.save(pass5);
 
         // Reservation: bool isRoundTrip, Date departureDate, Date returnDate, Str flightClass, int numberPassengers, User user, Flgt departure, Flgt arrival, Set passengers
         Date departDate = new Date();
@@ -166,6 +166,18 @@ public class DataLoader implements CommandLineRunner {
         arriveDate = dsdf.parse(aDate3);
         Reservation rsvr3 = new Reservation(true, departDate, arriveDate, "Economy", 3, user2, flight3, flight6, set3);
         reservationRepository.save(rsvr3);
+
+        pass1.setReservation(rsvr1);
+        pass2.setReservation(rsvr2);
+        pass3.setReservation(rsvr3);
+        pass4.setReservation(rsvr3);
+        pass5.setReservation(rsvr3);
+
+        passengerRepository.save(pass1);
+        passengerRepository.save(pass2);
+        passengerRepository.save(pass3);
+        passengerRepository.save(pass4);
+        passengerRepository.save(pass5);
 
     }
 }
