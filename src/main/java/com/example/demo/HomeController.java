@@ -39,4 +39,5 @@ public class HomeController {
 //        model.addAttribute("myreservations",reservationRepository.findAll());
         return "/flighthistory";
     }
+
 }
