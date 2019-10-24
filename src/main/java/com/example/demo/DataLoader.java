@@ -104,18 +104,17 @@ public class DataLoader implements CommandLineRunner {
 
             // Passenger:
             Passenger pass1 = new Passenger(user1.getFirstName(), user1.getLastName(), 45);
-            Set set1 = new HashSet();
+            Set<Passenger> set1 = new HashSet<>();
             set1.add(pass1);
 
             Passenger pass2 = new Passenger(user2.getFirstName(), user2.getLastName(), 22);
-            Set set2 = new HashSet();
+            Set<Passenger> set2 = new HashSet<>();
             set2.add(pass2);
 
             Passenger pass3 = new Passenger(user3.getFirstName(), user3.getLastName(), 50);
             Passenger pass4 = new Passenger(user5.getFirstName(), user5.getLastName(), 51);
             Passenger pass5 = new Passenger(user6.getFirstName(), user6.getLastName(), 52);
-            Set set3 = new HashSet();
-
+            Set<Passenger> set3 = new HashSet<>();
             set3.add(pass3);
             set3.add(pass4);
             set3.add(pass5);
@@ -124,14 +123,13 @@ public class DataLoader implements CommandLineRunner {
             // Reservation: bool isRoundTrip, Date departureDate, Date returnDate, Str flightClass, int numberPassengers, User user, Flgt departure, Flgt arrival, Set passengers
             Date departDate = new Date();
             Date arriveDate = new Date();
-            ;
             DateFormat dsdf = new SimpleDateFormat("dd-MM-yyyy");
 
             String dDate1 = "13-10-2019";
             String aDate1 = "18-10-2019";
             departDate = dsdf.parse(dDate1);
             arriveDate = dsdf.parse(aDate1);
-            System.out.println(departDate);
+            //System.out.println(departDate);
             Reservation rsvr1 = new Reservation(true, departDate, arriveDate, "Economy", 1, user1, flight1, flight4, set1);
             reservationRepository.save(rsvr1);
 
