@@ -44,27 +44,32 @@ public class ReservationController {
     }
 
     @PostMapping("/processflightsearch")
-    public String processFlightSearch(Model model,
+    public String processFlightSearch(@ModelAttribute("reservation") Reservation reservation, Model model,
                                       @RequestParam(name="numberPassengers") int numPass,
                                       @RequestParam(name="SearchSelectorRT") String rtrip,
                                       @RequestParam(name="SearchSelectorPassClass") String passClass,
                                       @RequestParam(name = "SearchSelectorDepApt") String depApt,
-                                      @RequestParam(name = "SearchSelectorArrApt") String arrApt,
-                                      @RequestParam(name = "depDate") String depDate,
-                                      @RequestParam(name = "retDate") String retDate) {
+                                      @RequestParam(name = "SearchSelectorArrApt") String arrApt
+                                      /*@RequestParam(name = "depDate") String depDate,
+                                      @RequestParam(name = "retDate") String retDate*/) {
+
         model.addAttribute("depFlights", flightRepository
-                .findByDepartureAirportContainingAndArrivalAirportContaining(depApt, arrApt));
+                .findByDepartureAirportContainingIgnoreCaseAndArrivalAirportContainingIgnoreCase(depApt, arrApt));
         model.addAttribute("retFlights", flightRepository
-                .findByDepartureAirportContainingAndArrivalAirportContaining(arrApt, depApt));
+                .findByDepartureAirportContainingIgnoreCaseAndArrivalAirportContainingIgnoreCase(arrApt, depApt));
 
-        boolean isRoundTrip;
+//        boolean isRoundTrip;
         if (rtrip.equals("RoundTrip")) {
-            isRoundTrip = true;
-        } else {
-            isRoundTrip = false;
-        }
-        model.addAttribute("isRoundTrip", isRoundTrip);
+//            isRoundTrip = true;
+            reservation.setRoundTrip(true);
 
+        } else {
+//            isRoundTrip = false;
+            reservation.setRoundTrip(false);
+        }
+//        model.addAttribute("isRoundTrip", isRoundTrip);
+
+/*
         String pattern = "yyyy-MM-dd";
         try {
             String formattedDepDate = depDate.substring(1);
@@ -85,13 +90,40 @@ public class ReservationController {
         catch (java.text.ParseException e){
             e.printStackTrace();
         }
+*/
+        reservation.setNumberPassengers(numPass);
+        reservation.setFlightClass(passClass);
+        model.addAttribute(reservation);
 
-        model.addAttribute("numPass", numPass);
+/*        model.addAttribute("numPass", numPass);
         model.addAttribute("passClass", passClass);
         model.addAttribute("depApt", depApt);
-        model.addAttribute("arrApt", arrApt);
+        model.addAttribute("arrApt", arrApt);*/
 
-        return "listSearchResults";
+        return "redirect:/listSearchResults";
+    }
+
+    @GetMapping("/listSearchResults")
+    public String showSearchResultsForm(Model model, @RequestParam("reservation") Reservation reservation,
+                                        @RequestParam("depFlights") Iterable<Flight> depFlights,
+                                        @RequestParam("retFlights") Iterable<Flight> retFlights){
+
+        model.addAttribute("depFlights", depFlights);
+
+        System.out.println(((HashSet<Flight>) depFlights).size());
+        if (reservation.isRoundTrip() == true)
+            model.addAttribute("retFlights", retFlights);
+        else
+            model.addAttribute("retFlights", null);
+
+        Set<Passenger> passengers = new HashSet<Passenger>();
+        for (int i = 0; i < reservation.getNumberPassengers(); i++) {
+            passengers.add(new Passenger());
+        }
+        reservation.setPassengers(passengers);
+        model.addAttribute("reservation", reservation);
+
+        return "listsearchresults";
     }
 
     public double getTotalTripPrice(Reservation reservation){
@@ -101,14 +133,14 @@ public class ReservationController {
         int numPass = reservation.getNumberPassengers();
         double totalTripPrice = pricePerPassDep * numPass;
         if (reservation.isRoundTrip()) {
-            Flight returnFlight = reservation.getArrivalFlight();
+            Flight returnFlight = reservation.getReturnFlight();
             double pricePerPassRet = returnFlight.getPricePerPassenger(reservation.getFlightClass(), returnFlight.getBasePrice());
             windowPrice = 10.00;
             totalTripPrice += pricePerPassRet * numPass;
         }
         Set<Passenger> passengers = reservation.getPassengers();
         for(Passenger passenger : passengers){
-            if(passenger.isWindow){
+            if(passenger.isWindow()){
                 totalTripPrice += windowPrice;
             }
         }

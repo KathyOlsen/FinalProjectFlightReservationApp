@@ -33,6 +33,33 @@
 
         <br>
     </div>
+
+    <div class="jumbotron" th:if="retFlights">
+        <h1>Flight Search Results</h1>
+        <h3>Return Flights</h3>
+        <div class="row">
+            <div class="col-sm-2"><b>Flight #</b></div>
+            <div class="col-sm-2"><b>Departure Airport</b></div>
+            <div class="col-sm-2"><b>Arrival Airport</b></div>
+            <div class="col-sm-2"><b>Departure Time</b></div>
+            <div class="col-sm-2"><b>Arrival Time</b></div>
+            <div class="col-sm-2"><b>Price</b></div>
+        </div>
+        <div class="row" th:each="flight : ${depFlights}">
+            <div class="col-sm-2"><span th:text="${flight.flightNumber}"></span></div>
+            <div class="col-sm-2"><span th:text="${flight.departureAirport}"></span></div>
+            <div class="col-sm-2"><span th:text="${flight.arrivalAirport}"></span></div>
+            <div class="col-sm-2"><span th:text="${flight.departureTime}"></span></div>
+            <div class="col-sm-2"><span th:inline="text">[[${flight.calcArrivalTime()}]]</span></div>
+            <!-- <div class="col-sm-2"><span th:text="${flight.durationMinutes}"></span></div> -->
+            <div class="col-sm-2"><span th:inline="text">$ [[${#numbers.formatDecimal(flight.getPricePerPassenger(basePrice), 0, 'COMMA', 2, 'POINT')}]]</span></div>
+        </div>
+        <br>
+        <h3>Return Flights</h3>
+
+        <br>
+    </div>
+
 </div>
 <br>
 <div th:insert="base :: footer"></div>

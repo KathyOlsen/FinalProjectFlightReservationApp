@@ -2,7 +2,6 @@ package com.example.demo;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
-import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -38,21 +37,21 @@ public class Reservation {
 //        public Set<Reservation> reservations;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn (name = "flight_id")
+    @JoinColumn (name = "departure_flight_id")
     private Flight departureFlight;
 //    matching language in Flight.java should be:
 //        @OneToMany(mappedBy = "flight", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 //        public Set<Reservation> reservations;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn (name = "flight_id", insertable=false, updatable=false)
-    private Flight arrivalFlight;
+    @JoinColumn (name = "return_flight_id", insertable=false, updatable=false)
+    private Flight returnFlight;
     //    matching language in Flight.java should be:
 //        @OneToMany(mappedBy = "flight", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 //        public Set<Reservation> reservations;
 
     @OneToMany(mappedBy = "reservation", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    public Set<Passenger> passengers;
+    private Set<Passenger> passengers;
 
     public Reservation() {
     }
@@ -64,7 +63,7 @@ public class Reservation {
                        int numberPassengers,
                        User user,
                        Flight departureFlight,
-                       Flight arrivalFlight) {
+                       Flight returnFlight) {
         this.isRoundTrip = isRoundTrip;
         this.departureDate = departureDate;
         this.returnDate = returnDate;
@@ -72,7 +71,7 @@ public class Reservation {
         this.numberPassengers = numberPassengers;
         this.user = user;
         this.departureFlight = departureFlight;
-        this.arrivalFlight = arrivalFlight;
+        this.returnFlight = returnFlight;
     }
 
     public Reservation(boolean isRoundTrip,
@@ -91,7 +90,7 @@ public class Reservation {
         this.numberPassengers = numberPassengers;
         this.user = user;
         this.departureFlight = departureFlight;
-        this.arrivalFlight = arrivalFlight;
+        this.returnFlight = returnFlight;
         this.passengers = passengers;
     }
 
@@ -159,12 +158,12 @@ public class Reservation {
         this.departureFlight = departureFlight;
     }
 
-    public Flight getArrivalFlight() {
-        return arrivalFlight;
+    public Flight getReturnFlight() {
+        return returnFlight;
     }
 
-    public void setArrivalFlight(Flight arrivalFlight) {
-        this.arrivalFlight = arrivalFlight;
+    public void setReturnFlight(Flight returnFlight) {
+        this.returnFlight = returnFlight;
     }
 
     public Set<Passenger> getPassengers() {
