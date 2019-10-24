@@ -37,4 +37,5 @@ public class HomeController {
                 .findByUserAndDepartureDateIsBefore(user,today));
         return "/flighthistory";
     }
+
 }

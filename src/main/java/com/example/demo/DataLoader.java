@@ -144,7 +144,7 @@ public class DataLoader implements CommandLineRunner {
             String aDate3 = "29-12-2019";
             departDate = dsdf.parse(dDate3);
             arriveDate = dsdf.parse(aDate3);
-            Reservation rsvr3 = new Reservation(true, departDate, arriveDate, "Economy", 3, user2, flight3, flight6, set3);
+            Reservation rsvr3 = new Reservation(true, departDate, arriveDate, "Economy", 3, user3, flight3, flight6, set3);
             reservationRepository.save(rsvr3);
 
             // Inserting the reservation in the passenger class

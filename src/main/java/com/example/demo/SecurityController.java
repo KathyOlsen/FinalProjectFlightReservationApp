@@ -101,10 +101,6 @@ public class SecurityController {
         return "showuser";
     }
 
-    @GetMapping("/getBoardingPass")
-    public String getBoardingPass() {
 
-        return "boardingpass";
-    }
 
 }
