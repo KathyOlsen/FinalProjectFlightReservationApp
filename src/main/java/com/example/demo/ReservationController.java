@@ -64,11 +64,11 @@ public class ReservationController {
 //        Reservation r = reservation;
         if (rtrip.equals("RoundTrip")) {
 //            isRoundTrip = true;
-            reservation.setRoundTrip(true);
+            reservation.setIsRoundTrip(true);
 
         } else {
 //            isRoundTrip = false;
-            reservation.setRoundTrip(false);
+            reservation.setIsRoundTrip(false);
         }
 //        model.addAttribute("isRoundTrip", isRoundTrip);
 
@@ -85,7 +85,7 @@ public class ReservationController {
             e.printStackTrace();
         }
 
-        if (reservation.isRoundTrip()) {
+        if (reservation.getIsRoundTrip()) {
             try {
                 String formattedRetDate = retDate.substring(1);
                 SimpleDateFormat simpleRetDateFormat = new SimpleDateFormat(pattern);
@@ -115,7 +115,7 @@ public class ReservationController {
         Reservation r = (Reservation) request.getAttribute("reservation");
         model.addAttribute("depFlights", request.getAttribute("depFlights"));
 
-        if (r.isRoundTrip() == true) {
+        if (r.getIsRoundTrip() == true) {
             model.addAttribute("retFlights", request.getAttribute("retFlights"));
         }
         else {
@@ -137,7 +137,7 @@ public class ReservationController {
         double windowPrice = 5.00;
         int numPass = reservation.getNumberPassengers();
         double totalTripPrice = pricePerPassDep * numPass;
-        if (reservation.isRoundTrip()) {
+        if (reservation.getIsRoundTrip()==true) {
             Flight returnFlight = reservation.getReturnFlight();
             double pricePerPassRet = returnFlight.getPricePerPassenger(reservation.getFlightClass(), returnFlight.getBasePrice());
             windowPrice = 10.00;
