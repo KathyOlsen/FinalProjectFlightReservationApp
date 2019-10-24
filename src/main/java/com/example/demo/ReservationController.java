@@ -145,7 +145,7 @@ public class ReservationController {
         }
         Set<Passenger> passengers = reservation.getPassengers();
         for(Passenger passenger : passengers){
-            if(passenger.isWindow()){
+            if(passenger.getIsWindow()==true){
                 totalTripPrice += windowPrice;
             }
         }
