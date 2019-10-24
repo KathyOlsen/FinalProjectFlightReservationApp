@@ -31,11 +31,11 @@
             <div class="col-sm-1"><span th:text="${reservation.departureFlight.departureTime}"></span></div>
             <div class="col-sm-1"><span th:text="${reservation.departureFlight.arrivalAirport}"></span></div>
             <div class="col-sm-1"><span th:inline="text">[[${reservation.departureFlight.calcArrivalTime()}]]</span></div>
-            <div class="col-sm-1"><span th:if="${reservation.isRoundTrip(true)}" th:text="${reservation.arrivalFlight.departureDate}"></span></div>
-            <div class="col-sm-1"><span th:if="${reservation.isRoundTrip(true)}" th:text="${reservation.arrivalFlight.flightNumber}"></span></div>
-            <div class="col-sm-1"><span th:if="${reservation.isRoundTrip(true)}" th:text="${reservation.arrivalFlight.departureAirport}"></span></div>
-            <div class="col-sm-1"><span th:if="${reservation.isRoundTrip(true)}" th:text="${reservation.arrivalFlight.departureTime}"></span></div>
-            <div class="col-sm-1"><span th:if="${reservation.isRoundTrip(true)}" th:text="${reservation.arrivalFlight.arrivalAirport}"></span></div>
+            <div class="col-sm-1"><span th:if="${reservation.isRoundTrip(true)}" th:text="${reservation.returnFlight.departureDate}"></span></div>
+            <div class="col-sm-1"><span th:if="${reservation.isRoundTrip(true)}" th:text="${reservation.returnFlight.flightNumber}"></span></div>
+            <div class="col-sm-1"><span th:if="${reservation.isRoundTrip(true)}" th:text="${reservation.returnFlight.departureAirport}"></span></div>
+            <div class="col-sm-1"><span th:if="${reservation.isRoundTrip(true)}" th:text="${reservation.returnFlight.departureTime}"></span></div>
+            <div class="col-sm-1"><span th:if="${reservation.isRoundTrip(true)}" th:text="${reservation.returnFlight.arrivalAirport}"></span></div>
             <div class="col-sm-1"><span th:if="${reservation.isRoundTrip(true)}" th:inline="text">[[${reservation.arrivalFlight.calcArrivalTime()}]]</span></div>
         </div>
         <br>

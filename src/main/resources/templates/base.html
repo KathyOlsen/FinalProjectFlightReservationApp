@@ -14,8 +14,8 @@
 <body>
 <div th:fragment="navlinks">
     <nav class="nav">
-        <span style="color: yellow; font-size: x-large"><b>FantasticFlights.com </b></span>&nbsp;&nbsp;
-        <span sec:authorize="isAuthenticated()" style="color:whitesmoke; font-size: x-large">  Welcome,
+        <span style="color: yellow; font-size: x-large"><b> FantasticFlights.com </b></span>&nbsp;&nbsp;
+        <span id="welcome" sec:authorize="isAuthenticated()">  Welcome,
             <span th:text="${#authentication.name}"></span></span>
         <a class="nav-link"  href="/">Home</a>&nbsp;
         <a class="nav-link"  href="/flightsearchform">Flight Search</a>&nbsp;
@@ -33,14 +33,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </div>
 </body>
-<div th:fragment="footer"
-     position="fixed"
-     style="padding-left: 0px; padding-right: 0px; padding-bottom: 0px;
-     width: 100%;
-     text-align: center;
-     background-color: darkblue;
-     color: whitesmoke"
-     font-family="'Scheherazade', serif;" font-size 18px>
-    &#0169; 2019 Katherine K. Olsen, John Kneisler, and Daniel G. Kneto. All rights reserved.
+<div id="footer" th:fragment="footer">
+    &#0169; 2019 Katherine K. Olsen, John Kneisler, and Daniel Krause. All rights reserved.
 </div>
 </html>
