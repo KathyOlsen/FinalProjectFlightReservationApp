@@ -11,7 +11,7 @@
     <div class="jumbotron">
        <h1>New User Registration</h1>
       <form autocomplete="off" action="#" th:action="@{/register}" th:object="${user}" method="post">
-          Password:&nbsp;&#8239;
+          Password:&nbsp;&nbsp;&#8239;
           <mark><strong><span th:if="${#fields.hasErrors('password')}"
                               th:errors="*{password}">Password Error</span></strong></mark>
           <input type="text" id="password" placeholder="Password" th:field="(*{password})"/><br>
@@ -21,41 +21,41 @@
                               th:errors="*{firstName}">First Name Error</span></strong></mark>
           <input type="text" id="firstName" placeholder="First Name" th:field="(*{firstName})"/><br>
 
-          Last Name:
+          Last Name:&#8239;
           <mark><strong><span th:if="${#fields.hasErrors('lastName')}"
                               th:errors="*{lastName}">Last Name Error</span></strong></mark>
           <input type="text" id="lastName" placeholder="Last Name" th:field="(*{lastName})"/><br>
 
-          Username:&#8239;
+          Username:&#8239;&nbsp;
           <mark><strong><span th:if="${#fields.hasErrors('username')}"
                               th:errors="*{username}">Username Error</span></strong></mark>
           <input type="text" id="username" placeholder="Username" th:field="(*{username})"/><br>
 
-          Birthdate:
+          Birthdate:&nbsp;&nbsp;&nbsp;
           <mark><strong><span th:if="${#fields.hasErrors('birthdate')}"
                               th:errors="*{birthdate}">Birthdate Error</span></strong></mark>
           <input type="text" id="birthdate" placeholder="Birthdate" th:field="(*{birthdate})"/><br>
 
           Citizenship:
           <mark><strong><span th:if="${#fields.hasErrors('citizenship')}"
-                              th:errors="*{citizenship}">Birthdate Error</span></strong></mark>
+                              th:errors="*{citizenship}">Citizenship Error</span></strong></mark>
           <input type="text" id="citizenship" placeholder="Citizenship" th:field="(*{citizenship})"/><br>
 
-          Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <mark><strong><span th:if="${#fields.hasErrors('email')}"
                               th:errors="*{email}">Email Error</span></strong></mark>
           <input type="text" id="email" placeholder="Email" th:field="(*{email})"/><br>
 
-          Phone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Phone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#8239;
           <mark><strong><span th:if="${#fields.hasErrors('phone')}"
-                              th:errors="*{phone}">Email Error</span></strong></mark>
+                              th:errors="*{phone}">Phone Error</span></strong></mark>
           <input type="text" id="phone" placeholder="Phone" th:field="(*{phone})"/><br>
 
           <button type="submit" class="btn btn-default">Submit</button>
       </form>
     </div>
 </div>
-<br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
 <div th:insert="base :: footer"></div>
 <div th:insert="base :: bootstrapScripts"></div>
 </body>
