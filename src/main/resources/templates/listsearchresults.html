@@ -89,7 +89,11 @@
                 </div>
                 <div class="form-group">
                     <label for="p1seatNumber">Seat Number</label>
-                    <input class="form-control" id="p1seatNumber" type="number" name="p1seatNumber" th:field="${passenger.seatNumber}" />
+                    <select class="form-control" id="p1seatNumber" type="number" name="p1seatNumber" th:field="${passenger.seatNumber}">
+                        <option value="window">6A (Window Seat)</option>
+                        <option value="middle">6B (Middle Seat)</option>
+                        <option value="aisle">6C (Aisle Seat)</option>
+                    </select>
                 </div>
             </div>
             <div th:if="${reservation.getNumberPassengers()>1}">
@@ -105,7 +109,11 @@
                 </div>
                 <div class="form-group">
                     <label for="p2seatNumber">Seat Number</label>
-                    <input class="form-control" id="p2seatNumber" type="number" name="p2seatNumber" th:field="${passenger.seatNumber}" />
+                    <select class="form-control" id="p2seatNumber" type="number" name="p2seatNumber" th:field="${passenger.seatNumber}">
+                        <option value="window">6A (Window Seat)</option>
+                        <option value="middle">6B (Middle Seat)</option>
+                        <option value="aisle">6C (Aisle Seat)</option>
+                    </select>
                 </div>
             </div>
             <p>Please review your flight selections and passenger information to ensure everything
