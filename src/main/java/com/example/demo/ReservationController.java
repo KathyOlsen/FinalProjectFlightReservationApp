@@ -80,6 +80,7 @@ public class ReservationController {
                                       @RequestParam(name = "SearchSelectorArrApt") String arrApt
                                       /*@RequestParam(name = "depDate") String depDate,
                                       @RequestParam(name = "retDate") String retDate*/) {
+
         model.addAttribute("depFlights", flightRepository
                 .findByDepartureAirportContainingIgnoreCaseAndArrivalAirportContainingIgnoreCase(depApt, arrApt));
         model.addAttribute("retFlights", flightRepository
@@ -131,15 +132,17 @@ public class ReservationController {
     }
 
     @GetMapping("/listSearchResults")
-    public String showSearchResultsForm(@ModelAttribute("reservation"),
-                                        @ModelAttribute("depFlights"),
-                                        @ModelAttribute("retFlights"), Model model){
+    public String showSearchResultsForm(Model model, @RequestParam("reservation") Reservation reservation,
+                                        @RequestParam("depFlights") Iterable<Flight> depFlights,
+                                        @RequestParam("retFlights") Iterable<Flight> retFlights){
 
-//        model.addAttribute("depFlights", depFlights);
+        model.addAttribute("depFlights", depFlights);
 
-        System.out.println(dep);
+        System.out.println(((HashSet<Flight>) depFlights).size());
         if (reservation.isRoundTrip() == true)
             model.addAttribute("retFlights", retFlights);
+        else
+            model.addAttribute("retFlights", null);
 
         Set<Passenger> passengers = new HashSet<Passenger>();
         for (int i = 0; i < reservation.getNumberPassengers(); i++) {
