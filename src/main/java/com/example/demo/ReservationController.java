@@ -91,7 +91,7 @@ public class ReservationController {
                 SimpleDateFormat simpleRetDateFormat = new SimpleDateFormat(pattern);
                 Date realRetDate = simpleRetDateFormat.parse(formattedRetDate);
 //            model.addAttribute("retDate", realRetDate);
-                reservation.setDepartureDate(realRetDate);
+                reservation.setReturnDate(realRetDate);
             } catch (java.text.ParseException e) {
                 e.printStackTrace();
             }
@@ -125,10 +125,18 @@ public class ReservationController {
         for (int i = 0; i < r.getNumberPassengers(); i++) {
             passengers.add(new Passenger());
         }
-        r.setPassengers(passengers);
+//        r.setPassengers(passengers);
+        model.addAttribute("passengers", passengers);
         model.addAttribute("reservation", r);
 
         return "listsearchresults";
+    }
+
+    @PostMapping("/confirmReservation")
+    public String confirmReservation(@ModelAttribute("reservation") Reservation reservation, Model model,
+                                     @RequestParam(name="depFlight") Flight depFlight, @RequestParam(name="retFlight") Flight retFlight) {
+        //working in progress
+    return "index";
     }
 
     public double getTotalTripPrice(Reservation reservation){
