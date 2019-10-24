@@ -85,11 +85,13 @@ public class Passenger {
         this.seatNumber = seatNumber;
     }
 
-    public boolean isWindow() {
+    public boolean getIsWindow() {
         return isWindow;
     }
 
-    public void setWindow(boolean window) {
-        isWindow = window;
+    public void setIsWindow(boolean window) {
+        this.isWindow = isWindow;
     }
+
+
 }

@@ -18,7 +18,7 @@
         <span sec:authorize="isAuthenticated()" style="color:whitesmoke; font-size: x-large">  Welcome,
             <span th:text="${#authentication.name}"></span></span>
         <a class="nav-link"  href="/">Home</a>&nbsp;
-        <a class="nav-link"  href="/flightsearch">Flight Search</a>&nbsp;
+        <a class="nav-link"  href="/flightsearchform">Flight Search</a>&nbsp;
         <a sec:authorize="isAuthenticated()" class="nav-link"  href="/flighthistory">My Flight History</a>
         <a sec:authorize="!isAuthenticated()" class="nav-link"  href="/login">Log In</a>&nbsp;
         <a sec:authorize="!isAuthenticated()" class="nav-link"  href="/register">Register</a>&nbsp;
