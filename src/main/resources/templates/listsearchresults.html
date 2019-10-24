@@ -11,55 +11,90 @@
     <div class="jumbotron">
         <h1>Flight Search Results</h1>
         <h3>Departure Flights</h3>
-        <div class="row">
-            <div class="col-sm-2"><b>Flight #</b></div>
-            <div class="col-sm-2"><b>Departure Airport</b></div>
-            <div class="col-sm-2"><b>Arrival Airport</b></div>
-            <div class="col-sm-2"><b>Departure Time</b></div>
-            <div class="col-sm-2"><b>Arrival Time</b></div>
-            <div class="col-sm-2"><b>Price</b></div>
-        </div>
-        <div class="row" th:each="flight : ${depFlights}">
-            <div class="col-sm-2"><span th:text="${flight.flightNumber}"></span></div>
-            <div class="col-sm-2"><span th:text="${flight.departureAirport}"></span></div>
-            <div class="col-sm-2"><span th:text="${flight.arrivalAirport}"></span></div>
-            <div class="col-sm-2"><span th:text="${flight.departureTime}"></span></div>
-            <div class="col-sm-2"><span th:inline="text">[[${flight.calcArrivalTime()}]]</span></div>
-            <!-- <div class="col-sm-2"><span th:text="${flight.durationMinutes}"></span></div> -->
-            <div class="col-sm-2"><span th:inline="text">$ [[${#numbers.formatDecimal(flight.getPricePerPassenger(basePrice), 0, 'COMMA', 2, 'POINT')}]]</span></div>
-        </div>
-        <br>
-        <h3>Return Flights</h3>
+        <table class="table table-hover text-nowrap table-responsive-xl" th:if="${!depFlights.isEmpty()}">
+            <thead class="thead-dark">
+            <tr>
+                <th>Choose</th>
+                <th>Flight #</th>
+                <th>Departure Airport</th>
+                <th>Arrival Airport</th>
+                <th>Departure Time</th>
+                <th>Arrival Time</th>
+                <th>Duration (minutes)</th>
+                <th>Price (US$)</th>
+            </tr>
+            </thead>
+            <tbody>
+<!--            <form th:action="@{#}" th:object="${reservation}" method="post">-->
+                <tr th:each="depFlight : ${depFlights}">
+                    <td style="max-width: 130px" class="text-truncate"><label><input type="radio" id="depFlightRadio" th:value="${depFlight.id}" name="depFlightRadio"></label></td>
+                    <td style="max-width: 130px" class="text-truncate" th:text="${depFlight.flightNumber}"></td>
+                    <td style="max-width: 130px" class="text-truncate" th:text="${depFlight.departureAirport}"></td></td>
+                    <td style="max-width: 130px" class="text-truncate" th:text="${depFlight.arrivalAirport}"></td>
+                    <td style="max-width: 230px" class="text-truncate" th:text="${#dates.format(reservation.departureDate, 'dd-MMM-yyyy') + ' ' + depFlight.departureTime}"></td>
+                    <td style="max-width: 130px" class="text-truncate" th:text="${depFlight.calcArrivalTime()}"></td>
+                    <td style="max-width: 130px" class="text-truncate" th:text="${depFlight.durationMinutes}"></td>
+                    <td style="max-width: 130px" class="text-truncate" th:text="${#numbers.formatDecimal(depFlight.getPricePerPassenger(reservation.flightClass, depFlight.basePrice), 0, 'COMMA', 2, 'POINT')}"></td>
+                </tr>
+<!--            </form>-->
+            </tbody>
+        </table>
 
         <br>
+
+        <div th:if="${retFlights != null}">
+            <h3>Return Flights</h3>
+            <table class="table table-hover text-nowrap table-responsive-xl" th:if="${!retFlights.isEmpty()}">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Choose</th>
+                    <th>Flight #</th>
+                    <th>Departure Airport</th>
+                    <th>Arrival Airport</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Time</th>
+                    <th>Duration (minutes)</th>
+                    <th>Price (US$)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--            <form th:action="@{#}" th:object="${reservation}" method="post">-->
+                <tr th:each="retFlight : ${retFlights}">
+                    <td style="max-width: 130px" class="text-truncate"><label><input type="radio" id="retFlightRadio" th:value="${retFlight.id}" name="retFlightRadio"></label></td>
+                    <td style="max-width: 130px" class="text-truncate" th:text="${retFlight.flightNumber}"></td>
+                    <td style="max-width: 130px" class="text-truncate" th:text="${retFlight.departureAirport}"></td></td>
+                    <td style="max-width: 130px" class="text-truncate" th:text="${retFlight.arrivalAirport}"></td>
+                    <td style="max-width: 230px" class="text-truncate" th:text="${#dates.format(reservation.departureDate, 'dd-MMM-yyyy') + ' ' + retFlight.departureTime}"></td>
+                    <td style="max-width: 130px" class="text-truncate" th:text="${retFlight.calcArrivalTime()}"></td>
+                    <td style="max-width: 130px" class="text-truncate" th:text="${retFlight.durationMinutes}"></td>
+                    <td style="max-width: 130px" class="text-truncate" th:text="${#numbers.formatDecimal(retFlight.getPricePerPassenger(reservation.flightClass, retFlight.basePrice), 0, 'COMMA', 2, 'POINT')}"></td>
+                </tr>
+                <!--            </form>-->
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <form th:action="@{/confirmReservation}" th:object="${reservation}" method="post">
+<!--
+            <div th:each="passenger : ${passengers}">
+&lt;!&ndash;                <input type="hidden" th:field="${passenger.id}" />&ndash;&gt;
+                <div class="form-group">
+                    <label for="firstName">firstName</label>
+                    <input class="form-control" id="firstName" type="text" placeholder="firstName" th:field="${passenger.firstName}" />
+                </div>
+                <div class="form-group">
+                    <label for="lastName">lastName</label>
+                    <textarea rows="3" class="form-control" id="lastName" placeholder="lastName" th:field="${passenger.lastName}" />
+                </div>
+                <div class="form-group">
+                    <label for="seatNumber">seatNumber</label>
+                    <input class="form-control" id="seatNumber" type="number" placeholder="seatNumber" th:field="${passenger.seatNumber}" />
+                </div>
+            </div>
+-->
+            <input class="btn btn-primary btn-md" type="submit" value="Confirm Reservation">
+        </form>
     </div>
-
-    <div class="jumbotron" th:if="retFlights">
-        <h1>Flight Search Results</h1>
-        <h3>Return Flights</h3>
-        <div class="row">
-            <div class="col-sm-2"><b>Flight #</b></div>
-            <div class="col-sm-2"><b>Departure Airport</b></div>
-            <div class="col-sm-2"><b>Arrival Airport</b></div>
-            <div class="col-sm-2"><b>Departure Time</b></div>
-            <div class="col-sm-2"><b>Arrival Time</b></div>
-            <div class="col-sm-2"><b>Price</b></div>
-        </div>
-        <div class="row" th:each="flight : ${depFlights}">
-            <div class="col-sm-2"><span th:text="${flight.flightNumber}"></span></div>
-            <div class="col-sm-2"><span th:text="${flight.departureAirport}"></span></div>
-            <div class="col-sm-2"><span th:text="${flight.arrivalAirport}"></span></div>
-            <div class="col-sm-2"><span th:text="${flight.departureTime}"></span></div>
-            <div class="col-sm-2"><span th:inline="text">[[${flight.calcArrivalTime()}]]</span></div>
-            <!-- <div class="col-sm-2"><span th:text="${flight.durationMinutes}"></span></div> -->
-            <div class="col-sm-2"><span th:inline="text">$ [[${#numbers.formatDecimal(flight.getPricePerPassenger(basePrice), 0, 'COMMA', 2, 'POINT')}]]</span></div>
-        </div>
-        <br>
-        <h3>Return Flights</h3>
-
-        <br>
-    </div>
-
 </div>
 <br>
 <div th:insert="base :: footer"></div>
