@@ -39,7 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/","/h2-console/**","/register","/flightsearchform",
                         "/processflightsearch","/flightsearchresults","/listsearchresults","/listSearchResults","/css/**")
                     .permitAll()
-                .antMatchers("/flighthistory")
+                .antMatchers("/flighthistory","/confirmReservation","/showboardingpass")
                     .access("hasAnyAuthority('ADMIN','USER')")
                 .antMatchers("/admin","/rolelist","/showrole","/userlist", "/showuser","/flightform","/flightlistadmin")
                     .access("hasAuthority('ADMIN')")

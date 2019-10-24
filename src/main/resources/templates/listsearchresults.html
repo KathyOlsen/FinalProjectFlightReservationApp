@@ -75,23 +75,43 @@
         </div>
         <br>
         <form th:action="@{/confirmReservation}" th:object="${reservation}" method="post">
-<!--
-            <div th:each="passenger : ${passengers}">
-&lt;!&ndash;                <input type="hidden" th:field="${passenger.id}" />&ndash;&gt;
+
+            <div >
+                <P>Passenger 1</P>
+                <input type="hidden"  name = "p1id" th:field="${passenger.id}">
                 <div class="form-group">
-                    <label for="firstName">firstName</label>
-                    <input class="form-control" id="firstName" type="text" placeholder="firstName" th:field="${passenger.firstName}" />
+                    <label for="p1firstName">First Name</label>
+                    <input class="form-control" id="p1firstName" type="text" name="p1firstName" th:field="${passenger.firstName}" />
                 </div>
                 <div class="form-group">
-                    <label for="lastName">lastName</label>
-                    <textarea rows="3" class="form-control" id="lastName" placeholder="lastName" th:field="${passenger.lastName}" />
+                    <label for="p1lastName">Last Name</label>
+                    <input class="form-control" id="p1lastName" type="text" name="p1lastName" th:field="${passenger.lastName}" />
                 </div>
                 <div class="form-group">
-                    <label for="seatNumber">seatNumber</label>
-                    <input class="form-control" id="seatNumber" type="number" placeholder="seatNumber" th:field="${passenger.seatNumber}" />
+                    <label for="p1seatNumber">Seat Number</label>
+                    <input class="form-control" id="p1seatNumber" type="number" name="p1seatNumber" th:field="${passenger.seatNumber}" />
                 </div>
             </div>
--->
+            <div th:if="${reservation.getNumberPassengers()>1}">
+                <P>Passenger 2</P>
+                <input type="hidden" name = "p2id" th:field="${passenger.id}">
+                <div class="form-group">
+                    <label for="p2firstName">First Name</label>
+                    <input class="form-control" id="p2firstName" type="text" name="p2firstName" th:field="${passenger.firstName}" />
+                </div>
+                <div class="form-group">
+                    <label for="p2lastName">Last Name</label>
+                    <input class="form-control" id="p2lastName" type="text" name="p2lastName" th:field="${passenger.lastName}" />
+                </div>
+                <div class="form-group">
+                    <label for="p2seatNumber">Seat Number</label>
+                    <input class="form-control" id="p2seatNumber" type="number" name="p2seatNumber" th:field="${passenger.seatNumber}" />
+                </div>
+            </div>
+            <p>Please review your flight selections and passenger information to ensure everything
+                is correct, then press "Confirm Reservation." If you are not already logged in,
+                you will be prompted to log in.</p>
+
             <input class="btn btn-primary btn-md" type="submit" value="Confirm Reservation">
         </form>
     </div>

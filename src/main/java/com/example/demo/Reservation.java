@@ -2,6 +2,7 @@ package com.example.demo;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
@@ -29,12 +30,9 @@ public class Reservation {
     @Min(1)
     private int numberPassengers;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "user_id")
     private User user;
-//    matching language in User.java should be:
-//        @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-//        public Set<Reservation> reservations;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "departure_flight_id")
@@ -51,7 +49,7 @@ public class Reservation {
 //        public Set<Reservation> reservations;
 
     @OneToMany(mappedBy = "reservation", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    private Set<Passenger> passengers;
+    private Collection<Passenger> passengers;
 
     public Reservation() {
     }
@@ -82,7 +80,7 @@ public class Reservation {
                        User user,
                        Flight departureFlight,
                        Flight returnFlight,
-                       Set<Passenger> passengers) {
+                       Collection<Passenger> passengers) {
         this.isRoundTrip = isRoundTrip;
         this.departureDate = departureDate;
         this.returnDate = returnDate;
@@ -166,11 +164,11 @@ public class Reservation {
         this.returnFlight = returnFlight;
     }
 
-    public Set<Passenger> getPassengers() {
+    public Collection<Passenger> getPassengers() {
         return passengers;
     }
 
-    public void setPassengers(Set<Passenger> passengers) {
+    public void setPassengers(Collection<Passenger> passengers) {
         this.passengers = passengers;
     }
 }

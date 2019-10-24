@@ -41,18 +41,17 @@ public class User {
     @Column(name="phone", nullable = false)
     private String phone;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(joinColumns = @JoinColumn(name="user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
     // From John: Hibernate does not like two collections with FetchType.EAGER.
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private Collection<Reservation> reservations;
 
     public User() {
     }
-
 
     public User(String firstName,
                 String lastName,

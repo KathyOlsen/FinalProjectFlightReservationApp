@@ -22,7 +22,7 @@ public class Passenger {
     @Column (name = "is_window")
     private boolean isWindow;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "reservation_id")
     private Reservation reservation;
 
