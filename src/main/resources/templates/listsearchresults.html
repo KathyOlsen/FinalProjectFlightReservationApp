@@ -17,25 +17,21 @@
             <div class="col-sm-2"><b>Arrival Airport</b></div>
             <div class="col-sm-2"><b>Departure Time</b></div>
             <div class="col-sm-2"><b>Arrival Time</b></div>
+            <div class="col-sm-2"><b>Duration (minutes)</b></div>
             <div class="col-sm-2"><b>Price</b></div>
         </div>
-        <div class="row" th:each="flight : ${depFlights}">
-            <div class="col-sm-2"><span th:text="${flight.flightNumber}"></span></div>
-            <div class="col-sm-2"><span th:text="${flight.departureAirport}"></span></div>
-            <div class="col-sm-2"><span th:text="${flight.arrivalAirport}"></span></div>
-            <div class="col-sm-2"><span th:text="${flight.departureTime}"></span></div>
-            <div class="col-sm-2"><span th:inline="text">[[${flight.calcArrivalTime()}]]</span></div>
-            <!-- <div class="col-sm-2"><span th:text="${flight.durationMinutes}"></span></div> -->
-            <div class="col-sm-2"><span th:inline="text">$ [[${#numbers.formatDecimal(flight.getPricePerPassenger(basePrice), 0, 'COMMA', 2, 'POINT')}]]</span></div>
+        <div class="row" th:each="depFlight : ${depFlights}">
+            <div class="col-sm-2"><span th:text="${depFlight.flightNumber}"></span></div>
+            <div class="col-sm-2"><span th:text="${depFlight.departureAirport}"></span></div>
+            <div class="col-sm-2"><span th:text="${depFlight.arrivalAirport}"></span></div>
+            <div class="col-sm-2"><span th:text="${reservation.departureDate + ' ' + depFlight.departureTime}"></span></div>
+            <div class="col-sm-2"><span th:text="${depFlight.calcArrivalTime()}"></span></div>
+            <div class="col-sm-2"><span th:text="${depFlight.durationMinutes}"></span></div>
+            <div class="col-sm-2">$ <span th:text="${#numbers.formatDecimal(depFlight.getPricePerPassenger(reservation.flightClass, depFlight.basePrice), 0, 'COMMA', 2, 'POINT')}"></span></div>
         </div>
-        <br>
-        <h3>Return Flights</h3>
-
-        <br>
     </div>
-
-    <div class="jumbotron" th:if="retFlights">
-        <h1>Flight Search Results</h1>
+    <br>
+    <div class="jumbotron" th:if="${retFlights != null}">
         <h3>Return Flights</h3>
         <div class="row">
             <div class="col-sm-2"><b>Flight #</b></div>
@@ -43,23 +39,19 @@
             <div class="col-sm-2"><b>Arrival Airport</b></div>
             <div class="col-sm-2"><b>Departure Time</b></div>
             <div class="col-sm-2"><b>Arrival Time</b></div>
+            <div class="col-sm-2"><b>Duration (minutes)</b></div>
             <div class="col-sm-2"><b>Price</b></div>
         </div>
-        <div class="row" th:each="flight : ${depFlights}">
-            <div class="col-sm-2"><span th:text="${flight.flightNumber}"></span></div>
-            <div class="col-sm-2"><span th:text="${flight.departureAirport}"></span></div>
-            <div class="col-sm-2"><span th:text="${flight.arrivalAirport}"></span></div>
-            <div class="col-sm-2"><span th:text="${flight.departureTime}"></span></div>
-            <div class="col-sm-2"><span th:inline="text">[[${flight.calcArrivalTime()}]]</span></div>
-            <!-- <div class="col-sm-2"><span th:text="${flight.durationMinutes}"></span></div> -->
-            <div class="col-sm-2"><span th:inline="text">$ [[${#numbers.formatDecimal(flight.getPricePerPassenger(basePrice), 0, 'COMMA', 2, 'POINT')}]]</span></div>
+        <div class="row" th:each="retFlight : ${retFlights}">
+            <div class="col-sm-2"><span th:text="${retFlight.flightNumber}"></span></div>
+            <div class="col-sm-2"><span th:text="${retFlight.departureAirport}"></span></div>
+            <div class="col-sm-2"><span th:text="${retFlight.arrivalAirport}"></span></div>
+            <div class="col-sm-2"><span th:text="${reservation.departureDate + ' ' + retFlight.departureTime}"></span></div>
+            <div class="col-sm-2"><span th:text="${retFlight.calcArrivalTime()}"></span></div>
+            <div class="col-sm-2"><span th:text="${retFlight.durationMinutes}"></span></div>
+            <div class="col-sm-2">$ <span th:text="${#numbers.formatDecimal(retFlight.getPricePerPassenger(reservation.flightClass, retFlight.basePrice), 0, 'COMMA', 2, 'POINT')}"></span></div>
         </div>
-        <br>
-        <h3>Return Flights</h3>
-
-        <br>
     </div>
-
 </div>
 <br>
 <div th:insert="base :: footer"></div>
