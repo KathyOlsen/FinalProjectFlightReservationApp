@@ -94,12 +94,12 @@ public class Reservation {
         this.passengers = passengers;
     }
 
-    public boolean isRoundTrip() {
+    public boolean getIsRoundTrip() {
         return isRoundTrip;
     }
 
-    public void setRoundTrip(boolean roundTrip) {
-        isRoundTrip = roundTrip;
+    public void setIsRoundTrip(boolean isRoundTrip) {
+        this.isRoundTrip = isRoundTrip;
     }
 
     public long getId() {
