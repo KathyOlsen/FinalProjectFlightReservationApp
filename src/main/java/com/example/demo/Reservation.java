@@ -44,7 +44,7 @@ public class Reservation {
 //        public Set<Reservation> reservations;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn (name = "return_flight_id", insertable=false, updatable=false)
+    @JoinColumn (name = "return_flight_id")
     private Flight returnFlight;
     //    matching language in Flight.java should be:
 //        @OneToMany(mappedBy = "flight", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
@@ -81,7 +81,7 @@ public class Reservation {
                        int numberPassengers,
                        User user,
                        Flight departureFlight,
-                       Flight arrivalFlight,
+                       Flight returnFlight,
                        Set<Passenger> passengers) {
         this.isRoundTrip = isRoundTrip;
         this.departureDate = departureDate;
