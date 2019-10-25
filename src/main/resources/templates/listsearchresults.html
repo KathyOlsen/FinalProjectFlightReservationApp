@@ -7,44 +7,15 @@
 <body>
 <div th:insert="base :: navlinks"></div>
 <br>
-<div class="container">
+<div class="container-fluid">
     <div class="jumbotron">
         <h1>Flight Search Results</h1>
-        <h3>Departure Flights</h3>
-        <table class="table table-hover text-nowrap table-responsive-xl" th:if="${!depFlights.isEmpty()}">
-            <thead class="thead-dark">
-            <tr>
-                <th>Choose</th>
-                <th>Flight #</th>
-                <th>Departure Airport</th>
-                <th>Arrival Airport</th>
-                <th>Departure Time</th>
-                <th>Arrival Time</th>
-                <th>Duration (minutes)</th>
-                <th>Price (US$)</th>
-            </tr>
-            </thead>
-            <tbody>
-<!--            <form th:action="@{#}" th:object="${reservation}" method="post">-->
-                <tr th:each="depFlight : ${depFlights}">
-                    <td style="max-width: 130px" class="text-truncate"><label><input type="radio" id="depFlightRadio" th:value="${depFlight.id}" name="depFlightRadio"></label></td>
-                    <td style="max-width: 130px" class="text-truncate" th:text="${depFlight.flightNumber}"></td>
-                    <td style="max-width: 130px" class="text-truncate" th:text="${depFlight.departureAirport}"></td></td>
-                    <td style="max-width: 130px" class="text-truncate" th:text="${depFlight.arrivalAirport}"></td>
-                    <td style="max-width: 230px" class="text-truncate" th:text="${#dates.format(reservation.departureDate, 'dd-MMM-yyyy') + ' ' + depFlight.departureTime}"></td>
-                    <td style="max-width: 130px" class="text-truncate" th:text="${depFlight.calcArrivalTime()}"></td>
-                    <td style="max-width: 130px" class="text-truncate" th:text="${depFlight.durationMinutes}"></td>
-                    <td style="max-width: 130px" class="text-truncate" th:text="${#numbers.formatDecimal(depFlight.getPricePerPassenger(reservation.flightClass, depFlight.basePrice), 0, 'COMMA', 2, 'POINT')}"></td>
-                </tr>
-<!--            </form>-->
-            </tbody>
-        </table>
-
         <br>
-
-        <div th:if="${retFlights != null}">
-            <h3>Return Flights</h3>
-            <table class="table table-hover text-nowrap table-responsive-xl" th:if="${!retFlights.isEmpty()}">
+        <p id="nodep"  th:if="${depFlights.isEmpty()}">We're sorry.  No flights match the combination of
+            departure and arrival airports you selected.</p>
+        <form th:if="${!depFlights.isEmpty()}" th:action="@{/confirmReservation}" th:object="${reservation}" method="post">
+            <h3>Departure Flights</h3>
+            <table class="table table-hover text-nowrap table-responsive-xl">
                 <thead class="thead-dark">
                 <tr>
                     <th>Choose</th>
@@ -58,25 +29,50 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!--            <form th:action="@{#}" th:object="${reservation}" method="post">-->
-                <tr th:each="retFlight : ${retFlights}">
-                    <td style="max-width: 130px" class="text-truncate"><label><input type="radio" id="retFlightRadio" th:value="${retFlight.id}" name="retFlightRadio"></label></td>
-                    <td style="max-width: 130px" class="text-truncate" th:text="${retFlight.flightNumber}"></td>
-                    <td style="max-width: 130px" class="text-truncate" th:text="${retFlight.departureAirport}"></td></td>
-                    <td style="max-width: 130px" class="text-truncate" th:text="${retFlight.arrivalAirport}"></td>
-                    <td style="max-width: 230px" class="text-truncate" th:text="${#dates.format(reservation.departureDate, 'dd-MMM-yyyy') + ' ' + retFlight.departureTime}"></td>
-                    <td style="max-width: 130px" class="text-truncate" th:text="${retFlight.calcArrivalTime()}"></td>
-                    <td style="max-width: 130px" class="text-truncate" th:text="${retFlight.durationMinutes}"></td>
-                    <td style="max-width: 130px" class="text-truncate" th:text="${#numbers.formatDecimal(retFlight.getPricePerPassenger(reservation.flightClass, retFlight.basePrice), 0, 'COMMA', 2, 'POINT')}"></td>
-                </tr>
-                <!--            </form>-->
+                    <tr th:each="depFlight : ${depFlights}">
+                        <td style="max-width: 130px" class="text-truncate"><label><input type="radio" id="depFlightRadio" th:value="${depFlight.id}" name="depFlightRadio"></label></td>
+                        <td style="max-width: 130px" class="text-truncate" th:text="${depFlight.flightNumber}"></td>
+                        <td style="max-width: 130px" class="text-truncate" th:text="${depFlight.departureAirport}"></td></td>
+                        <td style="max-width: 130px" class="text-truncate" th:text="${depFlight.arrivalAirport}"></td>
+                        <td style="max-width: 230px" class="text-truncate" th:text="${#dates.format(reservation.departureDate, 'dd-MMM-yyyy') + ' ' + depFlight.departureTime}"></td>
+                        <td style="max-width: 130px" class="text-truncate" th:text="${depFlight.calcArrivalTime()}"></td>
+                        <td style="max-width: 130px" class="text-truncate" th:text="${depFlight.durationMinutes}"></td>
+                        <td style="max-width: 130px" class="text-truncate" th:text="${#numbers.formatDecimal(depFlight.getPricePerPassenger(reservation.flightClass, depFlight.basePrice), 0, 'COMMA', 2, 'POINT')}"></td>
+                    </tr>
                 </tbody>
             </table>
-        </div>
-        <br>
-        <form th:action="@{/confirmReservation}" th:object="${reservation}" method="post">
-
-            <div >
+            <br>
+            <div th:if="${!retFlights.isEmpty()}">
+                <h3>Return Flights</h3>
+                <table class="table table-hover text-nowrap table-responsive-xl">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Choose</th>
+                        <th>Flight #</th>
+                        <th>Departure Airport</th>
+                        <th>Arrival Airport</th>
+                        <th>Departure Time</th>
+                        <th>Arrival Time</th>
+                        <th>Duration (minutes)</th>
+                        <th>Price (US$)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="retFlight : ${retFlights}">
+                        <td style="max-width: 130px" class="text-truncate"><label><input type="radio" id="retFlightRadio" th:value="${retFlight.id}" name="retFlightRadio"></label></td>
+                        <td style="max-width: 130px" class="text-truncate" th:text="${retFlight.flightNumber}"></td>
+                        <td style="max-width: 130px" class="text-truncate" th:text="${retFlight.departureAirport}"></td></td>
+                        <td style="max-width: 130px" class="text-truncate" th:text="${retFlight.arrivalAirport}"></td>
+                        <td style="max-width: 230px" class="text-truncate" th:text="${#dates.format(reservation.departureDate, 'dd-MMM-yyyy') + ' ' + retFlight.departureTime}"></td>
+                        <td style="max-width: 130px" class="text-truncate" th:text="${retFlight.calcArrivalTime()}"></td>
+                        <td style="max-width: 130px" class="text-truncate" th:text="${retFlight.durationMinutes}"></td>
+                        <td style="max-width: 130px" class="text-truncate" th:text="${#numbers.formatDecimal(retFlight.getPricePerPassenger(reservation.flightClass, retFlight.basePrice), 0, 'COMMA', 2, 'POINT')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <div>
                 <P>Passenger 1</P>
                 <input type="hidden"  name = "p1id" th:field="${passenger.id}">
                 <div class="form-group">
@@ -94,6 +90,10 @@
                         <option th:if="${reservation.getFlightClass().equals('First')}" value="1F">1F</option>
                         <option th:if="${reservation.getFlightClass().equals('First')}" value="2A">2A</option>
                         <option th:if="${reservation.getFlightClass().equals('First')}" value="2F">2F</option>
+                        <option th:if="${reservation.getFlightClass().equals('First')}" value="3A">3A</option>
+                        <option th:if="${reservation.getFlightClass().equals('First')}" value="3F">3F</option>
+                        <option th:if="${reservation.getFlightClass().equals('Business')}" value="4A">4A</option>
+                        <option th:if="${reservation.getFlightClass().equals('Business')}" value="4B">4B</option>
                         <option th:if="${reservation.getFlightClass().equals('Business')}" value="5A">5A</option>
                         <option th:if="${reservation.getFlightClass().equals('Business')}" value="5B">5B</option>
                         <option th:if="${reservation.getFlightClass().equals('Business')}" value="5E">5E</option>
@@ -125,6 +125,10 @@
                         <option th:if="${reservation.getFlightClass().equals('First')}" value="1F">1F</option>
                         <option th:if="${reservation.getFlightClass().equals('First')}" value="2A">2A</option>
                         <option th:if="${reservation.getFlightClass().equals('First')}" value="2F">2F</option>
+                        <option th:if="${reservation.getFlightClass().equals('First')}" value="3A">3A</option>
+                        <option th:if="${reservation.getFlightClass().equals('First')}" value="3F">3F</option>
+                        <option th:if="${reservation.getFlightClass().equals('Business')}" value="4A">4A</option>
+                        <option th:if="${reservation.getFlightClass().equals('Business')}" value="4B">4B</option>
                         <option th:if="${reservation.getFlightClass().equals('Business')}" value="5A">5A</option>
                         <option th:if="${reservation.getFlightClass().equals('Business')}" value="5B">5B</option>
                         <option th:if="${reservation.getFlightClass().equals('Business')}" value="5E">5E</option>
@@ -156,6 +160,10 @@
                         <option th:if="${reservation.getFlightClass().equals('First')}" value="1F">1F</option>
                         <option th:if="${reservation.getFlightClass().equals('First')}" value="2A">2A</option>
                         <option th:if="${reservation.getFlightClass().equals('First')}" value="2F">2F</option>
+                        <option th:if="${reservation.getFlightClass().equals('First')}" value="3A">3A</option>
+                        <option th:if="${reservation.getFlightClass().equals('First')}" value="3F">3F</option>
+                        <option th:if="${reservation.getFlightClass().equals('Business')}" value="4A">4A</option>
+                        <option th:if="${reservation.getFlightClass().equals('Business')}" value="4B">4B</option>
                         <option th:if="${reservation.getFlightClass().equals('Business')}" value="5A">5A</option>
                         <option th:if="${reservation.getFlightClass().equals('Business')}" value="5B">5B</option>
                         <option th:if="${reservation.getFlightClass().equals('Business')}" value="5E">5E</option>
@@ -187,6 +195,10 @@
                         <option th:if="${reservation.getFlightClass().equals('First')}" value="1F">1F</option>
                         <option th:if="${reservation.getFlightClass().equals('First')}" value="2A">2A</option>
                         <option th:if="${reservation.getFlightClass().equals('First')}" value="2F">2F</option>
+                        <option th:if="${reservation.getFlightClass().equals('First')}" value="3A">3A</option>
+                        <option th:if="${reservation.getFlightClass().equals('First')}" value="3F">3F</option>
+                        <option th:if="${reservation.getFlightClass().equals('Business')}" value="4A">4A</option>
+                        <option th:if="${reservation.getFlightClass().equals('Business')}" value="4B">4B</option>
                         <option th:if="${reservation.getFlightClass().equals('Business')}" value="5A">5A</option>
                         <option th:if="${reservation.getFlightClass().equals('Business')}" value="5B">5B</option>
                         <option th:if="${reservation.getFlightClass().equals('Business')}" value="5E">5E</option>
@@ -218,6 +230,10 @@
                         <option th:if="${reservation.getFlightClass().equals('First')}" value="1F">1F</option>
                         <option th:if="${reservation.getFlightClass().equals('First')}" value="2A">2A</option>
                         <option th:if="${reservation.getFlightClass().equals('First')}" value="2F">2F</option>
+                        <option th:if="${reservation.getFlightClass().equals('First')}" value="3A">3A</option>
+                        <option th:if="${reservation.getFlightClass().equals('First')}" value="3F">3F</option>
+                        <option th:if="${reservation.getFlightClass().equals('Business')}" value="4A">4A</option>
+                        <option th:if="${reservation.getFlightClass().equals('Business')}" value="4B">4B</option>
                         <option th:if="${reservation.getFlightClass().equals('Business')}" value="5A">5A</option>
                         <option th:if="${reservation.getFlightClass().equals('Business')}" value="5B">5B</option>
                         <option th:if="${reservation.getFlightClass().equals('Business')}" value="5E">5E</option>
