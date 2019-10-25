@@ -29,15 +29,15 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping("/flighthistory")
-    public String showFlightHistory(Model model){
+    @RequestMapping("/myflights")
+    public String showMyFlights(Model model){
         User user = userService.getUser();
         Date today = new Date();
-        model.addAttribute("myreservations", reservationRepository
-                .findByUserAndDepartureDateIsBefore(user,today));
-//        model.addAttribute("myreservations", reservationRepository.findByUser(user));
+//        model.addAttribute("myreservations", reservationRepository
+//                .findByUserAndDepartureDateIsBefore(user,today));
+        model.addAttribute("myreservations", reservationRepository.findByUser(user));
 //        model.addAttribute("myreservations",reservationRepository.findAll());
-        return "/flighthistory";
+        return "/myflights";
     }
 
 }

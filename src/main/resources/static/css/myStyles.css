@@ -40,6 +40,10 @@ span#welcome{
     font-size: large;
 }
 
+div#fsform{
+    width: 50rem
+}
+
 div#footer{
     padding-left: 0px;
     padding-right: 0px;
