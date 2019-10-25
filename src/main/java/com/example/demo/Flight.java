@@ -101,9 +101,7 @@ public class Flight {
         this.arrivalAirport = arrivalAirport;
     }
 
-    public LocalTime getDepartureTime() {
-        return departureTime;
-    }
+    public LocalTime getDepartureTime() { return departureTime; }
 
     public void setDepartureTime(LocalTime departureTime) {
         this.departureTime = departureTime;
