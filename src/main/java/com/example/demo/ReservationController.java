@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -255,7 +257,7 @@ public class ReservationController {
         return "passengerlist";
     }
 
-    private static void createQRImage(File qrFile, String qrCodeText, int size, String fileType)
+    private static BufferedImage createQRImage(File qrFile, String qrCodeText, int size, String fileType)
             throws WriterException, IOException {
 
         // Create the ByteMatrix for the QR-Code that encodes the given String
@@ -282,7 +284,40 @@ public class ReservationController {
                 }
             }
         }
-        ImageIO.write(image, fileType, qrFile);
+        return image;
+//        ImageIO.write(image, fileType, qrFile);
+    }
+//                              PLEASE DON'T DELETE THESE COMMENTS BELOW vvvvvvvvvvv
+/*    @RequestMapping("/test/{id}")
+    public String test(Model model, @PathVariable("id") long id){
+
+        Reservation rTest = reservationRepository.findById(id).get();
+
+*//*        String filePath = "QRcode.png";
+        File qrFile = new File(filePath);
+        try{
+            BufferedImage image = createQRImage(qrFile, rTest.getUser().getFirstName(), 125, "png");
+            ByteArrayOutputStream bao = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", bao);
+            model.addAttribute("image_dgkn", bao.toByteArray());
+        }
+        catch (Exception e) {
+
+        }*//*
+        model.addAttribute("rtest", rTest);
+
+        return "test";
     }
 
+    @GetMapping(value = "/image_dgkn/{id}")
+    public @ResponseBody byte[] getImage(@PathVariable("id") long id) throws WriterException, IOException {
+        Reservation rTest = reservationRepository.findById(id).get();
+        String filePath = "QRcode.png";
+        File qrFile = new File(filePath);
+            BufferedImage image = createQRImage(qrFile, rTest.getUser().getFirstName(), 125, "png");
+            ByteArrayOutputStream bao = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", bao);
+
+            return bao.toByteArray();
+        }*/
 }
