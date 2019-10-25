@@ -88,11 +88,22 @@
                     <input class="form-control" id="p1lastName" type="text" name="p1lastName" th:field="${passenger.lastName}" />
                 </div>
                 <div class="form-group">
-                    <label for="p1seatNumber">Seat Number</label>
+                    <label for="p1seatNumber">Seat Selection <br>(Window seats (A, F) add $5)</label>
                     <select class="form-control" id="p1seatNumber" type="number" name="p1seatNumber" th:field="${passenger.seatNumber}">
-                        <option value="window">6A (Window Seat)</option>
-                        <option value="middle">6B (Middle Seat)</option>
-                        <option value="aisle">6C (Aisle Seat)</option>
+                        <option th:if="${reservation.getFlightClass().equals('First')}" value="1A">1A</option>
+                        <option th:if="${reservation.getFlightClass().equals('First')}" value="1F">1F</option>
+                        <option th:if="${reservation.getFlightClass().equals('First')}" value="2A">2A</option>
+                        <option th:if="${reservation.getFlightClass().equals('First')}" value="2F">2F</option>
+                        <option th:if="${reservation.getFlightClass().equals('Business')}" value="5A">5A</option>
+                        <option th:if="${reservation.getFlightClass().equals('Business')}" value="5B">5B</option>
+                        <option th:if="${reservation.getFlightClass().equals('Business')}" value="5E">5E</option>
+                        <option th:if="${reservation.getFlightClass().equals('Business')}" value="5F">5F</option>
+                        <option th:if="${reservation.getFlightClass().equals('Economy')}" value="10A">10A</option>
+                        <option th:if="${reservation.getFlightClass().equals('Economy')}" value="10B">10B</option>
+                        <option th:if="${reservation.getFlightClass().equals('Economy')}" value="10C">10C</option>
+                        <option th:if="${reservation.getFlightClass().equals('Economy')}" value="10D">10D</option>
+                        <option th:if="${reservation.getFlightClass().equals('Economy')}" value="10E">10E</option>
+                        <option th:if="${reservation.getFlightClass().equals('Economy')}" value="10F">10F</option>
                     </select>
                 </div>
             </div>
@@ -108,20 +119,31 @@
                     <input class="form-control" id="p2lastName" type="text" name="p2lastName" th:field="${passenger.lastName}" />
                 </div>
                 <div class="form-group">
-                    <label for="p2seatNumber">Seat Number</label>
+                    <label for="p2seatNumber">Seat Selection <br>(Window seats (A, F) add $5)</label>
                     <select class="form-control" id="p2seatNumber" type="number" name="p2seatNumber" th:field="${passenger.seatNumber}">
-                        <option value="window">6A (Window Seat)</option>
-                        <option value="middle">6B (Middle Seat)</option>
-                        <option value="aisle">6C (Aisle Seat)</option>
+                        <option th:if="${reservation.getFlightClass().equals('First')}" value="1A">1A</option>
+                        <option th:if="${reservation.getFlightClass().equals('First')}" value="1F">1F</option>
+                        <option th:if="${reservation.getFlightClass().equals('First')}" value="2A">2A</option>
+                        <option th:if="${reservation.getFlightClass().equals('First')}" value="2F">2F</option>
+                        <option th:if="${reservation.getFlightClass().equals('Business')}" value="5A">5A</option>
+                        <option th:if="${reservation.getFlightClass().equals('Business')}" value="5B">5B</option>
+                        <option th:if="${reservation.getFlightClass().equals('Business')}" value="5E">5E</option>
+                        <option th:if="${reservation.getFlightClass().equals('Business')}" value="5F">5F</option>
+                        <option th:if="${reservation.getFlightClass().equals('Economy')}" value="10A">10A</option>
+                        <option th:if="${reservation.getFlightClass().equals('Economy')}" value="10B">10B</option>
+                        <option th:if="${reservation.getFlightClass().equals('Economy')}" value="10C">10C</option>
+                        <option th:if="${reservation.getFlightClass().equals('Economy')}" value="10D">10D</option>
+                        <option th:if="${reservation.getFlightClass().equals('Economy')}" value="10E">10E</option>
+                        <option th:if="${reservation.getFlightClass().equals('Economy')}" value="10F">10F</option>
                     </select>
                 </div>
             </div>
             <p>Please review your flight selections and passenger information to ensure everything
-                is correct, then press "Confirm Reservation." If you are not already logged in,
+                is correct, then click "Confirm Reservation." If you are not already logged in,
                 you will be prompted to log in.</p>
-
-            <input class="btn btn-primary btn-md" type="submit" value="Confirm Reservation">
+            <button type="submit" class="btn btn-default"><b>Confirm Reservation</b></button>
         </form>
+        <br>
     </div>
 </div>
 <br>
