@@ -103,17 +103,17 @@ public class DataLoader implements CommandLineRunner {
             flightRepository.save(flight8);
 
             // Passenger:
-            Passenger pass1 = new Passenger(user1.getFirstName(), user1.getLastName(), 45);
+            Passenger pass1 = new Passenger(user1.getFirstName(), user1.getLastName(), "13D");
             Set<Passenger> set1 = new HashSet<>();
             set1.add(pass1);
 
-            Passenger pass2 = new Passenger(user2.getFirstName(), user2.getLastName(), 22);
+            Passenger pass2 = new Passenger(user2.getFirstName(), user2.getLastName(), "6B");
             Set<Passenger> set2 = new HashSet<>();
             set2.add(pass2);
 
-            Passenger pass3 = new Passenger(user3.getFirstName(), user3.getLastName(), 50);
-            Passenger pass4 = new Passenger(user5.getFirstName(), user5.getLastName(), 51);
-            Passenger pass5 = new Passenger(user6.getFirstName(), user6.getLastName(), 52);
+            Passenger pass3 = new Passenger(user3.getFirstName(), user3.getLastName(), "16A");
+            Passenger pass4 = new Passenger(user5.getFirstName(), user5.getLastName(), "16B");
+            Passenger pass5 = new Passenger(user6.getFirstName(), user6.getLastName(), "16C");
             Set<Passenger> set3 = new HashSet<>();
             set3.add(pass3);
             set3.add(pass4);

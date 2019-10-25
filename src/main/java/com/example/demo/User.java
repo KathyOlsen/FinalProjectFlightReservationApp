@@ -47,7 +47,9 @@ public class User {
     private Collection<Role> roles;
 
     // From John: Hibernate does not like two collections with FetchType.EAGER.
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+
     private Collection<Reservation> reservations;
 
     public User() {

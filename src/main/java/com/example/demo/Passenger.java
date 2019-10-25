@@ -17,12 +17,12 @@ public class Passenger {
     private String lastName;
 
     @Column (name = "seat_number", nullable = false)
-    private int seatNumber;
+    private String seatNumber;
 
     @Column (name = "is_window")
     private boolean isWindow;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "reservation_id")
     private Reservation reservation;
 
@@ -30,14 +30,14 @@ public class Passenger {
         this.isWindow = false;          // Starting out with the the isWindow = false.  The user can choose true.
     }
 
-    public Passenger(String firstName, String lastName, int seatNumber) {
+    public Passenger(String firstName, String lastName, String seatNumber) {
         this();                         // Picks up the isWindow = false in the null constructor.
         this.firstName = firstName;
         this.lastName = lastName;
         this.seatNumber = seatNumber;
     }
 
-    public Passenger(String firstName, String lastName, int seatNumber, Reservation reservation) {
+    public Passenger(String firstName, String lastName, String seatNumber, Reservation reservation) {
         this();                         // Picks up the isWindow = false in the null constructor.
         this.firstName = firstName;
         this.lastName = lastName;
@@ -77,11 +77,11 @@ public class Passenger {
         this.reservation = reservation;
     }
 
-    public int getSeatNumber() {
+    public String getSeatNumber() {
         return seatNumber;
     }
 
-    public void setSeatNumber(int seatNumber) {
+    public void setSeatNumber(String seatNumber) {
         this.seatNumber = seatNumber;
     }
 
