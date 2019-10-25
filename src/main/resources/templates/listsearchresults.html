@@ -42,7 +42,7 @@
                 </tbody>
             </table>
             <br>
-            <div th:if="${!retFlights.isEmpty()}">
+            <div th:if="${reservation.getIsRoundTrip()}">
                 <h3>Return Flights</h3>
                 <table class="table table-hover text-nowrap table-responsive-xl">
                     <thead class="thead-dark">
