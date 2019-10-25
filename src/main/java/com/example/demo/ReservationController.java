@@ -258,6 +258,35 @@ public class ReservationController {
         return "/showboardingpass";
     }
 
+    @GetMapping("/passengerform")
+    public String getPassengerForm(Model model,
+                                   @ModelAttribute("reservation") Reservation reservation,
+                                   HttpServletRequest request){
+        Collection<Passenger> passengers = new ArrayList<>();
+        model.addAttribute("passengers", passengers);
+        model.addAttribute("reservation", reservation);
+        return "/passengerform";
+    }
+
+    @PostMapping("/processpassenger")
+    public String processForm(@Valid Passenger passenger,
+                              BindingResult result,
+                              @ModelAttribute("reservation") Reservation reservation,
+                              @ModelAttribute("passengers") Collection<Passenger> passengers,
+                              HttpServletRequest request){
+        if(result.hasErrors()){
+            return "passengerform";
+        }
+        passengerRepository.save(passenger);
+        passengers.add(passenger);
+        if(passengers.size()<reservation.getNumberPassengers()) {
+            return "redirect:/passengerform";
+        }else{
+            reservation.setPassengers(passengers);
+            return "/showboardingpass";
+        }
+    }
+
     @RequestMapping("/showboardingpass")
     public String showBoardingPass(Model model,
                                    Reservation reservation){
