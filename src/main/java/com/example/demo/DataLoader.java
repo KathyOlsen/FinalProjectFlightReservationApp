@@ -133,15 +133,15 @@ public class DataLoader implements CommandLineRunner {
             Reservation rsvr1 = new Reservation(true, departDate, arriveDate, "Economy", 1, user1, flight1, flight4, set1);
             reservationRepository.save(rsvr1);
 
-            String dDate2 = "03-11-2019";
-            String aDate2 = "06-11-2019";
+            String dDate2 = "03-9-2019";
+            String aDate2 = "06-9-2019";
             departDate = dsdf.parse(dDate2);
             arriveDate = dsdf.parse(aDate2);
             Reservation rsvr2 = new Reservation(true, departDate, arriveDate, "Business", 1, user2, flight2, flight5, set2);
             reservationRepository.save(rsvr2);
 
-            String dDate3 = "20-12-2019";
-            String aDate3 = "29-12-2019";
+            String dDate3 = "20-8-2019";
+            String aDate3 = "29-8-2019";
             departDate = dsdf.parse(dDate3);
             arriveDate = dsdf.parse(aDate3);
             Reservation rsvr3 = new Reservation(true, departDate, arriveDate, "Economy", 3, user3, flight3, flight6, set3);

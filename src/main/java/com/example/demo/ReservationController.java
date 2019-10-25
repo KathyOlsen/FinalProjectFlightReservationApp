@@ -85,11 +85,9 @@ public class ReservationController {
 //        boolean isRoundTrip;
 //        Reservation r = reservation;
         if (rtrip.equals("RoundTrip")) {
-//            isRoundTrip = true;
             reservation.setIsRoundTrip(true);
 
         } else {
-//            isRoundTrip = false;
             reservation.setIsRoundTrip(false);
         }
 //        model.addAttribute("isRoundTrip", isRoundTrip);
