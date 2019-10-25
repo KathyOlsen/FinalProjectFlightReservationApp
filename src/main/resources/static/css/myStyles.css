@@ -24,6 +24,9 @@ p#indexlink{
     text-align: center;
     font-size: x-large;
 }
+p#nodep{
+    text-align: center;
+}
 
 a{
     color: darkblue;
