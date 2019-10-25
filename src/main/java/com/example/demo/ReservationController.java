@@ -156,6 +156,54 @@ public class ReservationController {
         return "listsearchresults";
     }
 
+    @PostMapping("/processpickflights")
+    public String processPickFlights(@ModelAttribute("reservation") Reservation reservation,
+                                      Model model,
+                                      HttpServletRequest request,
+                                     @RequestParam(name="depFlightRadio") Flight depFlight,
+                                     @RequestParam(name="retFlightRadio") Flight retFlight) {
+        reservation.setDepartureFlight(depFlight);
+        if(reservation.getIsRoundTrip()==true) {
+            reservation.setReturnFlight(retFlight);
+        }
+        Set<Passenger> passengers = new HashSet<>();
+        reservation.setPassengers(passengers);
+        request.setAttribute("reservation", reservation);
+
+        return "forward:/passengerform";
+    }
+
+    @RequestMapping("/passengerform")
+    public String passengerForm(@ModelAttribute("reservation") Reservation reservation, Model model) {
+    model.addAttribute("reservation", reservation);
+
+    Passenger p = null;
+    if (reservation.getPassengers().size() < reservation.getNumberPassengers()) {
+        p = new Passenger();
+    }
+    model.addAttribute("passenger", p);
+
+    return "passengerform";
+    }
+
+    @PostMapping("/addpassenger")
+    public String addPassenger(@ModelAttribute("reservation") Reservation reservation,
+                               @ModelAttribute("passenger") Passenger passenger,
+                               Model model,
+                               HttpServletRequest request) {
+        reservation.getPassengers().add(passenger);
+
+        request.setAttribute("reservation", reservation);
+
+        return "forward:/passengerform";
+    }
+
+    @PostMapping("/confirm")
+    public String confirm(@ModelAttribute("reservation") Reservation reservation) {
+        reservationRepository.save(reservation);
+        return "index";
+    }
+
     @PostMapping("/confirmReservation")
     public String confirmReservation(@ModelAttribute("reservation") Reservation reservation,
                                      Model model,

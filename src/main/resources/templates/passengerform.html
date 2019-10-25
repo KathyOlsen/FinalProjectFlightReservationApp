@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Passenger Information</title>
+    <div th:insert="base :: head"></div>
+</head>
+<body>
+<div th:insert="base :: navlinks"></div>
+<br>
+<div class="container-fluid">
+    <div class="jumbotron">
+        <h1>Passenger Information</h1>
+        <br>
+        <p>Departure Flight</p>
+        <p th:text="${reservation.departureFlight.getDepartureAirport()}"></p>
+        <p th:text="${#dates.format(reservation.departureDate, 'dd-MMM-yyyy') + ' ' + reservation.departureFlight.getDepartureTime()}"></p>
+        <p th:if="${!reservation.returnFlight==null}">Departure Flight</p>
+        <p th:if="${!reservation.returnFlight==null}"th:text="${reservation.departureFlight.getDepartureAirport()}"></p>
+        <p th:if="${!reservation.returnFlight==null}"th:text="${#dates.format(reservation.departureDate, 'dd-MMM-yyyy') + ' ' + reservation.departureFlight.getDepartureTime()}"></p>
+        <br>
+        <div th:if="${passenger != null}" th:each="passenger : ${reservation.passengers}">
+            <p th:text="${passenger.firstName}"></p>
+        </div>
+        <form th:if="${passenger != null}" th:action="@{/addpassenger}" th:object="${passenger}" method="post">
+            <div class="form-group">
+                <label for="firstName">firstName</label>
+                <input class="form-control" id="firstName" type="text" placeholder="firstName" th:field="${passenger.firstName}" />
+            </div>
+            <div class="form-group">
+                <label for="lastName">lastName</label>
+                <textarea rows="3" class="form-control" id="lastName" placeholder="lastName" th:field="${passenger.lastName}" />
+            </div>
+            <div class="form-group">
+                <label for="seatNumber">seatNumber</label>
+                <input class="form-control" id="seatNumber" type="number" placeholder="seatNumber" th:field="${passenger.seatNumber}" />
+            </div>
+            <button type="submit" class="btn btn-default"><b>Add Passenger</b></button>
+        </form>
+        <form th:if="${passenger == null}" th:action="@{/confirm}" th:object="${reservation}" method="post">
+            <button type="submit" class="btn btn-default"><b>Enter Passengers Information</b></button>
+        </form>
+        <br>
+    </div>
+</div>
+<br>
+<div th:insert="base :: footer"></div>
+<div th:insert="base :: bootstrapScripts"></div>
+</body>
+</html>
