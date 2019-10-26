@@ -10,10 +10,10 @@
 <div class="container">
     <div class="jumbotron">
         <h1>Passenger Information</h1>
-        <div th:if="${reservation.getPassengers().count()}>0">
+        <div th:if="${passengers.size()} > 0">
             <h2>Passengers Entered So Far</h2>
-            <div th:each="passenger : ${reservation.getPassengers()}">
-                <p>[[${passenger.getFirstName()}]] [[${passenger.getLastName()}]], Seat [[${passenger.getSeatNumber()]]}</p>
+            <div th:each="passenger : ${passengers}">
+                <p><span th:text="${passenger.getFirstName()}"></span> <span th:text="${passenger.getLastName()}"></span>, Seat <span th:text="${passenger.getSeatNumber()}"></span></p>
             </div>
             <br>
             <h2>Next Passenger</h2>

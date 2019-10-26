@@ -154,7 +154,7 @@ public class ReservationController {
         return "listsearchresults";
     }
 
-    @PostMapping("/confirmReservation")
+    @PostMapping("/confirmflight")
     public String confirmReservation(@ModelAttribute("reservation") Reservation reservation,
                                      Model model,
                                      @RequestParam(name="depFlightRadio") Flight depFlight,
