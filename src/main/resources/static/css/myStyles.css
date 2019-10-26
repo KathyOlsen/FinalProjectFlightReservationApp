@@ -4,44 +4,37 @@ body{
     /*background-image: url(https://res.cloudinary.com/dhg2lpfid/image/upload/v1571934601/airplane-sunset_z8glsl.jpg);*/
     /*next line is plane over sunsetting sky, sharpened*/
     background-image: url(https://res.cloudinary.com/dhg2lpfid/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1571934601/airplane-sunset_z8glsl.jpg);
-    /*next line is pale sky with plane nose in bottom-left corner, sharpened (meh & takes longer to load than other photo)*/
-    /*background-image: url(https://res.cloudinary.com/dhg2lpfid/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1571934601/airplane_GettyImages-1012117540_ekhwy7.jpg);*/
     /*background-color: deepskyblue;*/
     background-size: cover;
     font-size: 18px;
 }
 
-h1,h2,h3{
+h1, h2, h3{
     text-align: center;
     color: darkblue;
 }
 
-h4#indexh4{
+h4#indexh4, h6#listsr, p#nodep{
     text-align: center;
 }
+
 
 p#indexlink{
     text-align: center;
     font-size: x-large;
-}
-p#nodep{
-    text-align: center;
 }
 
 a{
     color: darkblue;
 }
 
-p{
-
-}
 span#welcome{
     color: whitesmoke;
     font-size: large;
 }
 
 div#fsform{
-    width: 50rem
+    width: 55rem
 }
 
 div#footer{
@@ -94,7 +87,8 @@ button{
     text-align: center;
 }
 
-.col-sm-1,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-sm-10,.col-sm-11,.col-sm-12{
+.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9,
+.col-sm-10, .col-sm-11, .col-sm-12{
     text-align: center;
 }
 
