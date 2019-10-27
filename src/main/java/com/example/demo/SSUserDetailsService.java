@@ -17,10 +17,20 @@ public class SSUserDetailsService implements UserDetailsService {
 
     private UserRepository userRepository;
 
+    /**
+     *
+     * @param userRepository
+     */
     public SSUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    /**
+     *
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
@@ -35,6 +45,11 @@ public class SSUserDetailsService implements UserDetailsService {
         }
     }
 
+    /**
+     *
+     * @param user
+     * @return
+     */
     private Set<GrantedAuthority> getAuthorities(User user){
         Set<GrantedAuthority> authorities = new HashSet<>();
         for(Role role : user.getRoles()){

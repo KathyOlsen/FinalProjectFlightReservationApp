@@ -29,6 +29,9 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
+/**
+ * Class ReservationController
+ */
 @Controller
 public class ReservationController {
 
@@ -48,6 +51,11 @@ public class ReservationController {
     PassengerRepository passengerRepository;
 
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     @GetMapping("/flightsearchform")
     public String showFlightSearchForm(Model model){
         model.addAttribute("reservation", new Reservation());
@@ -59,6 +67,20 @@ public class ReservationController {
         return "flightsearchform";
     }
 
+    /**
+     *
+     * @param reservation
+     * @param model
+     * @param numPass
+     * @param rtrip
+     * @param passClass
+     * @param depApt
+     * @param arrApt
+     * @param depDate
+     * @param retDate
+     * @param request
+     * @return
+     */
     @PostMapping("/processflightsearch")
     public String processFlightSearch(@ModelAttribute("reservation") Reservation reservation,
                                       Model model,
@@ -129,6 +151,12 @@ public class ReservationController {
         return "forward:/listSearchResults";
     }
 
+    /**
+     *
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping("/listSearchResults")
     public String showSearchResultsForm(HttpServletRequest request, Model model){
 
@@ -156,6 +184,22 @@ public class ReservationController {
         return "listsearchresults";
     }
 
+    /**
+     *
+     * @param reservation
+     * @param model
+     * @param depFlight
+     * @param retFlight
+     * @param p1id
+     * @param p1firstName
+     * @param p1lastName
+     * @param p1seatNumber
+     * @param p2id
+     * @param p2firstName
+     * @param p2lastName
+     * @param p2seatNumber
+     * @return
+     */
     @PostMapping("/confirmReservation")
     public String confirmReservation(@ModelAttribute("reservation") Reservation reservation,
                                      Model model,
@@ -202,6 +246,11 @@ public class ReservationController {
         return "/boardingpass";
     }
 
+    /**
+     *
+     * @param reservation
+     * @return
+     */
 
     public double getTotalTripPrice(Reservation reservation){
         Flight departureFlight = reservation.getDepartureFlight();
@@ -247,7 +296,7 @@ public class ReservationController {
         qrCodeText.append(userId);
         qrCodeText.append("&reservation_id=");
         qrCodeText.append(reservationId);
-
+        System.out.println(qrCodeText.toString());
         createQRImage(qrFile, qrCodeText.toString(), size, fileType);
 
         model.addAttribute("qrCodeURL", qrCodeText.toString());

@@ -54,6 +54,17 @@ public class Reservation {
     public Reservation() {
     }
 
+    /**
+     *
+     * @param isRoundTrip
+     * @param departureDate
+     * @param returnDate
+     * @param flightClass
+     * @param numberPassengers
+     * @param user
+     * @param departureFlight
+     * @param returnFlight
+     */
     public Reservation(boolean isRoundTrip,
                        Date departureDate,
                        Date returnDate,
@@ -72,6 +83,18 @@ public class Reservation {
         this.returnFlight = returnFlight;
     }
 
+    /**
+     *
+     * @param isRoundTrip
+     * @param departureDate
+     * @param returnDate
+     * @param flightClass
+     * @param numberPassengers
+     * @param user
+     * @param departureFlight
+     * @param returnFlight
+     * @param passengers
+     */
     public Reservation(boolean isRoundTrip,
                        Date departureDate,
                        Date returnDate,

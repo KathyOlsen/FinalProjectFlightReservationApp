@@ -38,6 +38,15 @@ public class Flight {
 
     }
 
+    /**
+     * Flight
+     * @param flightNumber
+     * @param departureAirport
+     * @param arrivalAirport
+     * @param departureTime
+     * @param durationMinutes
+     * @param basePrice
+     */
     public Flight(String flightNumber, String departureAirport, String arrivalAirport, LocalTime departureTime, int durationMinutes, double basePrice) {
         this.flightNumber = flightNumber;
         this.departureAirport = departureAirport;
@@ -47,6 +56,11 @@ public class Flight {
         this.basePrice = basePrice;
     }
 
+    /**
+     *
+     * @param flights
+     * @return
+     */
     public Set<String> getAirportList(ArrayList<Flight> flights){
         Set<String> airports = new HashSet<>();
         for(Flight flight : flights){
@@ -56,7 +70,12 @@ public class Flight {
         return airports;
     }
 
-    //This gets the per passenger price for one flight leg before addon for window seat if applicable.
+    /**
+     * This gets the per passenger price for one flight leg before addon for window seat if applicable.
+     * @param flightClass
+     * @param basePrice
+     * @return
+     */
     public double getPricePerPassenger(String flightClass, double basePrice){
         double pricePerPassenger;
         if (flightClass.equalsIgnoreCase("economy")){
