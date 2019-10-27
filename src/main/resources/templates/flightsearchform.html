@@ -7,22 +7,27 @@
 <body>
 <div th:insert="base :: navlinks"></div>
 <br>
-<div class="container-fluid">
+<div id="fsform" class="container">
     <h1>Search Flights</h1>
     <form th:action="@{/processflightsearch}" th:object="${reservation}" method="post">
         <div class="row">
-            <div class="col-sm-1"></div>
             <div class="col-sm-4">
-                <p>Type of Trip: </p>
+                <p>Type of Trip </p>
                 <select name="SearchSelectorRT">
                     <option value="OneWay">One Way</option>
                     <option value="RoundTrip">Round Trip</option>
                 </select>
                 <br><br>
-                <p>Number of Passengers:</p>
-                <input type="number" name="numberPassengers" />
+                <p>Number of Passengers</p>
+                <select name="SearchSelectorNumPass">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
                 <br><br>
-                <p>Passenger Class:</p>
+                <p>Passenger Class</p>
                 <select name="SearchSelectorPassClass">
                     <option value="Economy">Economy Class</option>
                     <option value="Business">Business Class</option>
@@ -32,35 +37,35 @@
             </div>
             <br>
             <div class="col-sm-4">
-                <p>Departure Location:</p>
+                <p>Departure Location</p>
                 <select name="SearchSelectorDepApt">
                     <option th:each="airport : ${airports}"
                             th:value="${airport}"
                             th:text="${airport}"></option>
                 </select>
                 <br><br>
-                <p>Destination:</p>
+                <p>Destination</p>
                 <select name="SearchSelectorArrApt">
                     <option th:each="airport : ${airports}"
                             th:value="${airport}"
                             th:text="${airport}"></option>
                 </select>
-                <br><br>
+                <br><br><br><br><br>
                 <button type="submit" class="btn btn-default"><b>Submit</b></button>
                 <br>
             </div>
             <br>
-            <div class="col-sm-3">
-                <p>Departure Date:</p>
+            <div class="col-sm-4">
+                <p>Departure Date</p>
                 <input type="date" name="depDate"/>
                 <br><br>
-                <p>Return Date:</p>
+                <p>Return Date</p>
                 <input type="date" name="retDate"/>
                 <br>
             </div>
-            <br>
         </div>
-    </div>
+    </form>
+    <br>
 </div>
 <br>
 <div th:insert="base :: footer"></div>

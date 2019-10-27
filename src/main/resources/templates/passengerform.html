@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Passenger Form</title>
+    <div th:insert="base :: head"></div>
+</head>
+<body>
+<div th:insert="base :: navlinks"></div>
+<br>
+<div class="container">
+    <div class="jumbotron">
+        <h1>Passenger Information</h1>
+        <div th:if="${passengers.size()} > 0">
+            <h2>Passengers Entered So Far</h2>
+            <div th:each="passenger : ${passengers}">
+                <p><span th:text="${passenger.getFirstName()}"></span> <span th:text="${passenger.getLastName()}"></span>, Seat <span th:text="${passenger.getSeatNumber()}"></span></p>
+            </div>
+            <br>
+            <h2>Next Passenger</h2>
+        </div>
+        <br>
+        <form th:action="@{/processpassenger}" th:object="${passenger}" method="post">
+            <input type="hidden"  name="id" th:field="${id}">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input class="form-control" id="firstName" type="text" name="firstName" th:field="${firstName}" />
+                <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input class="form-control" id="lastName" type="text" name="lastName" th:field="${lastName}" />
+                <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+            </div>
+            <div class="form-group">
+                <label for="seatNumber">Seat Selection <br>(Window seats (A, F) add $5)</label>
+                <select class="form-control" id="seatNumber" type="number" name="seatNumber" th:field="${seatNumber}">
+                    <option th:if="${reservation.getFlightClass().equals('First')}" value="1A">1A</option>
+                    <option th:if="${reservation.getFlightClass().equals('First')}" value="1F">1F</option>
+                    <option th:if="${reservation.getFlightClass().equals('First')}" value="2A">2A</option>
+                    <option th:if="${reservation.getFlightClass().equals('First')}" value="2F">2F</option>
+                    <option th:if="${reservation.getFlightClass().equals('First')}" value="3A">3A</option>
+                    <option th:if="${reservation.getFlightClass().equals('First')}" value="3F">3F</option>
+                    <option th:if="${reservation.getFlightClass().equals('Business')}" value="4A">4A</option>
+                    <option th:if="${reservation.getFlightClass().equals('Business')}" value="4B">4B</option>
+                    <option th:if="${reservation.getFlightClass().equals('Business')}" value="5A">5A</option>
+                    <option th:if="${reservation.getFlightClass().equals('Business')}" value="5B">5B</option>
+                    <option th:if="${reservation.getFlightClass().equals('Business')}" value="5E">5E</option>
+                    <option th:if="${reservation.getFlightClass().equals('Business')}" value="5F">5F</option>
+                    <option th:if="${reservation.getFlightClass().equals('Economy')}" value="10A">10A</option>
+                    <option th:if="${reservation.getFlightClass().equals('Economy')}" value="10B">10B</option>
+                    <option th:if="${reservation.getFlightClass().equals('Economy')}" value="10C">10C</option>
+                    <option th:if="${reservation.getFlightClass().equals('Economy')}" value="10D">10D</option>
+                    <option th:if="${reservation.getFlightClass().equals('Economy')}" value="10E">10E</option>
+                    <option th:if="${reservation.getFlightClass().equals('Economy')}" value="10F">10F</option>
+                </select>
+            </div>
+        </form>
+    </div>
+</div>
+<br>
+<div th:insert="base :: footer"></div>
+<div th:insert="base :: bootstrapScripts"></div>
+</body>
+</html>

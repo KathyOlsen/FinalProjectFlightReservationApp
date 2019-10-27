@@ -14,12 +14,12 @@
 <body>
 <div th:fragment="navlinks">
     <nav class="nav">
-        <span style="color: yellow; font-size: x-large"><b> FantasticFlights.com </b></span>&nbsp;&nbsp;
+        <span style="color: orange; font-size: x-large"><b>&nbsp;FantasticFlights.com </b></span>&nbsp;&nbsp;
         <span id="welcome" sec:authorize="isAuthenticated()">  Welcome,
             <span th:text="${#authentication.name}"></span></span>
         <a class="nav-link"  href="/">Home</a>&nbsp;
         <a class="nav-link"  href="/flightsearchform">Flight Search</a>&nbsp;
-        <a sec:authorize="isAuthenticated()" class="nav-link"  href="/flighthistory">My Flight History</a>
+        <a sec:authorize="isAuthenticated()" class="nav-link"  href="/myflights">My Flights</a>
         <a sec:authorize="!isAuthenticated()" class="nav-link"  href="/login">Log In</a>&nbsp;
         <a sec:authorize="!isAuthenticated()" class="nav-link"  href="/register">Register</a>&nbsp;
         <a sec:authorize="isAuthenticated()" class="nav-link"  href="/logout">Log Out</a>&nbsp;
