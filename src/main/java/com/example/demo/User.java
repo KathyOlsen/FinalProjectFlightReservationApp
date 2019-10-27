@@ -55,6 +55,17 @@ public class User {
     public User() {
     }
 
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @param username
+     * @param password
+     * @param birthdate
+     * @param citizenship
+     * @param email
+     * @param phone
+     */
     public User(String firstName,
                 String lastName,
                 String username,
@@ -74,6 +85,18 @@ public class User {
     }
 
 
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @param username
+     * @param password
+     * @param birthdate
+     * @param citizenship
+     * @param email
+     * @param phone
+     * @param reservations
+     */
     public User(String firstName,
                 String lastName,
                 String username,
