@@ -7,12 +7,11 @@
 <body>
 <div th:insert="base :: navlinks"></div>
 <br>
-<div class="container-fluid">
+<div id="fsform" class="container">
     <h1>Search Flights</h1>
     <form th:action="@{/processflightsearch}" th:object="${reservation}" method="post">
         <div class="row">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <p>Type of Trip </p>
                 <select name="SearchSelectorRT">
                     <option value="OneWay">One Way</option>
@@ -39,7 +38,7 @@
                 <br><br>
             </div>
             <br>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <p>Departure Location</p>
                 <select name="SearchSelectorDepApt">
                     <option th:each="airport : ${airports}"
@@ -53,12 +52,12 @@
                             th:value="${airport}"
                             th:text="${airport}"></option>
                 </select>
-                <br><br>
+                <br><br><br><br><br>
                 <button type="submit" class="btn btn-default"><b>Submit</b></button>
                 <br>
             </div>
             <br>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <p>Departure Date</p>
                 <input type="date" name="depDate"/>
                 <br><br>
@@ -66,9 +65,9 @@
                 <input type="date" name="retDate"/>
                 <br>
             </div>
-            <br>
         </div>
-    </div>
+    </form>
+    <br>
 </div>
 <br>
 <div th:insert="base :: footer"></div>

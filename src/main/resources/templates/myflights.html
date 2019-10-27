@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>My Flight History</title>
+    <div th:insert="base :: head"></div>
+</head>
+<body>
+<div th:insert="base :: navlinks"></div>
+<br>
+<div class="container-fluid">
+    <div class="jumbotron">
+        <h1>My Flight History</h1>
+        <div class="row">
+            <div class="col-sm-1"><b>Departure Date</b></div>
+            <div class="col-sm-1"><b>Departure Flight #</b></div>
+            <div class="col-sm-1"><b>Departure Airport</b></div>
+            <div class="col-sm-1"><b>Departure Time</b></div>
+            <div class="col-sm-1"><b>Arrival Airport</b></div>
+            <div class="col-sm-1"><b>Arrival Time</b></div>
+            <div class="col-sm-1"><b>Return Date</b></div>
+            <div class="col-sm-1"><b>Return Flight #</b></div>
+            <div class="col-sm-1"><b>Return Departure Airport</b></div>
+            <div class="col-sm-1"><b>Return Departure Time</b></div>
+            <div class="col-sm-1"><b>Return Arrival Airport</b></div>
+            <div class="col-sm-1"><b>Return Arrival Time</b></div>
+        </div>
+        <div class="row" th:each="reservation : ${myreservations}">
+            <div class="col-sm-1"><span th:text="${#dates.format(reservation.getDepartureDate(), 'dd-MMM-yyyy')}"></span></div>
+            <div class="col-sm-1"><span th:text="${reservation.getDepartureFlight().getFlightNumber()}"></span></div>
+            <div class="col-sm-1"><span th:text="${reservation.getDepartureFlight().getDepartureAirport()}"></span></div>
+            <div class="col-sm-1"><span th:text="${reservation.getDepartureFlight().getDepartureTime()}"></span></div>
+            <div class="col-sm-1"><span th:text="${reservation.getDepartureFlight().getArrivalAirport()}"></span></div>
+            <div class="col-sm-1"><span th:inline="text">[[${reservation.getDepartureFlight().calcArrivalTime()}]]</span></div>
+            <div class="col-sm-1"><span th:if="${reservation.getIsRoundTrip()==true}" th:text="${#dates.format(reservation.getReturnDate(), 'dd-MMM-yyyy')}"></span></div>
+            <div class="col-sm-1"><span th:if="${reservation.getIsRoundTrip()==true}" th:text="${reservation.getReturnFlight().getFlightNumber()}"></span></div>
+            <div class="col-sm-1"><span th:if="${reservation.getIsRoundTrip()==true}" th:text="${reservation.getReturnFlight().getDepartureAirport()}"></span></div>
+            <div class="col-sm-1"><span th:if="${reservation.getIsRoundTrip()==true}" th:text="${reservation.getReturnFlight().getDepartureTime()}"></span></div>
+            <div class="col-sm-1"><span th:if="${reservation.getIsRoundTrip()==true}" th:text="${reservation.getReturnFlight().getArrivalAirport()}"></span></div>
+            <div class="col-sm-1"><span th:if="${reservation.getIsRoundTrip()==true}" th:inline="text">[[${reservation.getReturnFlight().calcArrivalTime()}]]</span></div>
+        </div>
+        <br>
+    </div>
+</div>
+<br>
+<div th:insert="base :: footer"></div>
+<div th:insert="base :: bootstrapScripts"></div>
+</body>
+</html>

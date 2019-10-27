@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "reservation")
@@ -37,16 +37,10 @@ public class Reservation {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "departure_flight_id")
     private Flight departureFlight;
-//    matching language in Flight.java should be:
-//        @OneToMany(mappedBy = "flight", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-//        public Set<Reservation> reservations;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "return_flight_id")
     private Flight returnFlight;
-    //    matching language in Flight.java should be:
-//        @OneToMany(mappedBy = "flight", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-//        public Set<Reservation> reservations;
 
     @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Collection<Passenger> passengers;

@@ -105,11 +105,9 @@ public class ReservationController {
 //        boolean isRoundTrip;
 //        Reservation r = reservation;
         if (rtrip.equals("RoundTrip")) {
-//            isRoundTrip = true;
             reservation.setIsRoundTrip(true);
 
         } else {
-//            isRoundTrip = false;
             reservation.setIsRoundTrip(false);
         }
 //        model.addAttribute("isRoundTrip", isRoundTrip);
@@ -127,7 +125,7 @@ public class ReservationController {
             e.printStackTrace();
         }
 
-        if (reservation.getIsRoundTrip()) {
+        if (reservation.getIsRoundTrip()==true) {
             try {
                 String formattedRetDate = retDate.substring(1);
                 SimpleDateFormat simpleRetDateFormat = new SimpleDateFormat(pattern);
@@ -178,12 +176,12 @@ public class ReservationController {
 //        r.setPassengers(passengers);
 //        model.addAttribute("passengers", passengers);
 
-
         model.addAttribute("reservation", r);
 
         return "listsearchresults";
     }
 
+<<<<<<< HEAD
     /**
      *
      * @param reservation
@@ -201,119 +199,38 @@ public class ReservationController {
      * @return
      */
     @PostMapping("/confirmReservation")
+=======
+    @PostMapping("/confirmflight")
+>>>>>>> a8729183103076c6d71dc81af6f66eea886da800
     public String confirmReservation(@ModelAttribute("reservation") Reservation reservation,
                                      Model model,
                                      @RequestParam(name="depFlightRadio") Flight depFlight,
-                                     @RequestParam(name="retFlightRadio") Flight retFlight,
-//                                     @RequestParam(name="p1id") Long p1id,
-                                     @RequestParam(name = "p1firstName") String p1firstName,
-                                     @RequestParam(name = "p1lastName") String p1lastName,
-                                     @RequestParam(name = "p1seatNumber") String p1seatNumber,
-//                                     @RequestParam(name="p2id") Long p2id,
-                                     @RequestParam(name = "p2firstName") String p2firstName,
-                                     @RequestParam(name = "p2lastName") String p2lastName,
-                                     @RequestParam(name = "p2seatNumber") String p2seatNumber,
-//                                     @RequestParam(name="p3id") Long p3id,
-                                     @RequestParam(name = "p3firstName") String p3firstName,
-                                     @RequestParam(name = "p3lastName") String p3lastName,
-                                     @RequestParam(name = "p3seatNumber") String p3seatNumber,
-//                                     @RequestParam(name="p4id") Long p4id,
-                                     @RequestParam(name = "p4firstName") String p4firstName,
-                                     @RequestParam(name = "p4lastName") String p4lastName,
-                                     @RequestParam(name = "p4seatNumber") String p4seatNumber,
-//                                     @RequestParam(name="p5id") Long p5id,
-                                     @RequestParam(name = "p5firstName") String p5firstName,
-                                     @RequestParam(name = "p5lastName") String p5lastName,
-                                     @RequestParam(name = "p5seatNumber") String p5seatNumber) {
+                                     @RequestParam(name="retFlightRadio") Optional<Flight> retFlight,
+                                     HttpServletRequest request){         
         reservation.setDepartureFlight(depFlight);
         if(reservation.getIsRoundTrip()==true) {
-            reservation.setReturnFlight(retFlight);
-        }
-        Collection<Passenger> passengers = new ArrayList<>();
-        Passenger passenger1 = new Passenger();
-//        passenger1.setId(p1id);
-        passenger1.setFirstName(p1firstName);
-        passenger1.setLastName(p1lastName);
-        passenger1.setSeatNumber(p1seatNumber);
-        if(p1seatNumber.endsWith("A") | p1seatNumber.endsWith("F")){
-            passenger1.setIsWindow(true);
-        } else {
-            passenger1.setIsWindow(false);
-        }
-        passengers.add(passenger1);
-        if(reservation.getNumberPassengers()>1) {
-            Passenger passenger2 = new Passenger();
-//            passenger2.setId(p2id);
-            passenger2.setFirstName(p2firstName);
-            passenger2.setLastName(p2lastName);
-            passenger2.setSeatNumber(p2seatNumber);
-            if(p2seatNumber.endsWith("A") | p2seatNumber.endsWith("F")){
-                passenger2.setIsWindow(true);
-            } else {
-                passenger2.setIsWindow(false);
-            }
-            passengers.add(passenger2);
-        }
-        if(reservation.getNumberPassengers()>2) {
-            Passenger passenger3 = new Passenger();
-//            passenger3.setId(p3id);
-            passenger3.setFirstName(p3firstName);
-            passenger3.setLastName(p3lastName);
-            passenger3.setSeatNumber(p3seatNumber);
-            if(p3seatNumber.endsWith("A") | p3seatNumber.endsWith("F")){
-                passenger3.setIsWindow(true);
-            } else {
-                passenger3.setIsWindow(false);
-            }
-            passengers.add(passenger3);
-        }
-        if(reservation.getNumberPassengers()>3) {
-            Passenger passenger4 = new Passenger();
-//            passenger4.setId(p4id);
-            passenger4.setFirstName(p4firstName);
-            passenger4.setLastName(p4lastName);
-            passenger4.setSeatNumber(p4seatNumber);
-            if(p4seatNumber.endsWith("A") | p4seatNumber.endsWith("F")){
-                passenger4.setIsWindow(true);
-            } else {
-                passenger4.setIsWindow(false);
-            }
-            passengers.add(passenger4);
-        }
-        if(reservation.getNumberPassengers()>4) {
-            Passenger passenger5 = new Passenger();
-//            passenger5.setId(p5id);
-            passenger5.setFirstName(p5firstName);
-            passenger5.setLastName(p5lastName);
-            passenger5.setSeatNumber(p5seatNumber);
-            if(p5seatNumber.endsWith("A") | p5seatNumber.endsWith("F")){
-                passenger5.setIsWindow(true);
-            } else {
-                passenger5.setIsWindow(false);
-            }
-            passengers.add(passenger5);
-        }
-        reservation.setPassengers(passengers);
-        for(Passenger passenger : passengers){
-            passengerRepository.save(passenger);
+            Flight realReturnFlight = retFlight.get();
+            reservation.setReturnFlight(realReturnFlight);
         }
         User user = userService.getUser();
         reservation.setUser(user);
-        reservationRepository.save(reservation);
-        model.addAttribute("reservation", reservation);
-        return "/showboardingpass";
+//        reservationRepository.save(reservation);
+        request.setAttribute("reservation", reservation);
+        Collection<Passenger> passengers = new ArrayList<>();
+        request.setAttribute("passengers", passengers);
+        return "forward:/passengerform";
     }
 
-    @RequestMapping("/showboardingpass")
-    public String showBoardingPass(Model model,
-                                   Reservation reservation){
-        model.addAttribute(reservation);
-//        code here
-
-
-        return "/boardingpass";
+    @GetMapping("/passengerform")
+    public String getPassengerForm(Model model,
+                                   HttpServletRequest request){
+        Reservation r = (Reservation) request.getAttribute("reservation");
+        model.addAttribute("reservation", r);
+        model.addAttribute("passengers", request.getAttribute("passengers"));
+        return "/passengerform";
     }
 
+<<<<<<< HEAD
     /**
      *
      * @param reservation
@@ -331,14 +248,59 @@ public class ReservationController {
             double pricePerPassRet = returnFlight.getPricePerPassenger(reservation.getFlightClass(), returnFlight.getBasePrice());
             windowPrice = 10.00;
             totalTripPrice += pricePerPassRet * numPass;
+=======
+    @PostMapping("/processpassenger")
+    public String processForm(@Valid Passenger passenger,
+                              BindingResult result,
+                              Model model,
+                              @ModelAttribute("reservation") Reservation reservation,
+                              @ModelAttribute("passengers") Collection<Passenger> passengers,
+                              @RequestParam(name = "seatNumber") String seatNumber,
+                              HttpServletRequest request){
+        if(result.hasErrors()){
+            return "passengerform";
+>>>>>>> a8729183103076c6d71dc81af6f66eea886da800
         }
-        Collection<Passenger> passengers = reservation.getPassengers();
-        for(Passenger passenger : passengers){
-            if(passenger.getIsWindow()==true){
-                totalTripPrice += windowPrice;
+        if(seatNumber.endsWith("A") | seatNumber.endsWith("F")){
+                passenger.setIsWindow(true);
+            } else {
+                passenger.setIsWindow(false);
             }
+        passengers.add(passenger);
+        passengerRepository.save(passenger);
+        if(passengers.size() < reservation.getNumberPassengers()) {
+            request.setAttribute("reservation", reservation);
+            request.setAttribute("passengers", passengers);
+            return "forward:/passengerform";
+        }else{
+            reservation.setPassengers(passengers);
+            reservationRepository.save(reservation);
+            request.setAttribute("reservation", reservation);
+            return "forward:/showboardingpass";
         }
-        return totalTripPrice;
+    }
+
+    @RequestMapping("/showboardingpass")
+    public String showBoardingPass(Model model,
+                                   HttpServletRequest request){
+        Reservation r = (Reservation) request.getAttribute("reservation");
+        model.addAttribute("reservation", r);
+        double totalTripPrice = getTotalTripPrice(r);
+        model.addAttribute("totalTripPrice", totalTripPrice);
+        Long userId = r.getUser().getId();
+        String userID = userId.toString();
+        Long reservationId = r.getId();
+        String reservationID = reservationId.toString();
+        String qrCodeUrl = null;
+        try {
+            qrCodeUrl = createQRCodeURL(model, userID, reservationID);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("qrCodeUrl", qrCodeUrl);
+        return "/boardingpass";
     }
 
     /**
@@ -350,8 +312,10 @@ public class ReservationController {
      * @throws WriterException
      * @throws IOException
      */
-    @RequestMapping("/createQRCodeURL")
-    public String createQRCodeURL(Model model, @RequestParam("user_id") String userId, @RequestParam("reservation_id") String reservationId)
+    
+    public String createQRCodeURL(Model model,
+                                  @RequestParam("user_id") String userId,
+                                  @RequestParam("reservation_id") String reservationId)
             throws WriterException, IOException {
         System.out.println("Entered createQRCodeURL");
         String fileType = "png";
@@ -367,9 +331,7 @@ public class ReservationController {
         System.out.println(qrCodeText.toString());
         createQRImage(qrFile, qrCodeText.toString(), size, fileType);
 
-        model.addAttribute("qrCodeURL", qrCodeText.toString());
-
-        return "passengerlist";
+        return qrCodeText.toString();
     }
 
     private static void createQRImage(File qrFile, String qrCodeText, int size, String fileType)
@@ -402,4 +364,24 @@ public class ReservationController {
         ImageIO.write(image, fileType, qrFile);
     }
 
+    public double getTotalTripPrice(Reservation reservation){
+        Flight departureFlight = reservation.getDepartureFlight();
+        double pricePerPassDep = departureFlight.getPricePerPassenger(reservation.getFlightClass(),departureFlight.getBasePrice());
+        double windowPrice = 5.00;
+        int numPass = reservation.getNumberPassengers();
+        double totalTripPrice = pricePerPassDep * numPass;
+        if (reservation.getIsRoundTrip()==true) {
+            Flight returnFlight = reservation.getReturnFlight();
+            double pricePerPassRet = returnFlight.getPricePerPassenger(reservation.getFlightClass(), returnFlight.getBasePrice());
+            windowPrice = 10.00;
+            totalTripPrice += pricePerPassRet * numPass;
+        }
+        Collection<Passenger> passengers = reservation.getPassengers();
+        for(Passenger passenger : passengers){
+            if(passenger.getIsWindow()==true){
+                totalTripPrice += windowPrice;
+            }
+        }
+        return totalTripPrice;
+    }
 }
