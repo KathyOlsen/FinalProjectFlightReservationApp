@@ -36,15 +36,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
-                .antMatchers("/","/h2-console/**","/register","/flightsearchform",
-                        "/processflightsearch","/flightsearchresults","/listsearchresults","/listSearchResults","/css/**")
-                    .permitAll()
-                .antMatchers("/flighthistory","/confirmReservation","/showboardingpass")
-                    .access("hasAnyAuthority('ADMIN','USER')")
-                .antMatchers("/admin","/rolelist","/showrole","/userlist", "/showuser","/flightform","/flightlistadmin")
-                    .access("hasAuthority('ADMIN')")
-                .anyRequest().authenticated()
-                .and()
+            .antMatchers("/","/h2-console/**","/register","/flightsearchform",
+                    "/processflightsearch","/flightsearchresults","/listsearchresults","/listSearchResults","/css/**")
+                .permitAll()
+            .antMatchers("/flighthistory","/confirmReservation","/showboardingpass")
+                .access("hasAnyAuthority('ADMIN','USER')")
+            .antMatchers("/admin","/rolelist","/showrole","/userlist", "/showuser","/flightform","/flightlistadmin")
+                .access("hasAuthority('ADMIN')")
+            .anyRequest().authenticated()
+            .and()
             .formLogin().loginPage("/login").permitAll()
                 .defaultSuccessUrl("/")
                 .and()

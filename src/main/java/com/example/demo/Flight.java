@@ -8,6 +8,7 @@ import java.util.Date;
 import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "flight")
@@ -34,19 +35,22 @@ public class Flight {
     @Column(name = "basePrice", nullable = false)
     private double basePrice;
 
+    private String departureTimeStr;
+
+    /**
+     * The following method will change the flight arrival and departure times from 24
+     *  format to 12 hour format.
+     *  Note: Changes were made to flightlistadmin.html
+     */
+    public String twelveHourFormat(LocalTime lt) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+        return lt.format(formatter);
+    }
+
     public Flight() {
 
     }
 
-    /**
-     * Flight
-     * @param flightNumber
-     * @param departureAirport
-     * @param arrivalAirport
-     * @param departureTime
-     * @param durationMinutes
-     * @param basePrice
-     */
     public Flight(String flightNumber, String departureAirport, String arrivalAirport, LocalTime departureTime, int durationMinutes, double basePrice) {
         this.flightNumber = flightNumber;
         this.departureAirport = departureAirport;
@@ -56,11 +60,17 @@ public class Flight {
         this.basePrice = basePrice;
     }
 
-    /**
-     *
-     * @param flights
-     * @return
-     */
+    public Flight(String flightNumber, String departureAirport, String arrivalAirport, String departureTimeStr, int durationMinutes, double basePrice) {
+        this.flightNumber = flightNumber;
+        this.departureAirport = departureAirport;
+        this.arrivalAirport = arrivalAirport;
+        this.departureTime = LocalTime.parse("00:00:00");       // This is midnight -JK
+        this.durationMinutes = durationMinutes;
+        this.basePrice = basePrice;
+
+        this.setDepartureTimeStr(departureTimeStr);               // Used to converts an input text field into a LocalTime object
+    }
+
     public Set<String> getAirportList(ArrayList<Flight> flights){
         Set<String> airports = new HashSet<>();
         for(Flight flight : flights){
@@ -70,12 +80,6 @@ public class Flight {
         return airports;
     }
 
-    /**
-     * This gets the per passenger price for one flight leg before addon for window seat if applicable.
-     * @param flightClass
-     * @param basePrice
-     * @return
-     */
     public double getPricePerPassenger(String flightClass, double basePrice){
         double pricePerPassenger;
         if (flightClass.equalsIgnoreCase("economy")){
@@ -144,5 +148,14 @@ public class Flight {
 
     public LocalTime calcArrivalTime() {
         return this.departureTime.plusMinutes(durationMinutes);
+    }
+
+    public String getDepartureTimeStr() {
+        return departureTimeStr;
+    }
+
+    public void setDepartureTimeStr(String departureTimeStr) {
+        this.departureTimeStr = departureTimeStr;
+        this.departureTime = LocalTime.parse(departureTimeStr);
     }
 }

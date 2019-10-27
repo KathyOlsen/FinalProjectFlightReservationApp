@@ -82,6 +82,12 @@ public class SecurityController {
         return "userlist";
     }
 
+    @RequestMapping("/flightlist")
+    public String flightList(Model model) {
+        model.addAttribute("flights", flightRepository.findAll());
+        return "flightlistadmin";
+    }
+
     @RequestMapping("flightsearch")
     public String flightSearch(Model model) {
         model.addAttribute("flights", flightRepository.findAll());
