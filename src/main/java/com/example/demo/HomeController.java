@@ -36,7 +36,6 @@ public class HomeController {
 //        model.addAttribute("myreservations", reservationRepository
 //                .findByUserAndDepartureDateIsBefore(user,today));
         model.addAttribute("myreservations", reservationRepository.findByUser(user));
-//        model.addAttribute("myreservations",reservationRepository.findAll());
         return "/myflights";
     }
 
