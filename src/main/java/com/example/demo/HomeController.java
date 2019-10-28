@@ -32,7 +32,7 @@ public class HomeController {
     @RequestMapping("/myflights")
     public String showMyFlights(Model model){
         User user = userService.getUser();
-        Date today = new Date();
+//        Date today = new Date();
 //        model.addAttribute("myreservations", reservationRepository
 //                .findByUserAndDepartureDateIsBefore(user,today));
         model.addAttribute("myreservations", reservationRepository.findByUser(user));
