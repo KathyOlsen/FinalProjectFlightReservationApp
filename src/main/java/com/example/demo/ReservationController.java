@@ -115,10 +115,10 @@ public class ReservationController {
     public String showSearchResultsForm(HttpServletRequest request,
                                         Model model){
 
-        Reservation r = (Reservation) request.getAttribute("reservation");
+        Reservation reservation = (Reservation) request.getAttribute("reservation");
         model.addAttribute("depFlights", request.getAttribute("depFlights"));
-        System.out.println("test 0b (depDate in listsearchresults): " + r.getDepartureDate());
-        if (r.getIsRoundTrip() == true) {
+        System.out.println("test 0b (depDate in listsearchresults): " + reservation.getDepartureDate());
+        if (reservation.getIsRoundTrip() == true) {
             model.addAttribute("retFlights", request.getAttribute("retFlights"));
         }
         else {
@@ -126,8 +126,8 @@ public class ReservationController {
         }
         Passenger passenger = new Passenger();
         model.addAttribute("passenger", passenger);
-        model.addAttribute("reservation", r);
-        request.setAttribute("reservation", r);
+        model.addAttribute("reservation", reservation);
+        request.setAttribute("reservation", reservation);
 
         return "listsearchresults";
     }
@@ -140,8 +140,8 @@ public class ReservationController {
                                      @RequestParam(name="retFlightRadio") Optional<Flight> retFlight,
                                      HttpServletRequest request){
         System.out.println("test0bc depdate from valid reservation in confirmflight): " + reservation.getDepartureDate());
-//        Reservation r = (Reservation) request.getAttribute("reservation");
-//        System.out.println("test 0c (depDate from r(=request) in confirmflight): " + r.getDepartureDate());
+//        Reservation reservation = (Reservation) request.getAttribute("reservation");
+//        System.out.println("test 0c (depDate from r(=request) in confirmflight): " + reservation.getDepartureDate());
         reservation.setDepartureFlight(depFlight);
         System.out.println("test 1a (depFlight): " + depFlight.getId());
         System.out.println("test 1b (res.depFlight): " + reservation.getDepartureFlight().getId());
@@ -167,12 +167,12 @@ public class ReservationController {
     @RequestMapping("/passengerform")
     public String getPassengerForm(Model model,
                                    HttpServletRequest request){
-        Reservation r = (Reservation) request.getAttribute("reservation");
-        model.addAttribute("reservation", r);
+        Reservation reservation = (Reservation) request.getAttribute("reservation");
+        model.addAttribute("reservation", reservation);
         model.addAttribute("passenger", new Passenger());
-        request.setAttribute("reservation", r);
-        System.out.println("test 0d (res.depDate in passengerform): " + r.getDepartureDate());
-        System.out.println("test 4 (res.depFlight in passform): " + r.getDepartureFlight().getId());
+        request.setAttribute("reservation", reservation);
+        System.out.println("test 0d (res.depDate in passengerform): " + reservation.getDepartureDate());
+        System.out.println("test 4 (res.depFlight in passform): " + reservation.getDepartureFlight().getId());
         return "/passengerform";
     }
 
@@ -212,13 +212,13 @@ public class ReservationController {
     @RequestMapping("/showboardingpass")
     public String showBoardingPass(Model model,
                                    HttpServletRequest request){
-        Reservation r = (Reservation) request.getAttribute("reservation");
-        model.addAttribute("reservation", r);
-        double totalTripPrice = getTotalTripPrice(r);
+        Reservation reservation = (Reservation) request.getAttribute("reservation");
+        model.addAttribute("reservation", reservation);
+        double totalTripPrice = getTotalTripPrice(reservation);
         model.addAttribute("totalTripPrice", totalTripPrice);
-        Long userId = r.getUser().getId();
+        Long userId = reservation.getUser().getId();
         String userID = userId.toString();
-        Long reservationId = r.getId();
+        Long reservationId = reservation.getId();
         String reservationID = reservationId.toString();
         String qrCodeUrl = null;
         try {
@@ -318,8 +318,15 @@ public class ReservationController {
     public String getSampleBoardingPass(Model model){
         User jwoods = userRepository.findByUsername("jwoods");
         Reservation reservation = reservationRepository.findByUser(jwoods).get(0);
-        model.addAttribute(reservation);
-        return "/boardingpass";
+        model.addAttribute("reservation", reservation);
+        Collection<Passenger> passengers = reservation.getPassengers();
+        model.addAttribute("passengers", passengers);
+        System.out.println("passengers.size: " + passengers.size());
+        for(Passenger p : passengers) {
+            System.out.println("passenger.getFirstName: " + p.getFirstName());
+        }
+
+        return "boardingpass";
     }
 
 }

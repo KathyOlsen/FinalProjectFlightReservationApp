@@ -68,15 +68,15 @@
                 <p>Number of Passengers:</p>
             </div>
             <div class = col-sm-2 style="text-align: left">
-                <p th:text="${reservation.getFlightClass()}"></p>
-                <p th:text="${reservation.getNumberPassengers()}"></p>
+                <p th:text="${reservation.flightClass}"></p>
+                <p th:text="${reservation.numberPassengers}"></p>
             </div>
         </div>
         <br />
         <h3>Passenger Information</h3>
         <br />
-        <div th:each="passenger : reservation.getPassengers()">
-            <p><span th:text="${passenger.getFirstName()}"></span> <span th:text="${passenger.getLastName()}"></span>, Seat <span th:text="${passenger.getSeatNumber()}"></span> </p>
+        <div th:each="passenger : passengers">
+            <p><span th:inline="text">[[${passenger.firstName}]]</span> <span th:inline="text">[[${passenger.lastName}]]</span>, Seat <span th:inline="text">[[${passenger.seatNumber}]]</span> </p>
         </div>
         <br />
         <h3>QR Code</h3>

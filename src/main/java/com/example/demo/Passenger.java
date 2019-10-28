@@ -45,6 +45,13 @@ public class Passenger {
         this.reservation = reservation;
     }
 
+    public Passenger(String firstName, String lastName, String seatNumber, boolean isWindow) {
+        this.isWindow = isWindow;        // Allows isWindow to be set as true in DataLoader.
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.seatNumber = seatNumber;
+    }
+
     public long getId() {
         return id;
     }
