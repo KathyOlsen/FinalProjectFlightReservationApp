@@ -13,7 +13,7 @@ Project Developers
     
     -Katherine K. Olsen
     
-This app allows a user to search flights on a single airline, select a departure and return flight, provide passenger names, log in to finalize a reservation, and receive a boarding pass with a QR code containing reservation details.
+This app allows a user to search flights on a single airline, select a departure and return flight, provide passenger names, log in to finalize a reservation, select seats, and receive a boarding pass with a QR code containing reservation details.
 
 Users can submit a search form without logging in that includes:
 
@@ -39,7 +39,7 @@ The app will display separate lists of departure flights and return flights (if 
     
     -Flight cost per passenger, which varies depending on the flight class originally selected
 
-The boarding pass the user receives includes flight details and a QR code. 
+The boarding pass the user receives includes flight details and a QR code. The total flight cost includes a $5 fee for each window seat selected.
 
 The user can:
 
