@@ -29,9 +29,6 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
-/**
- * Class ReservationController
- */
 @Controller
 public class ReservationController {
 
@@ -50,12 +47,6 @@ public class ReservationController {
     @Autowired
     PassengerRepository passengerRepository;
 
-
-    /**
-     *
-     * @param model
-     * @return
-     */
     @GetMapping("/flightsearchform")
     public String showFlightSearchForm(Model model){
         model.addAttribute("reservation", new Reservation());
@@ -67,20 +58,6 @@ public class ReservationController {
         return "flightsearchform";
     }
 
-    /**
-     *
-     * @param reservation
-     * @param model
-     * @param numPass
-     * @param rtrip
-     * @param passClass
-     * @param depApt
-     * @param arrApt
-     * @param depDate
-     * @param retDate
-     * @param request
-     * @return
-     */
     @PostMapping("/processflightsearch")
     public String processFlightSearch(@ModelAttribute("reservation") Reservation reservation,
                                       Model model,
@@ -97,27 +74,19 @@ public class ReservationController {
                 .findByDepartureAirportContainingIgnoreCaseAndArrivalAirportContainingIgnoreCase(depApt, arrApt));
         request.setAttribute("retFlights", flightRepository
                 .findByDepartureAirportContainingIgnoreCaseAndArrivalAirportContainingIgnoreCase(arrApt, depApt));
-/*        model.addAttribute("depFlights", flightRepository
-                .findByDepartureAirportContainingIgnoreCaseAndArrivalAirportContainingIgnoreCase(depApt, arrApt));
-        model.addAttribute("retFlights", flightRepository
-                .findByDepartureAirportContainingIgnoreCaseAndArrivalAirportContainingIgnoreCase(arrApt, depApt));*/
 
-//        boolean isRoundTrip;
-//        Reservation r = reservation;
         if (rtrip.equals("RoundTrip")) {
             reservation.setIsRoundTrip(true);
 
         } else {
             reservation.setIsRoundTrip(false);
         }
-//        model.addAttribute("isRoundTrip", isRoundTrip);
 
         String pattern = "yyyy-MM-dd";
         try {
             String formattedDepDate = depDate.substring(0);
             SimpleDateFormat simpleDepDateFormat = new SimpleDateFormat(pattern);
             Date realDepDate = simpleDepDateFormat.parse(formattedDepDate);
-//            model.addAttribute("depDate", realDepDate);
             reservation.setDepartureDate(realDepDate);
 
         }
@@ -130,7 +99,6 @@ public class ReservationController {
                 String formattedRetDate = retDate.substring(0);
                 SimpleDateFormat simpleRetDateFormat = new SimpleDateFormat(pattern);
                 Date realRetDate = simpleRetDateFormat.parse(formattedRetDate);
-//            model.addAttribute("retDate", realRetDate);
                 reservation.setReturnDate(realRetDate);
             } catch (java.text.ParseException e) {
                 e.printStackTrace();
@@ -138,29 +106,18 @@ public class ReservationController {
         }
         reservation.setNumberPassengers(numPass);
         reservation.setFlightClass(passClass);
-//        model.addAttribute(reservation);
         request.setAttribute("reservation", reservation);
-
-/*        model.addAttribute("numPass", numPass);
-        model.addAttribute("passClass", passClass);
-        model.addAttribute("depApt", depApt);
-        model.addAttribute("arrApt", arrApt);*/
-
+        System.out.println("test 0a (depDate in procflightsearch): " + reservation.getDepartureDate());
         return "forward:/listSearchResults";
     }
 
-    /**
-     *
-     * @param request
-     * @param model
-     * @return
-     */
     @RequestMapping("/listSearchResults")
-    public String showSearchResultsForm(HttpServletRequest request, Model model){
+    public String showSearchResultsForm(HttpServletRequest request,
+                                        Model model){
 
         Reservation r = (Reservation) request.getAttribute("reservation");
         model.addAttribute("depFlights", request.getAttribute("depFlights"));
-
+        System.out.println("test 0b (depDate in listsearchresults): " + r.getDepartureDate());
         if (r.getIsRoundTrip() == true) {
             model.addAttribute("retFlights", request.getAttribute("retFlights"));
         }
@@ -169,72 +126,83 @@ public class ReservationController {
         }
         Passenger passenger = new Passenger();
         model.addAttribute("passenger", passenger);
-//        Collection<Passenger> passengers = new ArrayList<>();
-//        for (int i = 0; i < r.getNumberPassengers(); i++) {
-//            passengers.add(new Passenger());
-//        }
-//        r.setPassengers(passengers);
-//        model.addAttribute("passengers", passengers);
-
         model.addAttribute("reservation", r);
+        request.setAttribute("reservation", r);
 
         return "listsearchresults";
     }
 
-      @PostMapping("/confirmflight")
-
-    public String confirmflight(@ModelAttribute("reservation") Reservation reservation,
+    @PostMapping("/confirmflight")
+    public String confirmflight(@Valid Reservation reservation, BindingResult result,
+//            @ModelAttribute("reservation") Reservation reservation,
                                      Model model,
                                      @RequestParam(name="depFlightRadio") Flight depFlight,
                                      @RequestParam(name="retFlightRadio") Optional<Flight> retFlight,
-                                     HttpServletRequest request){         
+                                     HttpServletRequest request){
+        System.out.println("test0bc depdate from valid reservation in confirmflight): " + reservation.getDepartureDate());
+//        Reservation r = (Reservation) request.getAttribute("reservation");
+//        System.out.println("test 0c (depDate from r(=request) in confirmflight): " + r.getDepartureDate());
         reservation.setDepartureFlight(depFlight);
+        System.out.println("test 1a (depFlight): " + depFlight.getId());
+        System.out.println("test 1b (res.depFlight): " + reservation.getDepartureFlight().getId());
         if(reservation.getIsRoundTrip()==true) {
             Flight realReturnFlight = retFlight.get();
             reservation.setReturnFlight(realReturnFlight);
+            System.out.println("test 2aa (retFlight.toString): " + retFlight.toString());
+            System.out.println("test 2a (realretFlight): " + realReturnFlight.getId());
+            System.out.println("test 2b (res.realretFlight): " + reservation.getReturnFlight().getId());
         }
         User user = userService.getUser();
         reservation.setUser(user);
-//        reservationRepository.save(reservation);
-        request.setAttribute("reservation", reservation);
+        System.out.println("test 3 (username): " + user.getUsername());
         Collection<Passenger> passengers = new ArrayList<>();
-        request.setAttribute("passengers", passengers);
+        reservation.setPassengers(passengers);
+        reservationRepository.save(reservation);
+        request.setAttribute("reservation", reservation);
+//        request.setAttribute("passengers", passengers);
+
         return "forward:/passengerform";
     }
 
-    @GetMapping("/passengerform")
+    @RequestMapping("/passengerform")
     public String getPassengerForm(Model model,
                                    HttpServletRequest request){
         Reservation r = (Reservation) request.getAttribute("reservation");
         model.addAttribute("reservation", r);
-        model.addAttribute("passengers", request.getAttribute("passengers"));
+        model.addAttribute("passenger", new Passenger());
+        request.setAttribute("reservation", r);
+        System.out.println("test 0d (res.depDate in passengerform): " + r.getDepartureDate());
+        System.out.println("test 4 (res.depFlight in passform): " + r.getDepartureFlight().getId());
         return "/passengerform";
     }
 
     @PostMapping("/processpassenger")
-    public String processForm(@Valid Passenger passenger,
-                              BindingResult result,
-                              Model model,
-                              @ModelAttribute("reservation") Reservation reservation,
-                              @ModelAttribute("passengers") Collection<Passenger> passengers,
-                              @RequestParam(name = "seatNumber") String seatNumber,
-                              HttpServletRequest request){
-        if(result.hasErrors()){
+    public String processForm( @Valid Passenger passenger,
+                               BindingResult result,
+                               Model model,
+//                               @ModelAttribute("reservation") Reservation reservation,
+//                               @ModelAttribute("passengers") Collection<Passenger> passengers,
+//                               @ModelAttribute("passenger") Passenger passenger,
+                               @RequestParam(name = "seatNumber") String seatNumber,
+                               HttpServletRequest request){
+        Reservation reservation = (Reservation) request.getAttribute("reservation");
+        System.out.println("test 0e (res.depDate in processpassenger): " + reservation.getDepartureDate());
+        if(result.hasErrors()) {
             return "passengerform";
         }
+        System.out.println("test 5 (seatNumber in processpass): " + seatNumber);
         if(seatNumber.endsWith("A") | seatNumber.endsWith("F")){
                 passenger.setIsWindow(true);
             } else {
                 passenger.setIsWindow(false);
             }
-        passengers.add(passenger);
+        passenger.setReservation(reservation);
+        reservation.getPassengers().add(passenger);
         passengerRepository.save(passenger);
-        if(passengers.size() < reservation.getNumberPassengers()) {
+        if(reservation.getPassengers().size() < reservation.getNumberPassengers()) {
             request.setAttribute("reservation", reservation);
-            request.setAttribute("passengers", passengers);
             return "forward:/passengerform";
         }else{
-            reservation.setPassengers(passengers);
             reservationRepository.save(reservation);
             request.setAttribute("reservation", reservation);
             return "forward:/showboardingpass";
@@ -275,8 +243,8 @@ public class ReservationController {
      */
     
     public String createQRCodeURL(Model model,
-                                  @RequestParam("user_id") String userId,
-                                  @RequestParam("reservation_id") String reservationId)
+                                  String userId,
+                                  String reservationId)
             throws WriterException, IOException {
         System.out.println("Entered createQRCodeURL");
         String fileType = "png";
