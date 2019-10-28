@@ -173,7 +173,7 @@ public class ReservationController {
         request.setAttribute("reservation", reservation);
         System.out.println("test 0d (res.depDate in passengerform): " + reservation.getDepartureDate());
         System.out.println("test 4 (res.depFlight in passform): " + reservation.getDepartureFlight().getId());
-        return "/passengerform";
+        return "passengerform";
     }
 
     @PostMapping("/processpassenger")
@@ -229,7 +229,7 @@ public class ReservationController {
             e.printStackTrace();
         }
         model.addAttribute("qrCodeUrl", qrCodeUrl);
-        return "/boardingpass";
+        return "boardingpass";
     }
 
     /**
@@ -325,7 +325,19 @@ public class ReservationController {
         for(Passenger p : passengers) {
             System.out.println("passenger.getFirstName: " + p.getFirstName());
         }
-
+        Long userId = jwoods.getId();
+        String userID = userId.toString();
+        Long reservationId = reservation.getId();
+        String reservationID = reservationId.toString();
+        String qrCodeUrl = null;
+        try {
+            qrCodeUrl = createQRCodeURL(model, userID, reservationID);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("qrCodeUrl", qrCodeUrl);
         return "boardingpass";
     }
 

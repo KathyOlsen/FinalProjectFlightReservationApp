@@ -9,7 +9,7 @@
 <div class="container-fluid">
     <div class="jumbotron">
         <h1>Boarding Pass</h1>
-        <h3>User Information</h3>
+        <h4>User Information</h4>
         <br>
         <table>
             <tr>
@@ -30,7 +30,7 @@
             </tr>
         </table>
         <br />
-        <h3>Flight Information</h3>
+        <h4>Flight Information</h4>
         <br />
         <div class="row">
             <div class="col-sm-2"><b>Flight Date</b></div>
@@ -60,7 +60,7 @@
             <div class="col-sm-1"><span th:text="${reservation.getReturnFlight().getDurationMinutes()}"></span></div>
         </div>
         <br />
-        <<h3>Reservation Information</h3>
+        <h4>Reservation Information</h4>
         <br />
         <div class="row">
             <div class = col-sm-2 style="text-align: left">
@@ -73,15 +73,19 @@
             </div>
         </div>
         <br />
-        <h3>Passenger Information</h3>
+        <h4>Passenger Information</h4>
         <br />
-        <div th:each="passenger : passengers">
-            <p><span th:inline="text">[[${passenger.firstName}]]</span> <span th:inline="text">[[${passenger.lastName}]]</span>, Seat <span th:inline="text">[[${passenger.seatNumber}]]</span> </p>
+        <div th:each="passenger : ${passengers}">
+            <p>
+                <span th:inline="text">[[${passenger.firstName}]]</span>
+                <span th:inline="text">[[${passenger.lastName}]]</span>, Seat
+                <span th:inline="text">[[${passenger.seatNumber}]]</span>
+            </p>
         </div>
         <br />
-        <h3>QR Code</h3>
+        <h4>QR Code</h4>
             <br />
-            <img src="QRcode.png" />
+            <img src="qrCodeUrl" />
         <br />
     </div>
 </div>
