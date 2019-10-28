@@ -149,6 +149,7 @@ public class DataLoader implements CommandLineRunner {
             set2.add(pass2);
 
             Passenger pass3 = new Passenger(user3.getFirstName(), user3.getLastName(), "16A");
+            pass3.setIsWindow(true);
             Passenger pass4 = new Passenger(user5.getFirstName(), user5.getLastName(), "16B");
             Passenger pass5 = new Passenger(user6.getFirstName(), user6.getLastName(), "16C");
             Set<Passenger> set3 = new HashSet<>();

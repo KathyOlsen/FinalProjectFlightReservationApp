@@ -14,7 +14,7 @@
         <p id="nodep"  th:if="${depFlights.isEmpty()}">We're sorry.  No flights match the combination of
             departure and arrival airports you selected.</p>
 
-        <form th:if="${!depFlights.isEmpty()}" action="#" th:action="@{/confirmflight}" th:object="${reservation}" method="post">
+        <form th:if="${!depFlights.isEmpty()}" action="#" th:action="@{/confirmflight}" th:object="${reservation}" method="request">
             <h6 id="listsr">All flights shown are non-stop.</h6>
             <br>
             <h3>Departure Flights</h3>
@@ -73,7 +73,14 @@
                     </tr>
                     </tbody>
                 </table>
+                <input type="hidden" th:field="*{returnDate}" />
             </div>
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{numberPassengers}" />
+            <input type="hidden" th:field="*{isRoundTrip}" />
+            <input type="hidden" th:field="*{flightClass}" />
+            <input type="hidden" th:field="*{departureDate}" />
+
             <p>Please review your flight selections, then click "Confirm Flight Reservation." If you are not already logged in,
                 you will be prompted to log in.</p>
             <button type="submit" class="btn btn-default"><b>Confirm Flight Reservation</b></button>
