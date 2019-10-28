@@ -325,6 +325,8 @@ public class ReservationController {
         for(Passenger p : passengers) {
             System.out.println("passenger.getFirstName: " + p.getFirstName());
         }
+        double ttp = getTotalTripPrice(reservation);
+        model.addAttribute("ttp", ttp);
         Long userId = jwoods.getId();
         String userID = userId.toString();
         Long reservationId = reservation.getId();
