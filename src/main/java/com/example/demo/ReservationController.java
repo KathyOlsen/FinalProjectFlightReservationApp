@@ -96,7 +96,7 @@ public class ReservationController {
 
         if (reservation.getIsRoundTrip()==true) {
             try {
-                String formattedRetDate = retDate.substring(1);
+                String formattedRetDate = retDate.substring(0);
                 SimpleDateFormat simpleRetDateFormat = new SimpleDateFormat(pattern);
                 Date realRetDate = simpleRetDateFormat.parse(formattedRetDate);
                 reservation.setReturnDate(realRetDate);
@@ -128,7 +128,6 @@ public class ReservationController {
         model.addAttribute("passenger", passenger);
         model.addAttribute("reservation", r);
         request.setAttribute("reservation", r);
-
 
         return "listsearchresults";
     }
@@ -314,4 +313,13 @@ public class ReservationController {
         }
         return totalTripPrice;
     }
+
+    @RequestMapping("/sampleboardingpass")
+    public String getSampleBoardingPass(Model model){
+        User jwoods = userRepository.findByUsername("jwoods");
+        Reservation reservation = reservationRepository.findByUser(jwoods).get(0);
+        model.addAttribute(reservation);
+        return "/boardingpass";
+    }
+
 }
