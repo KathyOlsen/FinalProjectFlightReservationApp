@@ -114,7 +114,7 @@ public class ReservationController {
 
         String pattern = "yyyy-MM-dd";
         try {
-            String formattedDepDate = depDate.substring(1);
+            String formattedDepDate = depDate.substring(0);
             SimpleDateFormat simpleDepDateFormat = new SimpleDateFormat(pattern);
             Date realDepDate = simpleDepDateFormat.parse(formattedDepDate);
 //            model.addAttribute("depDate", realDepDate);
@@ -127,7 +127,7 @@ public class ReservationController {
 
         if (reservation.getIsRoundTrip()==true) {
             try {
-                String formattedRetDate = retDate.substring(1);
+                String formattedRetDate = retDate.substring(0);
                 SimpleDateFormat simpleRetDateFormat = new SimpleDateFormat(pattern);
                 Date realRetDate = simpleRetDateFormat.parse(formattedRetDate);
 //            model.addAttribute("retDate", realRetDate);
@@ -181,28 +181,9 @@ public class ReservationController {
         return "listsearchresults";
     }
 
-<<<<<<< HEAD
-    /**
-     *
-     * @param reservation
-     * @param model
-     * @param depFlight
-     * @param retFlight
-     * @param p1id
-     * @param p1firstName
-     * @param p1lastName
-     * @param p1seatNumber
-     * @param p2id
-     * @param p2firstName
-     * @param p2lastName
-     * @param p2seatNumber
-     * @return
-     */
-    @PostMapping("/confirmReservation")
-=======
-    @PostMapping("/confirmflight")
->>>>>>> a8729183103076c6d71dc81af6f66eea886da800
-    public String confirmReservation(@ModelAttribute("reservation") Reservation reservation,
+      @PostMapping("/confirmflight")
+
+    public String confirmflight(@ModelAttribute("reservation") Reservation reservation,
                                      Model model,
                                      @RequestParam(name="depFlightRadio") Flight depFlight,
                                      @RequestParam(name="retFlightRadio") Optional<Flight> retFlight,
@@ -230,25 +211,6 @@ public class ReservationController {
         return "/passengerform";
     }
 
-<<<<<<< HEAD
-    /**
-     *
-     * @param reservation
-     * @return
-     */
-
-    public double getTotalTripPrice(Reservation reservation){
-        Flight departureFlight = reservation.getDepartureFlight();
-        double pricePerPassDep = departureFlight.getPricePerPassenger(reservation.getFlightClass(),departureFlight.getBasePrice());
-        double windowPrice = 5.00;
-        int numPass = reservation.getNumberPassengers();
-        double totalTripPrice = pricePerPassDep * numPass;
-        if (reservation.getIsRoundTrip()==true) {
-            Flight returnFlight = reservation.getReturnFlight();
-            double pricePerPassRet = returnFlight.getPricePerPassenger(reservation.getFlightClass(), returnFlight.getBasePrice());
-            windowPrice = 10.00;
-            totalTripPrice += pricePerPassRet * numPass;
-=======
     @PostMapping("/processpassenger")
     public String processForm(@Valid Passenger passenger,
                               BindingResult result,
@@ -259,7 +221,6 @@ public class ReservationController {
                               HttpServletRequest request){
         if(result.hasErrors()){
             return "passengerform";
->>>>>>> a8729183103076c6d71dc81af6f66eea886da800
         }
         if(seatNumber.endsWith("A") | seatNumber.endsWith("F")){
                 passenger.setIsWindow(true);
