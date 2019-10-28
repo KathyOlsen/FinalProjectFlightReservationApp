@@ -345,4 +345,13 @@ public class ReservationController {
         }
         return totalTripPrice;
     }
+
+    @RequestMapping("/sampleboardingpass")
+    public String getSampleBoardingPass(Model model){
+        User jwoods = userRepository.findByUsername("jwoods");
+        Reservation reservation = reservationRepository.findByUser(jwoods).get(0);
+        model.addAttribute(reservation);
+        return "/boardingpass";
+    }
+
 }

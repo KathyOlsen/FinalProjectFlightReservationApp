@@ -1,69 +1,89 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Boarding Pass</title>
     <div th:insert="base :: head"></div>
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
     <div class="jumbotron">
         <h1>Boarding Pass</h1>
-
-    </div>
-    <div class="row"><h3>User Information</h3>
-        <br />
-        <table style="alignment: center">
+        <h3>User Information</h3>
+        <br>
+        <table>
             <tr>
                 <td>First Name: &nbsp;</td>
-                <td><span th:text="${user.firstName}"></span></td>
+                <td><span th:text="${reservation.getUser().getFirstName()}"></span></td>
             </tr>
             <tr>
                 <td>Last Name: &nbsp;</td>
-                <td><span th:text="${user.lastName}"></span></td>
+                <td><span th:text="${reservation.getUser().getLastName()}"></span></td>
             </tr>
             <tr>
                 <td>Email: &nbsp;</td>
-                <td><span th:text="${user.email}"></span></td>
+                <td><span th:text="${reservation.getUser().getEmail()}"></span></td>
             </tr>
             <tr>
                 <td>Phone: &nbsp;</td>
-                <td><span th:text="${user.phone}"></span></td>
+                <td><span th:text="${reservation.getUser().getPhone()}"></span></td>
             </tr>
         </table>
-    </div>
-    <br />
-    <div class="row"><h3>Flight Information</h3>
+        <br />
+        <h3>Flight Information</h3>
+        <br />
         <div class="row">
-            <div class="col-sm-1"><b>Departure Date</b></div>
-            <div class="col-sm-1"><b>Departure Flight #</b></div>
-            <div class="col-sm-1"><b>Departure Airport</b></div>
-            <div class="col-sm-1"><b>Departure Time</b></div>
-            <div class="col-sm-1"><b>Arrival Airport</b></div>
+            <div class="col-sm-2"><b>Flight Date</b></div>
+            <div class="col-sm-2"><b>Flight #</b></div>
+            <div class="col-sm-2"><b>Departure Airport</b></div>
+            <div class="col-sm-2"><b>Departure Time</b></div>
+            <div class="col-sm-2"><b>Arrival Airport</b></div>
             <div class="col-sm-1"><b>Arrival Time</b></div>
-            <div class="col-sm-1"><b>Return Date</b></div>
-            <div class="col-sm-1"><b>Return Flight #</b></div>
-            <div class="col-sm-1"><b>Return Departure Airport</b></div>
-            <div class="col-sm-1"><b>Return Departure Time</b></div>
-            <div class="col-sm-1"><b>Return Arrival Airport</b></div>
-            <div class="col-sm-1"><b>Return Arrival Time</b></div>
+            <div class="col-sm-1"><b>Flight Duration (minutes)</b></div>
         </div>
-
+        <div class="row">
+            <div class="col-sm-2"><span th:text="${#dates.format(reservation.getDepartureDate(), 'dd-MMM-yyyy')}"></span></div>
+            <div class="col-sm-2"><span th:text="${reservation.getDepartureFlight().getFlightNumber()}"></span></div>
+            <div class="col-sm-2"><span th:text="${reservation.getDepartureFlight().getDepartureAirport()}"></span></div>
+            <div class="col-sm-2"><span th:text="${reservation.getDepartureFlight().getDepartureTime()}"></span></div>
+            <div class="col-sm-2"><span th:text="${reservation.getDepartureFlight().getArrivalAirport()}"></span></div>
+            <div class="col-sm-1"><span th:text="${reservation.getDepartureFlight().calcArrivalTime()}"></span></div>
+            <div class="col-sm-1"><span th:text="${reservation.getDepartureFlight().getDurationMinutes()}"></span></div>
+        </div>
+        <div th:if="${reservation.getIsRoundTrip()==true}" class="row">
+            <div class="col-sm-2"><span th:text="${#dates.format(reservation.getReturnDate(), 'dd-MMM-yyyy')}"></span></div>
+            <div class="col-sm-2"><span th:text="${reservation.getReturnFlight().getFlightNumber()}"></span></div>
+            <div class="col-sm-2"><span th:text="${reservation.getReturnFlight().getDepartureAirport()}"></span></div>
+            <div class="col-sm-2"><span th:text="${reservation.getReturnFlight().getDepartureTime()}"></span></div>
+            <div class="col-sm-2"><span th:text="${reservation.getReturnFlight().getArrivalAirport()}"></span></div>
+            <div class="col-sm-1"><span th:text="${reservation.getReturnFlight().calcArrivalTime()}"></span></div>
+            <div class="col-sm-1"><span th:text="${reservation.getReturnFlight().getDurationMinutes()}"></span></div>
+        </div>
+        <br />
+        <<h3>Reservation Information</h3>
+        <br />
+        <div class="row">
+            <div class = col-sm-2 style="text-align: left">
+                <p>Flight Class:</p>
+                <p>Number of Passengers:</p>
+            </div>
+            <div class = col-sm-2 style="text-align: left">
+                <p th:text="${reservation.getFlightClass()}"></p>
+                <p th:text="${reservation.getNumberPassengers()}"></p>
+            </div>
+        </div>
+        <br />
+        <h3>Passenger Information</h3>
+        <br />
+        <div th:each="passenger : reservation.getPassengers()">
+            <p><span th:text="${passenger.getFirstName()}"></span> <span th:text="${passenger.getLastName()}"></span>, Seat <span th:text="${passenger.getSeatNumber()}"></span> </p>
+        </div>
+        <br />
+        <h3>QR Code</h3>
+            <br />
+            <img src="QRcode.png" />
+        <br />
     </div>
-    <div class="row"><h3>Reservation Information</h3>
-
-    </div>
-    <br />
-    <div class="row"><h3>Passenger Information</h3>
-
-    </div>
-    <br />
-    <div class="row"><h3>QR Code</h3>
-        <img src="QRcode.png" />
-    </div>
-    <br />
-
 </div>
 <br>
 <div th:insert="base :: footer"></div>
